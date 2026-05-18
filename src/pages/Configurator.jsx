@@ -9,11 +9,11 @@ const LOGO_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83
 const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/150a26bbd_factory.jpg";
 
 const PARAMETERS = [
-  { key: "spot", label: "Cena na SPOT", icon: "💰" },
-  { key: "vyroba", label: "Vlastní výroba", icon: "☀️" },
-  { key: "spotreba", label: "Vlastní spotřeba", icon: "🏠" },
-  { key: "teplota", label: "Venkovní teplota", icon: "🌡️" },
-];
+{ key: "spot", label: "Cena na SPOT", icon: "💰" },
+{ key: "vyroba", label: "Vlastní výroba", icon: "☀️" },
+{ key: "spotreba", label: "Vlastní spotřeba", icon: "🏠" },
+{ key: "teplota", label: "Venkovní teplota", icon: "🌡️" }];
+
 
 export default function Configurator() {
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
@@ -34,8 +34,8 @@ export default function Configurator() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${BG_URL})` }}
-      />
+        style={{ backgroundImage: `url(${BG_URL})` }} />
+      
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
@@ -58,32 +58,32 @@ export default function Configurator() {
 
           {/* Parameter toggles + action buttons in top right */}
           <div className="flex items-center gap-4">
-            {PARAMETERS.map((p) => (
-              <div key={p.key} className="flex flex-col items-center gap-1">
+            {PARAMETERS.map((p) =>
+            <div key={p.key} className="flex flex-col items-center gap-1">
                 <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
                   {p.label}
                 </span>
                 <ParameterToggle
-                  label=""
-                  icon={p.icon}
-                  value={params[p.key]}
-                  onChange={(v) => handleChange(p.key, v)}
-                />
+                label=""
+                icon={p.icon}
+                value={params[p.key]}
+                onChange={(v) => handleChange(p.key, v)} />
+              
               </div>
-            ))}
+            )}
             <div className="h-16 w-px bg-white/30 mx-2" />
             <Button
               onClick={handleReset}
               variant="ghost"
-              className="h-12 px-4 text-sm font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30"
-            >
+              className="h-12 px-4 text-sm font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+              
               <RotateCcw className="h-4 w-4" />
               Reset
             </Button>
             <Button
               onClick={() => setIsPlaying(true)}
-              className="h-12 px-6 text-sm font-bold rounded-xl gap-2 shadow-lg shadow-primary/25"
-            >
+              className="h-12 px-6 text-sm font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+              
               <Play className="h-5 w-5" />
               Spustit
             </Button>
@@ -95,7 +95,7 @@ export default function Configurator() {
 
         {/* Footer */}
         <footer className="text-center">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground hidden">
             © {new Date().getFullYear()} Photomate · Konfigurátor toků energie v{" "}
             <span className="font-mono">1.0</span>
           </p>
@@ -106,8 +106,8 @@ export default function Configurator() {
       <VideoPlayer
         code={code}
         isPlaying={isPlaying}
-        onClose={() => setIsPlaying(false)}
-      />
-    </div>
-  );
+        onClose={() => setIsPlaying(false)} />
+      
+    </div>);
+
 }
