@@ -31,7 +31,7 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
         <div
           className="absolute top-1/2 -translate-y-1/2 text-xs font-bold uppercase tracking-wide"
           style={{
-            left: value === 1 ? "1rem" : undefined,
+            left: value === 1 ? "0.4rem" : undefined,
             right: value === 0 ? "1rem" : undefined,
             color: value === 1 ? "rgba(255,255,255,0.9)" : "hsl(220, 10%, 55%)"
           }}>
