@@ -42,7 +42,7 @@ export default function Configurator() {
         {/* Header */}
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <div className="bg-gray-900 rounded-xl px-4 py-2">
+            <div className="bg-white/20 rounded-xl px-4 py-2">
               <img src={LOGO_URL} alt="Photomate" className="h-10 object-contain" />
             </div>
             <div className="h-8 w-px bg-white/40" />
