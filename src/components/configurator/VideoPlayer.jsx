@@ -9,8 +9,24 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
 
+  // Přidejte zde URL videa pro každý kód scénáře (format: "XXXX": "url")
   const VIDEO_URLS = {
     "0000": "https://media.base44.com/videos/public/6a0abd7d4f23084851e1d83f/cbb8210ef_flow_0000.mp4",
+    // "0001": "url_k_videu",
+    // "0010": "url_k_videu",
+    // "0011": "url_k_videu",
+    // "0100": "url_k_videu",
+    // "0101": "url_k_videu",
+    // "0110": "url_k_videu",
+    // "0111": "url_k_videu",
+    // "1000": "url_k_videu",
+    // "1001": "url_k_videu",
+    // "1010": "url_k_videu",
+    // "1011": "url_k_videu",
+    // "1100": "url_k_videu",
+    // "1101": "url_k_videu",
+    // "1110": "url_k_videu",
+    // "1111": "url_k_videu",
   };
   const videoSrc = VIDEO_URLS[code] || null;
 
