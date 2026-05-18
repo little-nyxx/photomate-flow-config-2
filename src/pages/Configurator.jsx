@@ -6,7 +6,7 @@ import ParameterToggle from "@/components/configurator/ParameterToggle";
 import ScenarioDisplay from "@/components/configurator/ScenarioDisplay";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 
-const LOGO_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/73fc7eace_generated_image.png";
+const LOGO_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/60b27b5c6_logo-white.png";
 const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/608797299_generated_image.png";
 
 const PARAMETERS = [
@@ -44,7 +44,9 @@ export default function Configurator() {
         {/* Header */}
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
+            <div className="bg-gray-900 rounded-xl px-4 py-2">
+              <img src={LOGO_URL} alt="Photomate" className="h-10 object-contain" />
+            </div>
             <div className="h-8 w-px bg-border" />
             <div>
               <h1 className="text-xl font-bold text-foreground tracking-tight">
