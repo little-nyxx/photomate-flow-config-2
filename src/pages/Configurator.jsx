@@ -34,10 +34,10 @@ export default function Configurator() {
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.07]"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${BG_URL})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95" />
+      <div className="absolute inset-0 bg-white/75" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
