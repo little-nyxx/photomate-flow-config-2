@@ -9,7 +9,10 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
 
-  const videoSrc = `/videos/flow_${code}.mp4`;
+  const VIDEO_URLS = {
+    "0000": "https://media.base44.com/videos/public/6a0abd7d4f23084851e1d83f/cbb8210ef_flow_0000.mp4",
+  };
+  const videoSrc = VIDEO_URLS[code] || null;
 
   useEffect(() => {
     if (isPlaying) {
@@ -54,7 +57,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
 
         {/* Video or error — centered over the background */}
         <div className="absolute inset-0 flex items-center justify-center">
-          {error ? (
+          {error || !videoSrc ? (
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
