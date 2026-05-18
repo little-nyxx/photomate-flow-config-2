@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 export default function ParameterToggle({ label, icon, value, onChange }) {
   return (
     <div className="flex flex-col items-center gap-3">
-      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-        {label}
-      </span>
+      {label && (
+        <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+          {label}
+        </span>
+      )}
       <button
         onClick={() => onChange(value === 0 ? 1 : 0)}
         className="relative w-36 h-20 rounded-2xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -37,12 +39,7 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
           {value === 1 ? "Vysoká" : "Nízká"}
         </div>
       </button>
-      <div
-        className="text-3xl font-black tabular-nums"
-        style={{ color: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(220, 10%, 50%)" }}>
-        
-        {value}
-      </div>
+
     </div>);
 
 }

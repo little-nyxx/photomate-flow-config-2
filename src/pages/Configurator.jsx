@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Play, RotateCcw, Zap, Sun, Home, Thermometer } from "lucide-react";
+import { Play, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
-import ScenarioDisplay from "@/components/configurator/ScenarioDisplay";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 
 const LOGO_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/60b27b5c6_logo-white.png";
@@ -37,7 +36,6 @@ export default function Configurator() {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${BG_URL})` }}
       />
-      <div className="absolute inset-0 bg-white/75" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
@@ -47,72 +45,53 @@ export default function Configurator() {
             <div className="bg-gray-900 rounded-xl px-4 py-2">
               <img src={LOGO_URL} alt="Photomate" className="h-10 object-contain" />
             </div>
-            <div className="h-8 w-px bg-border" />
+            <div className="h-8 w-px bg-white/40" />
             <div>
-              <h1 className="text-xl font-bold text-foreground tracking-tight">
+              <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">
                 Konfigurátor toků energie
               </h1>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-white/70">
                 Interaktivní vizualizace energetických scénářů
               </p>
             </div>
           </div>
-          <ScenarioDisplay code={code} />
+
+          {/* Parameter toggles + action buttons in top right */}
+          <div className="flex items-center gap-4">
+            {PARAMETERS.map((p) => (
+              <div key={p.key} className="flex flex-col items-center gap-1">
+                <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
+                  {p.label}
+                </span>
+                <ParameterToggle
+                  label=""
+                  icon={p.icon}
+                  value={params[p.key]}
+                  onChange={(v) => handleChange(p.key, v)}
+                />
+              </div>
+            ))}
+            <div className="h-16 w-px bg-white/30 mx-2" />
+            <Button
+              onClick={handleReset}
+              variant="ghost"
+              className="h-12 px-4 text-sm font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30"
+            >
+              <RotateCcw className="h-4 w-4" />
+              Reset
+            </Button>
+            <Button
+              onClick={() => setIsPlaying(true)}
+              className="h-12 px-6 text-sm font-bold rounded-xl gap-2 shadow-lg shadow-primary/25"
+            >
+              <Play className="h-5 w-5" />
+              Spustit
+            </Button>
+          </div>
         </header>
 
-        {/* Main content */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-full max-w-5xl">
-            {/* Parameter toggles */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="grid grid-cols-4 gap-6 mb-10"
-            >
-              {PARAMETERS.map((p, i) => (
-                <motion.div
-                  key={p.key}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + i * 0.08 }}
-                  className="bg-card rounded-2xl p-6 shadow-sm border flex flex-col items-center"
-                >
-                  <ParameterToggle
-                    label={p.label}
-                    icon={p.icon}
-                    value={params[p.key]}
-                    onChange={(v) => handleChange(p.key, v)}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Action buttons */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-6"
-            >
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="h-16 px-10 text-base font-semibold rounded-2xl border-2 gap-3"
-              >
-                <RotateCcw className="h-5 w-5" />
-                Resetovat vše
-              </Button>
-              <Button
-                onClick={() => setIsPlaying(true)}
-                className="h-16 px-14 text-lg font-bold rounded-2xl gap-3 shadow-lg shadow-primary/25"
-              >
-                <Play className="h-6 w-6" />
-                Spustit scénář
-              </Button>
-            </motion.div>
-          </div>
-        </div>
+        {/* Main content — full screen background, nothing else */}
+        <div className="flex-1" />
 
         {/* Footer */}
         <footer className="text-center">
