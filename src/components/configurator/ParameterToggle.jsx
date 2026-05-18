@@ -12,18 +12,18 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
         className="relative w-36 h-20 rounded-2xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
         style={{
           borderColor: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(220, 10%, 85%)",
-          backgroundColor: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(0, 0%, 100%)",
-        }}
-      >
+          backgroundColor: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(0, 0%, 100%)"
+        }}>
+        
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className="absolute top-2 w-16 h-16 rounded-xl shadow-lg flex items-center justify-center"
+          className="absolute top-2 w-16 h-16 rounded-xl shadow-lg flex items-center justify-center py-1"
           style={{
             left: value === 1 ? "calc(100% - 4.5rem)" : "0.5rem",
-            backgroundColor: value === 1 ? "white" : "hsl(220, 10%, 94%)",
-          }}
-        >
+            backgroundColor: value === 1 ? "white" : "hsl(220, 10%, 94%)"
+          }}>
+          
           <span className="text-2xl">{icon}</span>
         </motion.div>
         <div
@@ -31,18 +31,18 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
           style={{
             left: value === 1 ? "1rem" : undefined,
             right: value === 0 ? "1rem" : undefined,
-            color: value === 1 ? "rgba(255,255,255,0.9)" : "hsl(220, 10%, 55%)",
-          }}
-        >
+            color: value === 1 ? "rgba(255,255,255,0.9)" : "hsl(220, 10%, 55%)"
+          }}>
+          
           {value === 1 ? "Vysoká" : "Nízká"}
         </div>
       </button>
       <div
         className="text-3xl font-black tabular-nums"
-        style={{ color: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(220, 10%, 50%)" }}
-      >
+        style={{ color: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(220, 10%, 50%)" }}>
+        
         {value}
       </div>
-    </div>
-  );
+    </div>);
+
 }
