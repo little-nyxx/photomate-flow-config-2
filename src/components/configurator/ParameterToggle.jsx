@@ -18,7 +18,7 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className="absolute top-2 w-16 h-16 rounded-xl shadow-lg flex items-center justify-center py-1"
+          className="absolute top-2 w-16 h-16 rounded-xl shadow-lg flex items-center justify-center"
           style={{
             left: value === 1 ? "calc(100% - 4.5rem)" : "0.5rem",
             backgroundColor: value === 1 ? "white" : "hsl(220, 10%, 94%)"
