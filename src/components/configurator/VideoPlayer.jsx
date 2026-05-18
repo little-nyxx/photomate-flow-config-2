@@ -79,6 +79,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
               src={videoSrc}
               className="absolute inset-0 w-full h-full object-cover"
               autoPlay
+              loop
               onError={() => setError(true)}
               playsInline
             />
