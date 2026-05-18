@@ -95,10 +95,10 @@ export default function Configurator() {
 
         {/* Footer */}
         <footer className="text-center">
-          <p className="text-xs text-muted-foreground hidden">
-            © {new Date().getFullYear()} Photomate · Konfigurátor toků energie v{" "}
-            <span className="font-mono">1.0</span>
-          </p>
+          
+
+
+          
         </footer>
       </div>
 
