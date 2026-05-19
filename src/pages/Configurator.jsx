@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 
-const LOGO_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/60b27b5c6_logo-white.png";
-const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/150a26bbd_factory.jpg";
+const LOGO_URL = "/images/logo-white.png";
+const BG_URL = "/images/factory.jpg";
 
 const PARAMETERS = [
 { key: "spot", label: "Cena na SPOT", icon: "💰" },

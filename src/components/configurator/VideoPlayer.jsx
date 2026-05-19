@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/150a26bbd_factory.jpg";
+const BG_URL = "/images/factory.jpg";
 
 export default function VideoPlayer({ code, isPlaying, onClose }) {
   const videoRef = useRef(null);
