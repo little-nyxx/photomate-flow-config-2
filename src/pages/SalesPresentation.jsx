@@ -83,17 +83,18 @@ export default function SalesPresentation() {
       >
         {LINE_TARGETS.map((t) => {
           const circle = INITIAL_CIRCLES.find((c) => c.id === t.id);
-          // Start point: bottom center of circle (circle y + ~5% for circle bottom)
           const x1 = circle.x;
           const y1 = circle.y + 5;
+          // Go straight down to target Y, then horizontal to target X
+          const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
           return (
             <g key={t.id}>
-              <line
-                x1={x1} y1={y1}
-                x2={t.tx} y2={t.ty}
+              <path
+                d={d}
                 stroke="white"
                 strokeWidth="0.15"
                 strokeOpacity="0.7"
+                fill="none"
               />
               <circle cx={t.tx} cy={t.ty} r="0.4" fill="white" fillOpacity="0.9" />
             </g>
