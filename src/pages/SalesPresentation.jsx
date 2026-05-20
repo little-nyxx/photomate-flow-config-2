@@ -44,6 +44,7 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
+  const [emsVideoDone, setEmsVideoDone] = useState(false);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black select-none">
@@ -101,15 +102,17 @@ export default function SalesPresentation() {
 
       {/* Modal */}
       <AnimatePresence>
-        {activeModal === 5 && (
-          <ModalOverlay
-            circleId={5}
-            onClose={() => setActiveModal(null)}
-            onShowSchematic={() => setActiveModal("5_2")}
+        {activeModal === 5 && !emsVideoDone && (
+          <EmsModal
+            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+            onVideosEnd={() => setEmsVideoDone(true)}
           />
         )}
-        {activeModal === "5_2" && (
-          <SchematicModal onClose={() => setActiveModal(5)} />
+        {activeModal === 5 && emsVideoDone && (
+          <ModalOverlay
+            circleId={5}
+            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+          />
         )}
         {activeModal !== null && activeModal !== 5 && (
           <ModalOverlay
@@ -157,7 +160,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   );
 }
 
-function ModalOverlay({ circleId, onClose, onShowSchematic }) {
+function ModalOverlay({ circleId, onClose }) {
   const [showSchematic, setShowSchematic] = useState(false);
 
   return (
@@ -193,7 +196,7 @@ function ModalOverlay({ circleId, onClose, onShowSchematic }) {
           />
           {circleId === 5 && (
             <button
-              onClick={onShowSchematic}
+              onClick={() => setShowSchematic(true)}
               className="absolute bottom-0 right-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
             >
               <span
@@ -210,55 +213,41 @@ function ModalOverlay({ circleId, onClose, onShowSchematic }) {
         </motion.div>
       </motion.div>
 
+      {/* Schematic modal */}
+      <AnimatePresence>
+        {showSchematic && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60"
+            onClick={() => setShowSchematic(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              className="relative max-w-4xl w-full mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowSchematic(false)}
+                className="absolute top-0 right-0 w-14 h-14 z-10 opacity-0 cursor-pointer"
+                aria-label="Close"
+              />
+              <img
+                src="/images/modal_5_2.png"
+                alt="Schematic of EMS operation"
+                className="w-full rounded-2xl shadow-2xl"
+                onError={(e) => {
+                  e.target.src = "";
+                  e.target.style.display = "none";
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
-  );
-}
-
-function SchematicModal({ onClose }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.85, opacity: 0 }}
-        className="relative max-w-4xl w-full mx-4"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-0 right-0 w-14 h-14 z-10 opacity-0 cursor-pointer"
-          aria-label="Close"
-        />
-        <img
-          src="/images/modal_5_2.png"
-          alt="Schematic of EMS operation"
-          className="w-full rounded-2xl shadow-2xl"
-          onError={(e) => {
-            e.target.src = "";
-            e.target.style.display = "none";
-          }}
-        />
-        <button
-          onClick={onClose}
-          className="absolute bottom-0 right-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
-        >
-          <span
-            className="w-0 h-0 inline-block"
-            style={{
-              borderTop: "8px solid transparent",
-              borderBottom: "8px solid transparent",
-              borderLeft: "14px solid hsl(var(--primary))",
-            }}
-          />
-          Back
-        </button>
-      </motion.div>
-    </motion.div>
   );
 }
