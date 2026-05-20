@@ -84,8 +84,11 @@ export default function SalesPresentation() {
         {LINE_TARGETS.map((t) => {
           const idx = INITIAL_CIRCLES.findIndex((c) => c.id === t.id);
           const n = INITIAL_CIRCLES.length;
-          const x1 = (100 / n) * idx + (100 / n) / 2;
-          const y1 = 26; // below the circle label
+          // justify-around: gap = 100/(n+1) is not right; use equal slots
+          // px-4 is ~1% each side, so usable width is 98%, each slot = 98/n
+          const slotW = 98 / n;
+          const x1 = 1 + slotW * idx + slotW / 2;
+          const y1 = 23; // below the circle label
           // Go straight down to target Y, then horizontal to target X
           const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
           return (
