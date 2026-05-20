@@ -47,8 +47,8 @@ export default function Configurator() {
             </div>
             <div className="h-8 w-px bg-white/40" />
             <div>
-              <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">
-                Konfigurátor toků energie
+              <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">Energy configurator
+
               </h1>
               <p className="text-xs text-white/70">
                 Interaktivní vizualizace energetických scénářů
