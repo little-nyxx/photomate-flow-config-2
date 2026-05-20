@@ -116,7 +116,7 @@ export default function SalesPresentation() {
           />
         )}
         {activeModal === "5_2" && (
-          <SchematicModal onClose={() => setActiveModal(null)} />
+          <SchematicModal onClose={() => setActiveModal(5)} />
         )}
         {activeModal !== null && activeModal !== 5 && (
           <ModalOverlay
@@ -253,14 +253,14 @@ function SchematicModal({ onClose }) {
         />
         <button
           onClick={onClose}
-          className="absolute bottom-0 left-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
+          className="absolute bottom-0 right-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
         >
           <span
             className="w-0 h-0 inline-block"
             style={{
               borderTop: "8px solid transparent",
               borderBottom: "8px solid transparent",
-              borderRight: "14px solid hsl(var(--primary))",
+              borderLeft: "14px solid hsl(var(--primary))",
             }}
           />
           Back
