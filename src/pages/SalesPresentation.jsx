@@ -36,7 +36,7 @@ export default function SalesPresentation() {
 
       {/* Energy Configurator button bottom right */}
       <Link
-        to="/"
+        to="/configurator"
         className="absolute bottom-16 right-6 z-20 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-105"
         style={{ background: "#F58220" }}
       >
