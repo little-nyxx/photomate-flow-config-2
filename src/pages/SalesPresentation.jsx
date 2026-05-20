@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const BG_URL = "/images/sales_bg.jpg";
 const LOGO_URL = "/images/logo-white.png";
@@ -32,6 +33,15 @@ export default function SalesPresentation() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
+
+      {/* Energy Configurator button bottom right */}
+      <Link
+        to="/"
+        className="absolute bottom-6 right-6 z-20 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-105"
+        style={{ background: "rgba(234,88,12,0.85)", border: "1px solid rgba(255,255,255,0.25)" }}
+      >
+        Energy Configurator
+      </Link>
 
       {/* Logo bottom center */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
