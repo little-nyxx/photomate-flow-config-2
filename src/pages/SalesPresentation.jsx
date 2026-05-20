@@ -116,7 +116,7 @@ export default function SalesPresentation() {
           />
         )}
         {activeModal === "5_2" && (
-          <SchematicModal onClose={() => setActiveModal(5)} />
+          <SchematicModal onClose={() => { setActiveModal(5); setEmsVideoDone(true); }} />
         )}
         {activeModal !== null && activeModal !== 5 && (
           <ModalOverlay
