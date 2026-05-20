@@ -9,9 +9,9 @@ const LOGO_URL = "/images/logo-white.png";
 const BG_URL = "/images/factory.jpg";
 
 const PARAMETERS = [
-{ key: "spot", label: "Cena na SPOT", icon: "💰" },
-{ key: "vyroba", label: "Vlastní výroba", icon: "☀️" },
-{ key: "spotreba", label: "Vlastní spotřeba", icon: "🏠" },
+{ key: "spot", label: "Spot price", icon: "💰" },
+{ key: "vyroba", label: "In-house production", icon: "☀️" },
+{ key: "spotreba", label: "o", icon: "🏠" },
 { key: "teplota", label: "Venkovní teplota", icon: "🌡️" }];
 
 
