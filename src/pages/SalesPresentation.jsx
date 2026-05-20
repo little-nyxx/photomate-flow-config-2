@@ -10,6 +10,7 @@ const LOGO_URL = "/images/logo-3.svg";
 const MODAL_IMAGES = {
   1: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6f3b54bf2_modal5.png",
   5: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/018e9b879_modal5.png",
+  10: "/images/modal_10.png",
 };
 
 const INITIAL_CIRCLES = [
@@ -102,19 +103,21 @@ export default function SalesPresentation() {
 
       {/* Modal */}
       <AnimatePresence>
-        {activeModal === 5 && !emsVideoDone && (
-          <EmsModal
-            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
-            onVideosEnd={() => setEmsVideoDone(true)}
-          />
-        )}
-        {activeModal === 5 && emsVideoDone && (
+        {activeModal === 5 && (
           <ModalOverlay
             circleId={5}
-            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+            onClose={() => setActiveModal(null)}
+            onSchematicClick={() => setActiveModal(10)}
           />
         )}
-        {activeModal !== null && activeModal !== 5 && (
+        {activeModal === 10 && (
+          <ModalOverlay
+            circleId={10}
+            onClose={() => setActiveModal(5)}
+            isSchematic={true}
+          />
+        )}
+        {activeModal !== null && activeModal !== 5 && activeModal !== 10 && (
           <ModalOverlay
             circleId={activeModal}
             onClose={() => setActiveModal(null)}
@@ -160,8 +163,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   );
 }
 
-function ModalOverlay({ circleId, onClose }) {
-  const [showSchematic, setShowSchematic] = useState(false);
+function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
 
   return (
     <>
@@ -196,7 +198,7 @@ function ModalOverlay({ circleId, onClose }) {
           />
           {circleId === 5 && (
             <button
-              onClick={() => setShowSchematic(true)}
+              onClick={onSchematicClick}
               className="absolute bottom-0 right-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
             >
               <span
@@ -210,44 +212,25 @@ function ModalOverlay({ circleId, onClose }) {
               Schematic of EMS operation
             </button>
           )}
+          {isSchematic && (
+            <button
+              onClick={onClose}
+              className="absolute bottom-0 left-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
+            >
+              <span
+                className="w-0 h-0 inline-block"
+                style={{
+                  borderTop: "8px solid transparent",
+                  borderBottom: "8px solid transparent",
+                  borderRight: "14px solid hsl(var(--primary))",
+                }}
+              />
+              Back
+            </button>
+          )}
         </motion.div>
       </motion.div>
 
-      {/* Schematic modal */}
-      <AnimatePresence>
-        {showSchematic && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60"
-            onClick={() => setShowSchematic(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              className="relative max-w-4xl w-full mx-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowSchematic(false)}
-                className="absolute top-0 right-0 w-14 h-14 z-10 opacity-0 cursor-pointer"
-                aria-label="Close"
-              />
-              <img
-                src="/images/modal_5_2.png"
-                alt="Schematic of EMS operation"
-                className="w-full rounded-2xl shadow-2xl"
-                onError={(e) => {
-                  e.target.src = "";
-                  e.target.style.display = "none";
-                }}
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
