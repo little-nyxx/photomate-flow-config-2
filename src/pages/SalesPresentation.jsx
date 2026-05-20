@@ -20,7 +20,7 @@ const INITIAL_CIRCLES = [
 
 // Target points on the building for each line (in % of screen)
 const LINE_TARGETS = [
-  { id: 1, tx: 8,    ty: 52 },  // Inverters -> left wall
+  { id: 1, tx: 22,   ty: 58 },  // Inverters -> inverters on wall
   { id: 2, tx: 20,   ty: 40 },  // PV Constructions -> roof panels left
   { id: 3, tx: 31,   ty: 38 },  // Heat Pumps -> roof center-left
   { id: 4, tx: 50,   ty: 82 },  // AC/DC EV Chargers -> EV chargers bottom
