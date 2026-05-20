@@ -1,12 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BG_URL = "/images/sales_bg.jpg";
 const LOGO2_URL = "/images/logo-2.svg";
 
 export default function Intro() {
+  const navigate = useNavigate();
+
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div
+      className="relative w-full h-screen overflow-hidden bg-black cursor-pointer"
+      onClick={() => navigate("/sales")}
+    >
       {/* Background */}
       <img
         src={BG_URL}
@@ -14,13 +19,10 @@ export default function Intro() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Logo centered top */}
+      {/* Logo centered top — bigger */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 z-10">
-        <img src={LOGO2_URL} alt="Logo" className="h-24 object-contain" />
+        <img src={LOGO2_URL} alt="Logo" className="h-40 object-contain" />
       </div>
-
-      {/* Click anywhere to continue */}
-      <Link to="/sales" className="absolute inset-0 z-20" />
     </div>
   );
 }

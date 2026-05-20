@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 
 const BG_URL = "/images/sales_bg.jpg";
-const LOGO_URL = "/images/logo-white.png";
+const LOGO_URL = "/images/logo-3.svg";
 
 const INITIAL_CIRCLES = [
   { id: 1, label: "Inverters", x: 7.5, y: 8 },
@@ -35,20 +35,29 @@ export default function SalesPresentation() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
+      {/* Gradient overlay under circles — bottom of top 25% */}
+      <div
+        className="absolute left-0 right-0 z-10 pointer-events-none"
+        style={{
+          top: 0,
+          height: "25%",
+          background: "linear-gradient(to bottom, #275f94cc 0%, transparent 100%)",
+        }}
+      />
 
-      {/* Energy Configurator button bottom right */}
+      {/* Energy Configurator button bottom right — bigger */}
       <Link
         to="/configurator"
-        className="absolute bottom-16 right-6 z-20 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-105"
+        className="absolute bottom-12 right-8 z-20 px-8 py-4 rounded-xl text-base font-bold text-white shadow-lg transition-all hover:scale-105"
         style={{ background: "#F58220" }}
       >
         Energy Configurator
       </Link>
 
-      {/* Logo bottom center */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+      {/* Logo bottom center — no invert */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <div className="bg-white rounded-2xl px-8 py-3 shadow-xl">
-          <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" style={{ filter: "invert(1)" }} />
+          <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" />
         </div>
       </div>
 
@@ -80,20 +89,20 @@ export default function SalesPresentation() {
 function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   return (
     <div
-      className="absolute flex flex-col items-center gap-2"
+      className="absolute flex flex-col items-center gap-2 z-20"
       style={{ left: `${circle.x}%`, top: `${circle.y}%`, transform: "translateX(-50%)" }}
     >
-      {/* Circle */}
+      {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-16 h-16 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none"
+        className="w-24 h-24 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}
       >
         <img
-          src={`/images/circle_${circle.id}.png`}
+          src={`/images/circle_${circle.id}.emf`}
           alt={label}
-          className="w-10 h-10 object-contain"
+          className="w-16 h-16 object-contain"
           onError={(e) => { e.target.style.opacity = 0.3; }}
         />
       </button>
@@ -138,7 +147,7 @@ function ModalOverlay({ circleId, onClose }) {
           aria-label="Close"
         />
         <img
-          src={`/images/modal_${circleId}.jpg`}
+          src={`/images/modal_${circleId}.png`}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {
