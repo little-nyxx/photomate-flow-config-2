@@ -5,11 +5,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import Configurator from '@/pages/Configurator';
+import SalesPresentation from '@/pages/SalesPresentation';
 
 const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/" element={<Configurator />} />
+      <Route path="/sales" element={<SalesPresentation />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
