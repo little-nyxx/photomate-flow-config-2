@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 
-const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6326b2f45_image1.jpg";
+const BG_URL = "/images/sales_bg.jpg";
 const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
