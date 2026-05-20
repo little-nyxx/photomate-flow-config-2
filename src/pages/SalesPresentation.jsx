@@ -9,6 +9,7 @@ const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
   1: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6f3b54bf2_modal5.png",
+  5: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/018e9b879_modal5.png",
 };
 
 const INITIAL_CIRCLES = [
@@ -43,6 +44,7 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
+  const [emsVideoDone, setEmsVideoDone] = useState(false);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black select-none">
@@ -100,8 +102,17 @@ export default function SalesPresentation() {
 
       {/* Modal */}
       <AnimatePresence>
-        {activeModal === 5 && (
-          <EmsModal onClose={() => setActiveModal(null)} />
+        {activeModal === 5 && !emsVideoDone && (
+          <EmsModal
+            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+            onVideosEnd={() => setEmsVideoDone(true)}
+          />
+        )}
+        {activeModal === 5 && emsVideoDone && (
+          <ModalOverlay
+            circleId={5}
+            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+          />
         )}
         {activeModal !== null && activeModal !== 5 && (
           <ModalOverlay

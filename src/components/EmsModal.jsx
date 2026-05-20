@@ -4,8 +4,8 @@ import { PlayCircle } from "lucide-react";
 
 // Videos and static image from uploaded assets
 
-export default function EmsModal({ onClose }) {
-  const [phase, setPhase] = useState("video1"); // "video1" | "video2" | "image"
+export default function EmsModal({ onClose, onVideosEnd }) {
+  const [phase, setPhase] = useState("video1"); // "video1" | "video2"
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function EmsModal({ onClose }) {
     if (phase === "video1") {
       setPhase("video2");
     } else if (phase === "video2") {
-      setPhase("image");
+      onVideosEnd();
     }
   };
 
@@ -60,33 +60,7 @@ export default function EmsModal({ onClose }) {
           />
         )}
 
-        {/* Static image phase */}
-        {phase === "image" && (
-          <div className="relative">
-            <img
-              src="https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/018e9b879_modal5.png"
-              alt="EMS Static"
-              className="w-full rounded-2xl shadow-2xl"
-            />
-            {/* Schematic button bottom-right */}
-            <div className="flex justify-end mt-3">
-              <button
-                onClick={(e) => { e.stopPropagation(); /* open schematic */ }}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
-              >
-                <span
-                  className="w-0 h-0 inline-block"
-                  style={{
-                    borderTop: "8px solid transparent",
-                    borderBottom: "8px solid transparent",
-                    borderLeft: "14px solid hsl(var(--primary))",
-                  }}
-                />
-                Schematic of EMS operation
-              </button>
-            </div>
-          </div>
-        )}
+
       </motion.div>
     </motion.div>
   );
