@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
@@ -31,16 +31,6 @@ const LINE_TARGETS = [
   { id: 9, tx: 90,   ty: 52 },  // Service & Support -> right side
 ];
 
-const STORAGE_KEY = "line_targets_v1";
-
-function loadTargets() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) return JSON.parse(saved);
-  } catch {}
-  return LINE_TARGETS;
-}
-
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/");
   const [editMode, setEditMode] = useState(false);
@@ -48,32 +38,6 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
-  const [targets, setTargets] = useState(loadTargets);
-  const [dragging, setDragging] = useState(null); // id of dragged target
-  const svgRef = useRef(null);
-
-  const saveTargets = (t) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(t));
-    setTargets(t);
-  };
-
-  const handleSvgMouseMove = (e) => {
-    if (!dragging || !svgRef.current) return;
-    const rect = svgRef.current.getBoundingClientRect();
-    const tx = ((e.clientX - rect.left) / rect.width) * 100;
-    const ty = ((e.clientY - rect.top) / rect.height) * 100;
-    setTargets((prev) => prev.map((t) => t.id === dragging ? { ...t, tx, ty } : t));
-  };
-
-  const handleSvgMouseUp = (e) => {
-    if (!dragging || !svgRef.current) return;
-    const rect = svgRef.current.getBoundingClientRect();
-    const tx = ((e.clientX - rect.left) / rect.width) * 100;
-    const ty = ((e.clientY - rect.top) / rect.height) * 100;
-    const updated = targets.map((t) => t.id === dragging ? { ...t, tx, ty } : t);
-    saveTargets(updated);
-    setDragging(null);
-  };
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black select-none">
@@ -112,48 +76,35 @@ export default function SalesPresentation() {
 
       {/* SVG Lines from circles to building */}
       <svg
-        ref={svgRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ zIndex: 15, pointerEvents: editMode ? "all" : "none", cursor: dragging ? "grabbing" : "default" }}
+        className="absolute inset-0 w-full h-full z-15 pointer-events-none"
+        style={{ zIndex: 15 }}
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
-        onMouseMove={handleSvgMouseMove}
-        onMouseUp={handleSvgMouseUp}
-        onMouseLeave={() => dragging && setDragging(null)}
       >
-        {targets.map((t) => {
+        {LINE_TARGETS.map((t) => {
           const idx = INITIAL_CIRCLES.findIndex((c) => c.id === t.id);
           const n = INITIAL_CIRCLES.length;
+          // justify-around: gap = 100/(n+1) is not right; use equal slots
+          // px-4 is ~1% each side, so usable width is 98%, each slot = 98/n
           const slotW = 98 / n;
           const x1 = 1 + slotW * idx + slotW / 2;
-          const y1 = 23;
+          const y1 = 23; // below the circle label
+          // Go straight down to target Y, then horizontal to target X
           const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
           return (
             <g key={t.id}>
-              <path d={d} stroke="white" strokeWidth="0.15" strokeOpacity="0.7" fill="none" />
+              <path
+                d={d}
+                stroke="white"
+                strokeWidth="0.15"
+                strokeOpacity="0.7"
+                fill="none"
+              />
               <circle cx={t.tx} cy={t.ty} r="0.4" fill="white" fillOpacity="0.9" />
-              {editMode && (
-                <circle
-                  cx={t.tx} cy={t.ty} r="1.2"
-                  fill="#F58220" fillOpacity="0.85"
-                  stroke="white" strokeWidth="0.2"
-                  style={{ cursor: "grab" }}
-                  onMouseDown={(e) => { e.stopPropagation(); setDragging(t.id); }}
-                />
-              )}
             </g>
           );
         })}
       </svg>
-
-      {/* Edit lines toggle button */}
-      <button
-        onClick={() => setEditMode((v) => !v)}
-        className="absolute top-4 right-4 z-30 px-4 py-2 rounded-xl text-xs font-bold shadow-lg transition-all"
-        style={{ background: editMode ? "#F58220" : "rgba(0,0,0,0.45)", color: "white", border: "1px solid rgba(255,255,255,0.3)" }}
-      >
-        {editMode ? "✓ Uložit čáry" : "✏️ Upravit čáry"}
-      </button>
 
       {/* Circles */}
       <div
