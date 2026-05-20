@@ -100,7 +100,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         tabIndex={editMode ? -1 : 0}
       >
         <img
-          src={`/images/circle_${circle.id}.emf`}
+          src={`/images/circle_${circle.id}.svg`}
           alt={label}
           className="w-16 h-16 object-contain"
           onError={(e) => { e.target.style.opacity = 0.3; }}
