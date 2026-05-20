@@ -74,37 +74,7 @@ export default function SalesPresentation() {
         </div>
       </div>
 
-      {/* SVG Lines from circles to building */}
-      <svg
-        className="absolute inset-0 w-full h-full z-15 pointer-events-none"
-        style={{ zIndex: 15 }}
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        {LINE_TARGETS.map((t) => {
-          const idx = INITIAL_CIRCLES.findIndex((c) => c.id === t.id);
-          const n = INITIAL_CIRCLES.length;
-          // justify-around: gap = 100/(n+1) is not right; use equal slots
-          // px-4 is ~1% each side, so usable width is 98%, each slot = 98/n
-          const slotW = 98 / n;
-          const x1 = 1 + slotW * idx + slotW / 2;
-          const y1 = 23; // below the circle label
-          // Go straight down to target Y, then horizontal to target X
-          const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
-          return (
-            <g key={t.id}>
-              <path
-                d={d}
-                stroke="white"
-                strokeWidth="0.15"
-                strokeOpacity="0.7"
-                fill="none"
-              />
-              <circle cx={t.tx} cy={t.ty} r="0.4" fill="white" fillOpacity="0.9" />
-            </g>
-          );
-        })}
-      </svg>
+
 
       {/* Circles */}
       <div
