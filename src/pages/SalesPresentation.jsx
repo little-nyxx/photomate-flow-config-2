@@ -115,6 +115,7 @@ export default function SalesPresentation() {
             circleId={10}
             onClose={() => setActiveModal(5)}
             isSchematic={true}
+            onBackClick={() => setActiveModal(5)}
           />
         )}
         {activeModal !== null && activeModal !== 5 && activeModal !== 10 && (
@@ -163,7 +164,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   );
 }
 
-function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
+function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic, onBackClick }) {
 
   return (
     <>
@@ -214,7 +215,7 @@ function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
           )}
           {isSchematic && (
             <button
-              onClick={onClose}
+              onClick={onBackClick}
               className="absolute bottom-0 left-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
             >
               <span
