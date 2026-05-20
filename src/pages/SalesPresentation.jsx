@@ -161,6 +161,8 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
 }
 
 function ModalOverlay({ circleId, onClose }) {
+  const [showSchematic, setShowSchematic] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -183,7 +185,7 @@ function ModalOverlay({ circleId, onClose }) {
           aria-label="Close"
         />
         <img
-          src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
+          src={showSchematic ? "/images/modal_5_2.png" : (MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`)}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {
@@ -191,6 +193,24 @@ function ModalOverlay({ circleId, onClose }) {
             e.target.style.display = "none";
           }}
         />
+        {circleId === 5 && !showSchematic && (
+          <div className="flex justify-end mt-3">
+            <button
+              onClick={() => setShowSchematic(true)}
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all"
+            >
+              <span
+                className="w-0 h-0 inline-block"
+                style={{
+                  borderTop: "8px solid transparent",
+                  borderBottom: "8px solid transparent",
+                  borderLeft: "14px solid hsl(var(--primary))",
+                }}
+              />
+              Schematic of EMS operation
+            </button>
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );
