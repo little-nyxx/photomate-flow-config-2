@@ -8,8 +8,15 @@ const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/
 const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
-  1: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6f3b54bf2_modal5.png",
-  5: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/018e9b879_modal5.png",
+  1: "/images/modal_1.png",
+  2: "/images/modal_2.png",
+  3: "/images/modal_3.png",
+  4: "/images/modal_4.png",
+  5: "/images/modal_5.png",
+  6: "/images/modal_6.png",
+  7: "/images/modal_7.png",
+  8: "/images/modal_8.png",
+  9: "/images/modal_9.png",
   10: "/images/modal_10.png",
 };
 
