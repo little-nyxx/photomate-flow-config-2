@@ -85,7 +85,7 @@ export default function SalesPresentation() {
           const idx = INITIAL_CIRCLES.findIndex((c) => c.id === t.id);
           const n = INITIAL_CIRCLES.length;
           const x1 = (100 / n) * idx + (100 / n) / 2;
-          const y1 = 18;
+          const y1 = 26; // below the circle label
           // Go straight down to target Y, then horizontal to target X
           const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
           return (
