@@ -11,7 +11,7 @@ const BG_URL = "/images/factory.jpg";
 const PARAMETERS = [
 { key: "spot", label: "Spot price", icon: "💰" },
 { key: "vyroba", label: "In-house production", icon: "☀️" },
-{ key: "spotreba", label: "o", icon: "🏠" },
+{ key: "spotreba", label: "own consumpt", icon: "🏠" },
 { key: "teplota", label: "Venkovní teplota", icon: "🌡️" }];
 
 
