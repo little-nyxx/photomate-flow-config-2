@@ -40,7 +40,7 @@ export default function SalesPresentation() {
         className="absolute left-0 right-0 z-10 pointer-events-none"
         style={{
           top: 0,
-          height: "25%",
+          height: "38%",
           background: "linear-gradient(to bottom, #275f94cc 0%, transparent 100%)",
         }}
       />
