@@ -162,7 +162,7 @@ function ModalOverlay({ circleId, onClose }) {
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
-        className="relative max-w-6xl w-full mx-4"
+        className="relative max-w-4xl w-full mx-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Invisible close button top-right */}
