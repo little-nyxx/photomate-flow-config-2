@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Play, RotateCcw } from "lucide-react";
+import { Play, RotateCcw, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
@@ -101,6 +102,16 @@ export default function Configurator() {
           
         </footer>
       </div>
+
+      {/* Back to Sales button */}
+      <Link
+        to="/sales"
+        className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-105"
+        style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.25)" }}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back
+      </Link>
 
       {/* Video Player overlay */}
       <VideoPlayer
