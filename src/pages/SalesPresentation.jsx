@@ -7,6 +7,10 @@ import EmsModal from "@/components/EmsModal";
 const BG_URL = "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6326b2f45_image1.jpg";
 const LOGO_URL = "/images/logo-3.svg";
 
+const MODAL_IMAGES = {
+  1: "https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6f3b54bf2_modal5.png",
+};
+
 const INITIAL_CIRCLES = [
   { id: 1, label: "Inverters", x: 7.5, y: 8 },
   { id: 2, label: "PV Constructions", x: 18.5, y: 8 },
@@ -168,7 +172,7 @@ function ModalOverlay({ circleId, onClose }) {
           aria-label="Close"
         />
         <img
-          src={`/images/modal_${circleId}.png`}
+          src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {
