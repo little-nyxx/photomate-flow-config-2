@@ -32,18 +32,6 @@ export default function SalesPresentation() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Edit mode toggle */}
-      <button
-        onClick={() => setEditMode((e) => !e)}
-        className="absolute bottom-4 right-4 z-20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all"
-        style={{
-          background: editMode ? "rgba(234,88,12,0.85)" : "rgba(0,0,0,0.45)",
-          color: "white",
-          border: "1px solid rgba(255,255,255,0.25)",
-        }}
-      >
-        {editMode ? "✓ Done editing" : "Edit labels"}
-      </button>
 
       {/* Logo bottom center */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
