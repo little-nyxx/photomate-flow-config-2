@@ -38,7 +38,7 @@ export default function SalesPresentation() {
       <Link
         to="/"
         className="absolute bottom-16 right-6 z-20 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-105"
-        style={{ background: "rgba(234,88,12,0.85)", border: "1px solid rgba(255,255,255,0.25)" }}
+        style={{ background: "#F58220" }}
       >
         Energy Configurator
       </Link>
