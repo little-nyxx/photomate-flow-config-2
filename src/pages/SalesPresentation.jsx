@@ -102,9 +102,10 @@ export default function SalesPresentation() {
       </div>
 
       {/* Modal */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {activeModal === 5 && (
           <ModalOverlay
+            key="modal-5"
             circleId={5}
             onClose={() => setActiveModal(null)}
             onSchematicClick={() => setActiveModal(10)}
@@ -112,6 +113,7 @@ export default function SalesPresentation() {
         )}
         {activeModal === 10 && (
           <ModalOverlay
+            key="modal-10"
             circleId={10}
             onClose={() => setActiveModal(5)}
             isSchematic={true}
@@ -120,6 +122,7 @@ export default function SalesPresentation() {
         )}
         {activeModal !== null && activeModal !== 5 && activeModal !== 10 && (
           <ModalOverlay
+            key={`modal-${activeModal}`}
             circleId={activeModal}
             onClose={() => setActiveModal(null)}
           />
