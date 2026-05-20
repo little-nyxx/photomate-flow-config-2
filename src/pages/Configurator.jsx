@@ -50,9 +50,9 @@ export default function Configurator() {
               <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">Energy configurator
 
               </h1>
-              <p className="text-xs text-white/70 hidden">
-                Interaktivní vizualizace energetických scénářů
-              </p>
+              
+
+              
             </div>
           </div>
 
