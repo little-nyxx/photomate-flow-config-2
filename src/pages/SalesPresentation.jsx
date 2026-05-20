@@ -82,9 +82,10 @@ export default function SalesPresentation() {
         preserveAspectRatio="none"
       >
         {LINE_TARGETS.map((t) => {
-          const circle = INITIAL_CIRCLES.find((c) => c.id === t.id);
-          const x1 = circle.x;
-          const y1 = circle.y + 16;
+          const idx = INITIAL_CIRCLES.findIndex((c) => c.id === t.id);
+          const n = INITIAL_CIRCLES.length;
+          const x1 = (100 / n) * idx + (100 / n) / 2;
+          const y1 = 18;
           // Go straight down to target Y, then horizontal to target X
           const d = `M ${x1} ${y1} L ${x1} ${t.ty} L ${t.tx} ${t.ty}`;
           return (
@@ -103,16 +104,21 @@ export default function SalesPresentation() {
       </svg>
 
       {/* Circles */}
-      {INITIAL_CIRCLES.map((circle) => (
-        <CircleButton
-          key={circle.id}
-          circle={circle}
-          label={labels[circle.id]}
-          editMode={editMode}
-          onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
-          onClick={() => !editMode && setActiveModal(circle.id)}
-        />
-      ))}
+      <div
+        className="absolute left-0 right-0 z-20 flex justify-around items-start px-4"
+        style={{ top: "2%" }}
+      >
+        {INITIAL_CIRCLES.map((circle) => (
+          <CircleButton
+            key={circle.id}
+            circle={circle}
+            label={labels[circle.id]}
+            editMode={editMode}
+            onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
+            onClick={() => !editMode && setActiveModal(circle.id)}
+          />
+        ))}
+      </div>
 
       {/* Modal */}
       <AnimatePresence>
@@ -129,10 +135,7 @@ export default function SalesPresentation() {
 
 function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   return (
-    <div
-      className="absolute flex flex-col items-center gap-2 z-20"
-      style={{ left: `${circle.x}%`, top: `${circle.y}%`, transform: "translateX(-50%)" }}
-    >
+    <div className="flex flex-col items-center gap-2">
       {/* Circle — bigger */}
       <button
         onClick={onClick}
