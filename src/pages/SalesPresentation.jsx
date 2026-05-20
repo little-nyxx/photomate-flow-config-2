@@ -18,6 +18,19 @@ const INITIAL_CIRCLES = [
   { id: 9, label: "Service & Support", x: 93.5, y: 8 },
 ];
 
+// Target points on the building for each line (in % of screen)
+const LINE_TARGETS = [
+  { id: 1, tx: 8,    ty: 52 },  // Inverters -> left wall
+  { id: 2, tx: 20,   ty: 40 },  // PV Constructions -> roof panels left
+  { id: 3, tx: 31,   ty: 38 },  // Heat Pumps -> roof center-left
+  { id: 4, tx: 50,   ty: 82 },  // AC/DC EV Chargers -> EV chargers bottom
+  { id: 5, tx: 58,   ty: 55 },  // Energy Management System -> screens on wall
+  { id: 6, tx: 68,   ty: 58 },  // Battery Energy Storage System -> battery units
+  { id: 7, tx: 74,   ty: 48 },  // Energy Analysis Services -> roof right area
+  { id: 8, tx: 85,   ty: 35 },  // RFG Compliance -> pylon/antenna
+  { id: 9, tx: 90,   ty: 52 },  // Service & Support -> right side
+];
+
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/");
   const [editMode, setEditMode] = useState(false);
@@ -60,6 +73,33 @@ export default function SalesPresentation() {
           <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" />
         </div>
       </div>
+
+      {/* SVG Lines from circles to building */}
+      <svg
+        className="absolute inset-0 w-full h-full z-15 pointer-events-none"
+        style={{ zIndex: 15 }}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        {LINE_TARGETS.map((t) => {
+          const circle = INITIAL_CIRCLES.find((c) => c.id === t.id);
+          // Start point: bottom center of circle (circle y + ~5% for circle bottom)
+          const x1 = circle.x;
+          const y1 = circle.y + 5;
+          return (
+            <g key={t.id}>
+              <line
+                x1={x1} y1={y1}
+                x2={t.tx} y2={t.ty}
+                stroke="white"
+                strokeWidth="0.15"
+                strokeOpacity="0.7"
+              />
+              <circle cx={t.tx} cy={t.ty} r="0.4" fill="white" fillOpacity="0.9" />
+            </g>
+          );
+        })}
+      </svg>
 
       {/* Circles */}
       {INITIAL_CIRCLES.map((circle) => (
