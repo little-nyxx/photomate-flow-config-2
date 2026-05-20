@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PlayCircle } from "lucide-react";
 
-// Videos: /videos/ems_1.mp4 and /videos/ems_2.mp4
-// Static image after videos: /images/modal_5_static.png
+// Videos and static image from uploaded assets
 
 export default function EmsModal({ onClose }) {
   const [phase, setPhase] = useState("video1"); // "video1" | "video2" | "image"
@@ -23,7 +22,9 @@ export default function EmsModal({ onClose }) {
     }
   };
 
-  const videoSrc = phase === "video1" ? "/videos/ems_1.mp4" : "/videos/ems_2.mp4";
+  const videoSrc = phase === "video1"
+    ? "https://media.base44.com/videos/public/6a0abd7d4f23084851e1d83f/f1bda337b_media1.mp4"
+    : "https://media.base44.com/videos/public/6a0abd7d4f23084851e1d83f/fc79e0ac3_media2.mp4";
 
   return (
     <motion.div
@@ -63,7 +64,7 @@ export default function EmsModal({ onClose }) {
         {phase === "image" && (
           <div className="relative">
             <img
-              src="/images/modal_5_static.png"
+              src="https://media.base44.com/images/public/6a0abd7d4f23084851e1d83f/6ad42794c_image16.png"
               alt="EMS Static"
               className="w-full rounded-2xl shadow-2xl"
             />
