@@ -36,7 +36,7 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
             color: value === 1 ? "rgba(255,255,255,0.9)" : "hsl(220, 10%, 55%)"
           }}>
           
-          {value === 1 ? "Vysoká" : "Nízká"}
+          {value === 1 ? "High" : "Low"}
         </div>
       </button>
 
