@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import useIdleRedirect from "@/hooks/useIdleRedirect";
 
 const BG_URL = "/images/sales_bg.jpg";
 const LOGO_URL = "/images/logo-white.png";
@@ -18,6 +19,7 @@ const INITIAL_CIRCLES = [
 ];
 
 export default function SalesPresentation() {
+  useIdleRedirect(60000, "/");
   const [editMode, setEditMode] = useState(false);
   const [labels, setLabels] = useState(
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useIdleRedirect from "@/hooks/useIdleRedirect";
 import { motion } from "framer-motion";
 import { Play, RotateCcw, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -17,6 +18,7 @@ const PARAMETERS = [
 
 
 export default function Configurator() {
+  useIdleRedirect(60000, "/");
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
   const [isPlaying, setIsPlaying] = useState(false);
 
