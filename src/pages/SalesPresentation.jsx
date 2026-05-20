@@ -44,7 +44,6 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
-  const [emsVideoDone, setEmsVideoDone] = useState(false);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black select-none">
@@ -102,21 +101,15 @@ export default function SalesPresentation() {
 
       {/* Modal */}
       <AnimatePresence>
-        {activeModal === 5 && !emsVideoDone && (
-          <EmsModal
-            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
-            onVideosEnd={() => setEmsVideoDone(true)}
-          />
-        )}
-        {activeModal === 5 && emsVideoDone && (
+        {activeModal === 5 && (
           <ModalOverlay
             circleId={5}
-            onClose={() => { setActiveModal(null); setEmsVideoDone(false); }}
+            onClose={() => setActiveModal(null)}
             onShowSchematic={() => setActiveModal("5_2")}
           />
         )}
         {activeModal === "5_2" && (
-          <SchematicModal onClose={() => { setActiveModal(5); setEmsVideoDone(true); }} />
+          <SchematicModal onClose={() => setActiveModal(5)} />
         )}
         {activeModal !== null && activeModal !== 5 && (
           <ModalOverlay
