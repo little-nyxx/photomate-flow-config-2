@@ -83,7 +83,8 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
               <video
                 ref={videoRef}
                 src={videoSrc}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${loading ? "opacity-0" : "opacity-100"}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${loading ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                style={loading ? { visibility: "hidden" } : {}}
                 autoPlay
                 loop
                 preload="auto"
