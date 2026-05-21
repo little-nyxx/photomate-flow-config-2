@@ -89,6 +89,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
                 loop
                 preload="auto"
                 controls={false}
+                poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 onError={() => setError(true)}
                 onCanPlay={() => setLoading(false)}
                 playsInline
