@@ -8,6 +8,7 @@ const BG_URL = "/images/factory.jpg";
 export default function VideoPlayer({ code, isPlaying, onClose }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Lokální videa umístěte do složky /public/videos/ jako flow_XXXX.mp4
   const videoSrc = `/videos/flow_${code}.mp4`;
@@ -15,6 +16,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
   useEffect(() => {
     if (isPlaying) {
       setError(false);
+      setLoading(true);
     }
   }, [isPlaying, code]);
 
@@ -72,15 +74,23 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
               </p>
             </motion.div>
           ) : (
-            <video
-              ref={videoRef}
-              src={videoSrc}
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              loop
-              onError={() => setError(true)}
-              playsInline
-            />
+            <>
+              {loading && (
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="w-14 h-14 rounded-full border-4 border-white/20 border-t-white animate-spin" />
+                </div>
+              )}
+              <video
+                ref={videoRef}
+                src={videoSrc}
+                className="absolute inset-0 w-full h-full object-cover"
+                autoPlay
+                loop
+                onError={() => setError(true)}
+                onCanPlay={() => setLoading(false)}
+                playsInline
+              />
+            </>
           )}
         </div>
       </motion.div>
