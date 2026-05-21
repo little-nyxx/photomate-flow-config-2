@@ -77,7 +77,7 @@ export default function SalesPresentation() {
       {/* Energy Configurator button bottom right — bigger */}
       <Link
         to="/configurator"
-        className="absolute bottom-12 right-8 z-20 px-8 py-4 rounded-xl text-base font-bold text-white shadow-lg transition-all hover:scale-105"
+        className="absolute bottom-12 right-8 z-20 px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
         style={{ background: "#F58220" }}>
         
         Energy Configurator
