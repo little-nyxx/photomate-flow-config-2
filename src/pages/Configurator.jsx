@@ -45,12 +45,12 @@ export default function Configurator() {
         {/* Header */}
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <div className="bg-white/20 rounded-xl px-4 py-2">
-              <img src={LOGO_URL} alt="Photomate" className="h-10 object-contain" />
+            <div className="bg-white/20 rounded-xl px-5 py-3">
+              <img src={LOGO_URL} alt="Photomate" className="h-14 object-contain" />
             </div>
-            <div className="h-8 w-px bg-white/40" />
+            <div className="h-10 w-px bg-white/40" />
             <div>
-              <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">Energy configurator
+              <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator
 
               </h1>
               <p className="text-xs text-white/70 hidden">
@@ -62,8 +62,8 @@ export default function Configurator() {
           {/* Parameter toggles + action buttons in top right */}
           <div className="flex items-center gap-4">
             {PARAMETERS.map((p) =>
-            <div key={p.key} className="flex flex-col items-center gap-1">
-                <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
+            <div key={p.key} className="flex flex-col items-center gap-2">
+                <span className="text-sm font-semibold text-white/80 uppercase tracking-wider">
                   {p.label}
                 </span>
                 <ParameterToggle
@@ -78,16 +78,16 @@ export default function Configurator() {
             <Button
               onClick={handleReset}
               variant="ghost"
-              className="h-12 px-4 text-sm font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+              className="h-16 px-6 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
               
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw className="h-5 w-5" />
               Reset
             </Button>
             <Button
               onClick={() => setIsPlaying(true)}
-              className="h-12 px-6 text-sm font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+              className="h-16 px-8 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
               
-              <Play className="h-5 w-5" />
+              <Play className="h-6 w-6" />
               Run simulation
             </Button>
           </div>
@@ -109,9 +109,9 @@ export default function Configurator() {
       <Link
         to="/sales"
 
-        className="absolute bottom-16 right-6 z-20 flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
+        className="absolute bottom-16 right-6 z-20 flex items-center gap-2 px-8 py-5 rounded-xl text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
         
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-5 w-5" />
         Back
       </Link>
 
