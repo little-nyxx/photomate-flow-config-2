@@ -87,6 +87,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
                 autoPlay
                 loop
                 preload="auto"
+                controls={false}
                 onError={() => setError(true)}
                 onCanPlay={() => setLoading(false)}
                 playsInline
