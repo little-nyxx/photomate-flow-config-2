@@ -123,7 +123,7 @@ export default function SalesPresentation() {
         <ModalOverlay
           key="modal-10"
           circleId={10}
-          onClose={() => setActiveModal(5)}
+          onClose={() => setActiveModal(null)}
           isSchematic={true}
           onSchematicClick={() => setActiveModal(5)} />
 
