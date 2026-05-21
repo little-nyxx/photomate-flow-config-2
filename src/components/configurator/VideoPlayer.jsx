@@ -86,6 +86,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${loading ? "opacity-0" : "opacity-100"}`}
                 autoPlay
                 loop
+                preload="auto"
                 onError={() => setError(true)}
                 onCanPlay={() => setLoading(false)}
                 playsInline
