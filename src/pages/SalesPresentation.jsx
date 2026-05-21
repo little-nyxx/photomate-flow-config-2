@@ -228,7 +228,7 @@ function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
           }
           {isSchematic &&
           <button
-            onClick={onClose}
+            onClick={onSchematicClick}
             className="absolute bottom-0 left-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all">
             
               <span
