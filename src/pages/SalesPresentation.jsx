@@ -125,7 +125,7 @@ export default function SalesPresentation() {
           circleId={10}
           onClose={() => setActiveModal(null)}
           isSchematic={true}
-          onSchematicClick={() => setActiveModal(5)} />
+          onSchematicClick={() => setActiveModal(null)} />
 
         }
         {activeModal !== null && activeModal !== 5 && activeModal !== 10 &&
