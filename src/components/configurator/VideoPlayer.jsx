@@ -42,7 +42,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
           <div className="flex items-center gap-3 bg-black/50 backdrop-blur-sm rounded-2xl px-5 py-3">
             <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
             <span className="text-white font-bold text-xl tracking-widest font-mono">
-              Scénář {code}
+              Scenario {code}
             </span>
           </div>
           <Button
@@ -67,10 +67,10 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
                 <AlertTriangle className="h-10 w-10 text-primary" />
               </div>
               <p className="text-xl font-semibold">
-                Video pro scénář {code} zatím není připravené.
+                Video for scenario {code} is not available yet.
               </p>
               <p className="text-sm text-white/50">
-                Zkontrolujte, zda soubor flow_{code}.mp4 existuje ve složce /videos.
+                Please check that the file flow_{code}.mp4 exists in the /videos folder.
               </p>
             </motion.div>
           ) : (
