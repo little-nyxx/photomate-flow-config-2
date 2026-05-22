@@ -108,8 +108,7 @@ export default function SalesPresentation() {
         className="absolute bottom-12 right-8 z-20 px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
         style={{ background: "#F58220" }}>
         
-        Energy Configurator
-        <ArrowRight className="inline-block ml-2 w-6 h-6" />
+        <span className="flex items-center gap-2">Energy Configurator <ArrowRight className="w-6 h-6" /></span>
       </Link>
 
       {/* Logo bottom center — no invert */}
