@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const BG_URL = "/images/sales_bg.jpg";
+const BG_IMAGES = ["/images/sales_bg.jpg", "/images/sales_bg_2.jpg"];
+const bgIndex = parseInt(localStorage.getItem("salesBgIndex") || "0", 10);
+const BG_URL = BG_IMAGES[bgIndex] || BG_IMAGES[0];
 const LOGO2_URL = "/images/logo-2.svg";
 
 export default function Intro() {

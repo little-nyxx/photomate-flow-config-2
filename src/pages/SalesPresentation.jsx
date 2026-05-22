@@ -54,11 +54,14 @@ export default function SalesPresentation() {
   );
   const [activeModal, setActiveModal] = useState(null);
   const [emsVideoDone, setEmsVideoDone] = useState(false);
-  const [bgIndex, setBgIndex] = useState(0);
+  const [bgIndex, setBgIndex] = useState(() => {
+    const saved = localStorage.getItem("salesBgIndex");
+    return saved !== null ? parseInt(saved, 10) : 0;
+  });
   const touchStartX = useRef(null);
 
-  const prevBg = () => setBgIndex((i) => (i - 1 + BG_IMAGES.length) % BG_IMAGES.length);
-  const nextBg = () => setBgIndex((i) => (i + 1) % BG_IMAGES.length);
+  const prevBg = () => setBgIndex((i) => { const n = (i - 1 + BG_IMAGES.length) % BG_IMAGES.length; localStorage.setItem("salesBgIndex", n); return n; });
+  const nextBg = () => setBgIndex((i) => { const n = (i + 1) % BG_IMAGES.length; localStorage.setItem("salesBgIndex", n); return n; });
 
   const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e) => {
