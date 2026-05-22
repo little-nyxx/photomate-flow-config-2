@@ -6,6 +6,7 @@ import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 
 const BG_IMAGES = ["/images/sales_bg.jpg", "/images/sales_bg_2.jpg"];
+const OVERLAY_IMAGES = ["/images/packy_1.svg", "/images/packy_2.svg"];
 const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
@@ -91,6 +92,15 @@ export default function SalesPresentation() {
         />
       </AnimatePresence>
       
+
+      {/* SVG overlay matching bg */}
+      <img
+        key={`overlay-${bgIndex}`}
+        src={OVERLAY_IMAGES[bgIndex]}
+        alt=""
+        className="absolute inset-0 w-full h-full z-10 pointer-events-none"
+        style={{ objectFit: "fill" }}
+      />
 
       {/* Gradient overlay under circles — bottom of top 25% */}
       <div
