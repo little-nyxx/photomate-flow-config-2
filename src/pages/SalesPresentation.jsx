@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 
@@ -109,6 +109,7 @@ export default function SalesPresentation() {
         style={{ background: "#F58220" }}>
         
         Energy Configurator
+        <ArrowRight className="inline-block ml-2 w-6 h-6" />
       </Link>
 
       {/* Logo bottom center — no invert */}
