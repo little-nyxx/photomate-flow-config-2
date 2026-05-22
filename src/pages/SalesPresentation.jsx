@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 
-const BG_URL = "/images/sales_bg.jpg";
+const BG_IMAGES = ["/images/sales_bg.jpg", "/images/sales_bg_2.jpg"];
 const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
@@ -54,14 +54,39 @@ export default function SalesPresentation() {
   );
   const [activeModal, setActiveModal] = useState(null);
   const [emsVideoDone, setEmsVideoDone] = useState(false);
+  const [bgIndex, setBgIndex] = useState(0);
+  const touchStartX = useRef(null);
+
+  const prevBg = () => setBgIndex((i) => (i - 1 + BG_IMAGES.length) % BG_IMAGES.length);
+  const nextBg = () => setBgIndex((i) => (i + 1) % BG_IMAGES.length);
+
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? nextBg() : prevBg();
+    touchStartX.current = null;
+  };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black select-none">
-      {/* Background */}
-      <img
-        src={BG_URL}
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover" />
+    <div
+      className="relative w-full h-screen overflow-hidden bg-black select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Background carousel */}
+      <AnimatePresence mode="sync">
+        <motion.img
+          key={bgIndex}
+          src={BG_IMAGES[bgIndex]}
+          alt="background"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </AnimatePresence>
       
 
       {/* Gradient overlay under circles — bottom of top 25% */}
@@ -108,6 +133,22 @@ export default function SalesPresentation() {
 
         )}
       </div>
+
+      {/* Carousel arrow buttons */}
+      <button
+        onClick={prevBg}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
+        aria-label="Previous background"
+      >
+        <ChevronLeft className="w-8 h-8 text-white" />
+      </button>
+      <button
+        onClick={nextBg}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
+        aria-label="Next background"
+      >
+        <ChevronRight className="w-8 h-8 text-white" />
+      </button>
 
       {/* Modal */}
       <AnimatePresence mode="wait">
