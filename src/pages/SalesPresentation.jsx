@@ -237,10 +237,10 @@ function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
           {/* Close button top-right */}
           <button
             onClick={onClose}
-            className="absolute -top-4 -right-4 z-10 w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+            className="absolute -top-6 -right-6 z-10 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
             aria-label="Close">
             
-            <X className="w-5 h-5 text-foreground" />
+            <X className="w-8 h-8 text-foreground" />
           </button>
           <img
             src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
