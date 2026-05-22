@@ -47,11 +47,11 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
           </div>
           <Button
             onClick={onClose}
-            className="h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white"
+            className="h-16 w-16 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white"
             variant="ghost"
             size="icon"
           >
-            <X className="h-6 w-6" />
+            <X className="h-9 w-9" />
           </Button>
         </div>
 
