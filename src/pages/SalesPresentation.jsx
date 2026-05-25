@@ -61,10 +61,10 @@ export default function SalesPresentation() {
   });
   const touchStartX = useRef(null);
 
-  const prevBg = () => setBgIndex((i) => { const n = (i - 1 + BG_IMAGES.length) % BG_IMAGES.length; localStorage.setItem("salesBgIndex", n); return n; });
-  const nextBg = () => setBgIndex((i) => { const n = (i + 1) % BG_IMAGES.length; localStorage.setItem("salesBgIndex", n); return n; });
+  const prevBg = () => setBgIndex((i) => {const n = (i - 1 + BG_IMAGES.length) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
+  const nextBg = () => setBgIndex((i) => {const n = (i + 1) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
 
-  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchStart = (e) => {touchStartX.current = e.touches[0].clientX;};
   const handleTouchEnd = (e) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -76,8 +76,8 @@ export default function SalesPresentation() {
     <div
       className="relative w-full h-screen overflow-hidden bg-black select-none"
       onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+      onTouchEnd={handleTouchEnd}>
+      
       {/* Background carousel */}
       <AnimatePresence mode="sync">
         <motion.img
@@ -88,8 +88,8 @@ export default function SalesPresentation() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+          className="absolute inset-0 w-full h-full object-cover" />
+        
       </AnimatePresence>
       
 
@@ -99,8 +99,8 @@ export default function SalesPresentation() {
         src={OVERLAY_IMAGES[bgIndex]}
         alt=""
         className="absolute inset-0 w-full h-full z-20 pointer-events-none"
-        style={{ objectFit: "fill" }}
-      />
+        style={{ objectFit: "fill" }} />
+      
 
       {/* Gradient overlay under circles — bottom of top 25% */}
       <div
@@ -151,15 +151,15 @@ export default function SalesPresentation() {
       <button
         onClick={prevBg}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
-        aria-label="Previous background"
-      >
+        aria-label="Previous background">
+        
         <ChevronLeft className="w-8 h-8 text-white" />
       </button>
       <button
         onClick={nextBg}
         className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
-        aria-label="Next background"
-      >
+        aria-label="Next background">
+        
         <ChevronRight className="w-8 h-8 text-white" />
       </button>
 
@@ -221,7 +221,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         className="text-center text-xs font-semibold text-white bg-black/50 border border-white/40 rounded-lg px-2 py-1 resize-none w-28 focus:outline-none focus:border-orange-400" /> :
 
 
-      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-lg text-center">
+      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-sm text-justify">
           {label}
         </span>
       }
