@@ -73,8 +73,8 @@ export default function Configurator() {
             </Button>
             <Button
               onClick={handleReset}
-              variant="ghost"
-              className="h-12 px-5 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+              variant="secondary"
+              className="h-12 px-5 text-base font-semibold rounded-xl gap-2">
               <RotateCcw className="h-5 w-5" />
               Reset
             </Button>

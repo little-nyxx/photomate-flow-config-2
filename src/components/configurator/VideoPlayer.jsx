@@ -20,6 +20,14 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
 
   return (
     <>
+      {/* Factory.jpg placeholder — always visible while loading */}
+      {loading && !error && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ zIndex: 1, backgroundImage: "url('/images/factory.jpg')" }}
+        />
+      )}
+
       {/* Video as page background */}
       {!error && (
         <video
@@ -27,17 +35,17 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
           src={videoSrc}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
           style={{ zIndex: 1, opacity: !loading ? 1 : 0 }}
-          autoPlay
+          autoPlay={false}
           loop
           preload="auto"
           controls={false}
           onError={() => setError(true)}
-          onCanPlay={() => setLoading(false)}
+          onCanPlay={() => { setLoading(false); videoRef.current?.play(); }}
           playsInline
         />
       )}
 
-      {/* Loading spinner — shown while video is loading */}
+      {/* Loading spinner */}
       {loading && !error && (
         <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 2 }}>
           <div className="w-14 h-14 rounded-full border-4 border-white/20 border-t-white animate-spin" />
