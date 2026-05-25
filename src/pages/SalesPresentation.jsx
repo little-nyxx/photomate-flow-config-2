@@ -196,7 +196,7 @@ export default function SalesPresentation() {
 
 function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   return (
-    <div className="flex flex-col-reverse items-center gap-2">
+    <div className="flex flex-col items-center gap-2">
       {/* Circle — bigger */}
       <button
         onClick={onClick}
