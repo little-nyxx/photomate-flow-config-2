@@ -45,7 +45,7 @@ export default function Configurator() {
         {/* Header */}
         <header className="flex items-center justify-center gap-6 mb-6 flex-wrap">
           <div className="bg-white/20 rounded-xl px-5 py-3">
-            <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
+            <img src={LOGO_URL} alt="Photomate" className="h-12 w-full object-fill" />
           </div>
           <div className="h-10 w-px bg-white/40" />
           <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator</h1>
