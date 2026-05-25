@@ -98,7 +98,7 @@ export default function SalesPresentation() {
         key={`overlay-${bgIndex}`}
         src={OVERLAY_IMAGES[bgIndex]}
         alt=""
-        className="absolute inset-0 w-full h-full z-10 pointer-events-none"
+        className="absolute inset-0 w-full h-full z-20 pointer-events-none"
         style={{ objectFit: "fill" }}
       />
 
