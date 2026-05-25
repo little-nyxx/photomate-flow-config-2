@@ -63,19 +63,21 @@ export default function Configurator() {
             </div>
           )}
           <div className="h-16 w-px bg-white/30" />
-          <Button
-            onClick={handleReset}
-            variant="ghost"
-            className="h-14 px-5 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
-            <RotateCcw className="h-5 w-5" />
-            Reset
-          </Button>
-          <Button
-            onClick={() => setIsPlaying(true)}
-            className="h-14 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
-            <Play className="h-5 w-5" />
-            Run simulation
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button
+              onClick={() => setIsPlaying(true)}
+              className="h-12 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+              <Play className="h-5 w-5" />
+              Run simulation
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="ghost"
+              className="h-12 px-5 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+              <RotateCcw className="h-5 w-5" />
+              Reset
+            </Button>
+          </div>
         </header>
 
         {/* Main content — full screen background, nothing else */}
