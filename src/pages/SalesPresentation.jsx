@@ -132,7 +132,7 @@ export default function SalesPresentation() {
 
       {/* Circles */}
       <div
-        className="absolute left-0 right-0 z-20 flex justify-around items-start px-4"
+        className="absolute left-0 right-0 z-20 flex justify-around items-end px-4"
         style={{ top: "2%" }}>
         
         {INITIAL_CIRCLES.map((circle) =>
