@@ -44,11 +44,12 @@ export default function Configurator() {
       <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
         {/* Header */}
         <header className="flex items-center justify-center gap-6 mb-6 flex-wrap">
-          <div className="bg-white/20 rounded-xl px-5 py-3">
-            <img src={LOGO_URL} alt="Photomate" className="h-12 w-full object-fill" />
+          <div className="flex flex-col items-center gap-1">
+            <div className="bg-white/20 rounded-xl px-5 py-3">
+              <img src={LOGO_URL} alt="Photomate" className="h-12 w-full object-fill" />
+            </div>
+            <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator</h1>
           </div>
-          <div className="h-10 w-px bg-white/40" />
-          <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator</h1>
           <div className="h-10 w-px bg-white/40" />
           {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center gap-2">
