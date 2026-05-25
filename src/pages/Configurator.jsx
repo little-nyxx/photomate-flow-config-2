@@ -46,11 +46,11 @@ export default function Configurator() {
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <div className="bg-white/20 rounded-xl px-5 py-3">
-              <img src={LOGO_URL} alt="Photomate" className="h-14 object-contain" />
+              <img src={LOGO_URL} alt="Photomate" className="h-10 object-contain" />
             </div>
             <div className="h-10 w-px bg-white/40" />
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator
+              <h1 className="text-xl font-bold text-white tracking-tight drop-shadow">Energy configurator
 
               </h1>
               <p className="text-xs text-white/70 hidden">
@@ -63,7 +63,7 @@ export default function Configurator() {
           <div className="flex items-center gap-4">
             {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center gap-2">
-                <span className="text-sm font-semibold text-white/80 uppercase tracking-wider">
+                <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
                   {p.label}
                 </span>
                 <ParameterToggle
@@ -78,16 +78,16 @@ export default function Configurator() {
             <Button
               onClick={handleReset}
               variant="ghost"
-              className="h-16 px-6 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+              className="h-12 px-4 text-sm font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
               
-              <RotateCcw className="h-5 w-5" />
+              <RotateCcw className="h-4 w-4" />
               Reset
             </Button>
             <Button
               onClick={() => setIsPlaying(true)}
-              className="h-16 px-8 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+              className="h-12 px-6 text-sm font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
               
-              <Play className="h-6 w-6" />
+              <Play className="h-4 w-4" />
               Run simulation
             </Button>
           </div>

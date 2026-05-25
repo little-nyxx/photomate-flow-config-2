@@ -11,7 +11,7 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
       )}
       <button
         onClick={() => onChange(value === 0 ? 1 : 0)}
-        className="relative w-36 h-20 rounded-2xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+        className="relative w-28 h-14 rounded-2xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
         style={{
           borderColor: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(220, 10%, 85%)",
           backgroundColor: value === 1 ? "hsl(27, 91%, 54%)" : "hsl(0, 0%, 100%)"
@@ -20,13 +20,13 @@ export default function ParameterToggle({ label, icon, value, onChange }) {
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className="absolute top-2 w-16 h-16 rounded-xl shadow-lg flex items-center justify-center"
+          className="absolute top-1 w-12 h-12 rounded-xl shadow-lg flex items-center justify-center"
           style={{
-            left: value === 1 ? "calc(100% - 4.5rem)" : "0.5rem",
+            left: value === 1 ? "calc(100% - 3.5rem)" : "0.25rem",
             backgroundColor: value === 1 ? "white" : "hsl(220, 10%, 94%)"
           }}>
           
-          <span className="text-2xl">{icon}</span>
+          <span className="text-xl">{icon}</span>
         </motion.div>
         <div
           className="absolute top-1/2 -translate-y-1/2 text-xs font-bold uppercase tracking-wide"
