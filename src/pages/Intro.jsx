@@ -41,7 +41,7 @@ export default function Intro() {
 
       {/* Logo centered top — bigger */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 z-10">
-        <img src={LOGO2_URL} alt="Logo" className="h-64 object-contain" />
+        <img src={LOGO2_URL} alt="Logo" className="h-32 object-contain" />
       </div>
     </div>
   );
