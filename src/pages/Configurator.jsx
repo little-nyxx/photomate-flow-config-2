@@ -43,54 +43,39 @@ export default function Configurator() {
       {/* Content */}
       <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
         {/* Header */}
-        <header className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-white/20 rounded-xl px-5 py-3">
-              <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
-            </div>
-            <div className="h-10 w-px bg-white/40" />
-            <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator
-
-              </h1>
-              <p className="text-xs text-white/70 hidden">
-                Interaktivní vizualizace energetických scénářů
-              </p>
-            </div>
+        <header className="flex items-center justify-center gap-6 mb-6 flex-wrap">
+          <div className="bg-white/20 rounded-xl px-5 py-3">
+            <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
           </div>
-
-          {/* Parameter toggles + action buttons in top right */}
-          <div className="flex items-center gap-4">
-            {PARAMETERS.map((p) =>
+          <div className="h-10 w-px bg-white/40" />
+          <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator</h1>
+          <div className="h-10 w-px bg-white/40" />
+          {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center gap-2">
-                <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
-                  {p.label}
-                </span>
-                <ParameterToggle
+              <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
+                {p.label}
+              </span>
+              <ParameterToggle
                 label=""
                 icon={p.icon}
                 value={params[p.key]}
                 onChange={(v) => handleChange(p.key, v)} />
-              
-              </div>
-            )}
-            <div className="h-16 w-px bg-white/30 mx-2" />
-            <Button
-              onClick={handleReset}
-              variant="ghost"
-              className="h-14 px-5 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
-              
-              <RotateCcw className="h-5 w-5" />
-              Reset
-            </Button>
-            <Button
-              onClick={() => setIsPlaying(true)}
-              className="h-14 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
-              
-              <Play className="h-5 w-5" />
-              Run simulation
-            </Button>
-          </div>
+            </div>
+          )}
+          <div className="h-16 w-px bg-white/30" />
+          <Button
+            onClick={handleReset}
+            variant="ghost"
+            className="h-14 px-5 text-base font-semibold rounded-xl gap-2 text-white hover:bg-white/20 border border-white/30">
+            <RotateCcw className="h-5 w-5" />
+            Reset
+          </Button>
+          <Button
+            onClick={() => setIsPlaying(true)}
+            className="h-14 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+            <Play className="h-5 w-5" />
+            Run simulation
+          </Button>
         </header>
 
         {/* Main content — full screen background, nothing else */}
