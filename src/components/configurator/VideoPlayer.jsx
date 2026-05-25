@@ -20,9 +20,11 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
     }
   }, [isPlaying, code]);
 
+  if (!isPlaying) return null;
+
   return (
     <AnimatePresence>
-      {isPlaying && <motion.div
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -95,7 +97,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
             </>
           )}
         </div>
-      </motion.div>}
+      </motion.div>
     </AnimatePresence>
   );
 }
