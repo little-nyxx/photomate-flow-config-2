@@ -27,7 +27,7 @@ const INITIAL_CIRCLES = [
 { id: 2, label: "PV Constructions", x: 18.5, y: 8 },
 { id: 3, label: "Heat Pumps", x: 29.5, y: 8 },
 { id: 4, label: "AC/DC EV Chargers", x: 40.5, y: 8 },
-{ id: 5, label: "Energy Management System", x: 51.5, y: 8 },
+{ id: 5, label: "Energy\nManagement System", x: 51.5, y: 8 },
 { id: 6, label: "Battery Energy Storage System", x: 62.5, y: 8 },
 { id: 7, label: "Energy Analysis Services", x: 73.5, y: 8 },
 { id: 8, label: "RFG Compliance", x: 84.5, y: 8 },
@@ -221,7 +221,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         className="text-center text-xs font-semibold text-white bg-black/50 border border-white/40 rounded-lg px-2 py-1 resize-none w-28 focus:outline-none focus:border-orange-400" /> :
 
 
-      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-sm text-center">
+      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-sm text-center whitespace-pre-line">
           {label}
         </span>
       }
