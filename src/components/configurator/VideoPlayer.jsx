@@ -32,14 +32,6 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
       className="absolute inset-0"
       style={{ zIndex: 1, pointerEvents: isPlaying ? "auto" : "none", opacity: isPlaying ? 1 : 0 }}
     >
-      {/* Factory.jpg placeholder — shown only when there's no previous video */}
-      {loading && !error && !prevSrc && (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/factory.jpg')" }}
-        />
-      )}
-
       {/* Previous video playing in background while new one loads */}
       {loading && !error && prevSrc && (
         <video
