@@ -125,7 +125,7 @@ export default function SalesPresentation() {
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
-          <img src={LOGO_URL} alt="Logo" className="h-full w-full object-contain" />
+          <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" />
         </button>
       </div>
 
