@@ -30,6 +30,7 @@ export default function Configurator() {
 
   const handleReset = () => {
     setParams({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
+    setIsPlaying(false);
   };
 
   return (
