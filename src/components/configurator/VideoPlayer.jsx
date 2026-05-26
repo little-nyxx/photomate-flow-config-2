@@ -6,6 +6,8 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [activeSrc, setActiveSrc] = useState(null);
+  const [prevSrc, setPrevSrc] = useState(null);
 
   const videoSrc = `/videos/flow_${code}.mp4`;
 
@@ -14,10 +16,11 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
     if (isPlaying) {
       setError(false);
       setLoading(true);
-      if (videoRef.current) {
-        videoRef.current.load();
-      }
+      setPrevSrc(activeSrc); // keep current as background while new loads
+      setActiveSrc(videoSrc);
     } else {
+      setActiveSrc(null);
+      setPrevSrc(null);
       if (videoRef.current) {
         videoRef.current.pause();
       }
@@ -29,27 +32,41 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
       className="absolute inset-0"
       style={{ zIndex: 1, pointerEvents: isPlaying ? "auto" : "none", opacity: isPlaying ? 1 : 0 }}
     >
-      {/* Factory.jpg placeholder — shown while video is loading */}
-      {loading && !error && (
+      {/* Factory.jpg placeholder — shown only when there's no previous video */}
+      {loading && !error && !prevSrc && (
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/images/factory.jpg')" }}
         />
       )}
 
-      {/* Video as page background */}
-      {!error && (
+      {/* Previous video playing in background while new one loads */}
+      {loading && !error && prevSrc && (
+        <video
+          src={prevSrc}
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted={false}
+          controls={false}
+          playsInline
+        />
+      )}
+
+      {/* New video — hidden until ready */}
+      {!error && activeSrc && (
         <video
           ref={videoRef}
-          src={isPlaying ? videoSrc : undefined}
+          src={activeSrc}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
           style={{ opacity: !loading ? 1 : 0 }}
           loop
-          preload="none"
+          preload="auto"
           controls={false}
           onError={() => setError(true)}
           onCanPlay={() => {
             setLoading(false);
+            setPrevSrc(null);
             videoRef.current?.play();
           }}
           playsInline
