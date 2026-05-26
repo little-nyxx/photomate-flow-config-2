@@ -10,6 +10,7 @@ const OVERLAY_IMAGES = ["/images/packy_1.svg", "/images/packy_2.svg"];
 const LOGO_URL = "/images/logo-3.svg";
 
 const MODAL_IMAGES = {
+  0: "/images/modal_0.png",
   1: "/images/modal_1.png",
   2: "/images/modal_2.png",
   3: "/images/modal_3.png",
@@ -123,9 +124,9 @@ export default function SalesPresentation() {
 
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <div className="bg-white rounded-2xl px-8 py-3 shadow-xl">
+        <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
           <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" />
-        </div>
+        </button>
       </div>
 
 
