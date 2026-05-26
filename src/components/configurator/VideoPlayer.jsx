@@ -9,10 +9,18 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
 
   const videoSrc = `/videos/flow_${code}.mp4`;
 
+  // When Run simulation is clicked, reset state and play
   useEffect(() => {
     if (isPlaying) {
       setError(false);
       setLoading(true);
+      if (videoRef.current) {
+        videoRef.current.load();
+      }
+    } else {
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
     }
   }, [isPlaying, code]);
 
@@ -20,7 +28,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
 
   return (
     <>
-      {/* Factory.jpg placeholder — always visible while loading */}
+      {/* Factory.jpg placeholder — shown while video is loading */}
       {loading && !error && (
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -35,12 +43,14 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
           src={videoSrc}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
           style={{ zIndex: 1, opacity: !loading ? 1 : 0 }}
-          autoPlay={false}
           loop
-          preload="auto"
+          preload="none"
           controls={false}
           onError={() => setError(true)}
-          onCanPlay={() => { setLoading(false); videoRef.current?.play(); }}
+          onCanPlay={() => {
+            setLoading(false);
+            videoRef.current?.play();
+          }}
           playsInline
         />
       )}
