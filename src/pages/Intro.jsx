@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -8,6 +8,11 @@ const LOGO2_URL = "/images/logo-2.svg";
 export default function Intro() {
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
+  const imgRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
   const bgIndex = parseInt(localStorage.getItem("salesBgIndex") || "0", 10);
   const BG_URL = BG_IMAGES[bgIndex] || BG_IMAGES[0];
 
@@ -33,6 +38,7 @@ export default function Intro() {
 
       {/* Background */}
       <img
+        ref={imgRef}
         src={BG_URL}
         alt="background"
         className="absolute inset-0 w-full h-full object-cover"
