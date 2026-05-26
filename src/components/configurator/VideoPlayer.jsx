@@ -16,16 +16,21 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
     if (isPlaying) {
       setError(false);
       setLoading(true);
-      setPrevSrc(activeSrc); // keep current as background while new loads
+      setPrevSrc(activeSrc);
       setActiveSrc(videoSrc);
-    } else {
+    }
+  }, [isPlaying]);
+
+  // When isPlaying turns off, clear everything
+  useEffect(() => {
+    if (!isPlaying) {
       setActiveSrc(null);
       setPrevSrc(null);
       if (videoRef.current) {
         videoRef.current.pause();
       }
     }
-  }, [isPlaying, code]);
+  }, [isPlaying]);
 
   return (
     <div
