@@ -37,11 +37,12 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
       className="absolute inset-0"
       style={{ zIndex: 1, pointerEvents: isPlaying ? "auto" : "none", opacity: isPlaying ? 1 : 0 }}
     >
-      {/* Fallback background image while loading */}
+      {/* Fallback background image while loading — above video elements */}
       {loading && !error && (
         <img
           src="/images/factory.jpg"
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 1 }}
           alt=""
         />
       )}
