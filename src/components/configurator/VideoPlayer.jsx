@@ -37,6 +37,15 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
       className="absolute inset-0"
       style={{ zIndex: 1, pointerEvents: isPlaying ? "auto" : "none", opacity: isPlaying ? 1 : 0 }}
     >
+      {/* Fallback background image while loading (no prevSrc yet) */}
+      {loading && !error && !prevSrc && (
+        <img
+          src="/images/factory.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
+          alt=""
+        />
+      )}
+
       {/* Previous video playing in background while new one loads */}
       {loading && !error && prevSrc && (
         <video
