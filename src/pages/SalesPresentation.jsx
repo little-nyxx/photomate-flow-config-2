@@ -221,9 +221,9 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         className="text-center text-xs font-semibold text-white bg-black/50 border border-white/40 rounded-lg px-2 py-1 resize-none w-28 focus:outline-none focus:border-orange-400" /> :
 
 
-      <span className="font-semibold text-white drop-shadow-lg max-w-[9rem] leading-tight text-sm text-center" style={{ whiteSpace: "pre-line" }}>
-          {label}
-        </span>
+      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-xs text-center" style={{ whiteSpace: "pre-line" }}>
+        {label}
+      </span>
       }
     </div>);
 
