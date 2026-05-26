@@ -21,6 +21,7 @@ export default function Configurator() {
   useIdleRedirect(60000, "/");
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playTrigger, setPlayTrigger] = useState(0);
 
   const code = `${params.spot}${params.vyroba}${params.spotreba}${params.teplota}`;
 
@@ -67,7 +68,7 @@ export default function Configurator() {
           <div className="h-16 w-px bg-white/30" />
           <div className="flex flex-col gap-2">
             <Button
-              onClick={() => setIsPlaying(true)}
+              onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
               className="h-12 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
               <Play className="h-5 w-5" />
               Run simulation
@@ -108,6 +109,7 @@ export default function Configurator() {
       <VideoPlayer
         code={code}
         isPlaying={isPlaying}
+        playTrigger={playTrigger}
         onClose={() => setIsPlaying(false)} />
       
     </div>);

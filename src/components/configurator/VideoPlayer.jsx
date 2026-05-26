@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 
-export default function VideoPlayer({ code, isPlaying, onClose }) {
+export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
 
   const videoSrc = `/videos/flow_${code}.mp4`;
 
-  // When Run simulation is clicked, reset state and play
+  // When Run simulation is clicked (or re-clicked), reset state and play
   useEffect(() => {
     if (isPlaying) {
       setError(false);
@@ -19,7 +19,7 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
       setPrevSrc(activeSrc);
       setActiveSrc(videoSrc);
     }
-  }, [isPlaying]);
+  }, [isPlaying, playTrigger]);
 
   // When isPlaying turns off, clear everything
   useEffect(() => {
