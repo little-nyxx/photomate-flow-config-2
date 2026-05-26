@@ -99,10 +99,10 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
                 <AlertTriangle className="h-10 w-10 text-primary" />
               </div>
               <p className="text-xl font-semibold">
-                Video for scenario {code} is not available yet.
+                Video for scenario {activeSrc?.replace("/videos/flow_", "").replace(".mp4", "")} is not available yet.
               </p>
               <p className="text-sm text-white/50">
-                Please check that the file flow_{code}.mp4 exists in the /videos folder.
+                Please check that the file {activeSrc?.replace("/videos/", "")} exists in the /videos folder.
               </p>
             </motion.div>
           </motion.div>
