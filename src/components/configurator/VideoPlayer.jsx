@@ -24,15 +24,16 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
     }
   }, [isPlaying, code]);
 
-  if (!isPlaying) return null;
-
   return (
-    <>
+    <div
+      className="absolute inset-0"
+      style={{ zIndex: 1, pointerEvents: isPlaying ? "auto" : "none", opacity: isPlaying ? 1 : 0 }}
+    >
       {/* Factory.jpg placeholder — shown while video is loading */}
       {loading && !error && (
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ zIndex: 1, backgroundImage: "url('/images/factory.jpg')" }}
+          style={{ backgroundImage: "url('/images/factory.jpg')" }}
         />
       )}
 
@@ -40,9 +41,9 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
       {!error && (
         <video
           ref={videoRef}
-          src={videoSrc}
+          src={isPlaying ? videoSrc : undefined}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-          style={{ zIndex: 1, opacity: !loading ? 1 : 0 }}
+          style={{ opacity: !loading ? 1 : 0 }}
           loop
           preload="none"
           controls={false}
@@ -92,6 +93,6 @@ export default function VideoPlayer({ code, isPlaying, onClose }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
