@@ -53,10 +53,9 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
       {/* New video — hidden until ready */}
       {!error && activeSrc && (
         <video
-          ref={videoRef}
-          src={activeSrc}
-          poster="/images/factory.jpg"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+        ref={videoRef}
+        src={activeSrc}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
           style={{ opacity: !loading ? 1 : 0 }}
           loop
           preload="auto"
