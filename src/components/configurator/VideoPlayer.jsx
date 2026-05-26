@@ -70,6 +70,11 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
         />
       )}
 
+      {/* Dark overlay while loading first video (no prevSrc to show) */}
+      {loading && !error && !prevSrc && (
+        <div className="absolute inset-0 bg-black" style={{ zIndex: 1 }} />
+      )}
+
       {/* Loading spinner */}
       {loading && !error && (
         <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 2 }}>
