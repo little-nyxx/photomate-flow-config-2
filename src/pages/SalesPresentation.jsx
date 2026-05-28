@@ -166,29 +166,11 @@ export default function SalesPresentation() {
 
       {/* Modal */}
       <AnimatePresence mode="wait">
-        {activeModal === 5 &&
-        <ModalOverlay
-          key="modal-5"
-          circleId={5}
-          onClose={() => setActiveModal(null)}
-          onSchematicClick={() => setActiveModal(10)} />
-
-        }
-        {activeModal === 10 &&
-        <ModalOverlay
-          key="modal-10"
-          circleId={10}
-          onClose={() => setActiveModal(null)}
-          isSchematic={true}
-          onSchematicClick={() => setActiveModal(5)} />
-
-        }
-        {activeModal !== null && activeModal !== 5 && activeModal !== 10 &&
+        {activeModal !== null &&
         <ModalOverlay
           key={`modal-${activeModal}`}
           circleId={activeModal}
           onClose={() => setActiveModal(null)} />
-
         }
       </AnimatePresence>
     </div>);
@@ -230,76 +212,37 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
 
 }
 
-function ModalOverlay({ circleId, onClose, onSchematicClick, isSchematic }) {
-
+function ModalOverlay({ circleId, onClose }) {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85"
+      onClick={onClose}>
+      
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/85"
-        onClick={onClose}>
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.85, opacity: 0 }}
+        className="relative max-w-4xl w-full mx-4"
+        onClick={(e) => e.stopPropagation()}>
         
-        <motion.div
-          initial={{ scale: 0.85, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.85, opacity: 0 }}
-          className="relative max-w-4xl w-full mx-4"
-          onClick={(e) => e.stopPropagation()}>
-          
-          {/* Close button top-right */}
-          <button
-            onClick={onClose}
-            className="absolute -top-6 -right-6 z-10 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
-            aria-label="Close">
-            
-            <X className="w-8 h-8 text-foreground" />
-          </button>
-          <img
-            src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
-            alt={`Modal ${circleId}`}
-            className="w-full rounded-2xl shadow-2xl"
-            onError={(e) => {
-              e.target.src = "";
-              e.target.style.display = "none";
-            }} />
-          
-          {circleId === 5 &&
-          <button
-            onClick={onSchematicClick}
-            className="absolute bottom-0 right-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all">
-            
-              <span
-              className="w-0 h-0 inline-block"
-              style={{
-                borderTop: "8px solid transparent",
-                borderBottom: "8px solid transparent",
-                borderLeft: "14px solid hsl(var(--primary))"
-              }} />
-            
-              Schematic of EMS operation
-            </button>
-          }
-          {isSchematic &&
-          <button
-            onClick={onSchematicClick}
-            className="absolute bottom-0 left-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-foreground font-semibold text-sm shadow-lg hover:scale-105 transition-all">
-            
-              <span
-              className="w-0 h-0 inline-block"
-              style={{
-                borderTop: "8px solid transparent",
-                borderBottom: "8px solid transparent",
-                borderRight: "14px solid hsl(var(--primary))"
-              }} />
-            
-              Back
-            </button>
-          }
-        </motion.div>
+        <button
+          onClick={onClose}
+          className="absolute -top-6 -right-6 z-10 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+          aria-label="Close">
+          <X className="w-8 h-8 text-foreground" />
+        </button>
+        <img
+          src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
+          alt={`Modal ${circleId}`}
+          className="w-full rounded-2xl shadow-2xl"
+          onError={(e) => {
+            e.target.src = "";
+            e.target.style.display = "none";
+          }} />
       </motion.div>
-
-    </>);
-
+    </motion.div>
+  );
 }
