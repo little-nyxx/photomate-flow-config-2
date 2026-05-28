@@ -127,7 +127,7 @@ export default function SalesPresentation() {
       {/* Energy Configurator button bottom right — bigger */}
       <Link
         to="/configurator"
-        className="absolute bottom-12 right-8 z-20 px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
+        className="absolute bottom-8 right-8 z-20 px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
         style={{ background: "#F58220" }}>
         
         <span className="flex items-center gap-2">Energy Configurator <ArrowRight className="w-6 h-6" /></span>
@@ -136,7 +136,7 @@ export default function SalesPresentation() {
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
-          <img src={LOGO_URL} alt="Logo" className="h-10 object-contain" />
+          <img src={LOGO_URL} alt="Logo" className="h-[3.4375rem] object-contain" />
         </button>
       </div>
 
