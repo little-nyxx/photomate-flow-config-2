@@ -27,6 +27,17 @@ const INITIAL_CIRCLES = [
 { id: 1, label: "Inverters", x: 7.5, y: 8 },
 { id: 2, label: "PV Constructions", x: 18.5, y: 8 },
 { id: 3, label: "Heat Pumps", x: 29.5, y: 8 },
+{ id: 4, label: "AC/DC EV Chargers", x: 40.5, y: 8 },
+{ id: 5, label: "Energy\u000AManagement System", x: 51.5, y: 8 },
+{ id: 6, label: "Battery Energy Storage System", x: 62.5, y: 8 },
+{ id: 7, label: "Energy Analysis Services", x: 73.5, y: 8 },
+{ id: 8, label: "RFG Compliance", x: 84.5, y: 8 },
+{ id: 9, label: "Service & Support", x: 93.5, y: 8 }];
+
+const INITIAL_CIRCLES_BG2 = [
+{ id: 1, label: "Inverters", x: 7.5, y: 8 },
+{ id: 2, label: "PV Constructions", x: 18.5, y: 8 },
+{ id: 3, label: "Heat Pumps", x: 29.5, y: 8 },
 { id: 5, label: "Energy\u000AManagement System", x: 40.5, y: 8 },
 { id: 4, label: "AC/DC EV Chargers", x: 51.5, y: 8 },
 { id: 6, label: "Battery Energy Storage System", x: 62.5, y: 8 },
@@ -136,7 +147,7 @@ export default function SalesPresentation() {
         className="absolute left-0 right-0 z-20 flex justify-around items-start px-4 flex-nowrap"
         style={{ top: "2%" }}>
         
-        {INITIAL_CIRCLES.map((circle) =>
+        {(bgIndex === 1 ? INITIAL_CIRCLES_BG2 : INITIAL_CIRCLES).map((circle) =>
         <CircleButton
           key={circle.id}
           circle={circle}
