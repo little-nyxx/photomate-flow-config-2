@@ -241,9 +241,9 @@ function ModalOverlay({ circleId, onClose }) {
         
         <button
           onClick={onClose}
-          className="absolute -top-6 -right-6 z-10 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+          className="absolute -top-8 -right-8 z-10 w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
           aria-label="Close">
-          <X className="w-8 h-8 text-foreground" />
+          <X className="w-12 h-12 text-foreground" />
         </button>
         <img
           src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
