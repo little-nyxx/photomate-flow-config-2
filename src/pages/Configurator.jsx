@@ -52,7 +52,7 @@ export default function Configurator() {
         {/* Parameters */}
         {PARAMETERS.map((p) =>
           <div key={p.key} className="flex flex-col items-center gap-1 w-full">
-            <span className="text-xs font-semibold text-white uppercase tracking-wider text-center whitespace-pre-line drop-shadow">
+            <span className="text-xs font-semibold text-black uppercase tracking-wider text-center whitespace-pre-line drop-shadow">
               {p.label}
             </span>
             <ParameterToggle
