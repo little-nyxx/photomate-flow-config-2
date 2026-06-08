@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 
-const LOGO_URL = "/images/logo-white.png";
+const LOGO_URL = "/images/logo-3.svg";
 const BG_URL = "/images/factory.jpg";
 
 const PARAMETERS = [
 { key: "spot", label: "Spot price", icon: "💰" },
-{ key: "vyroba", label: "In-house\xA0production", icon: "☀️" },
-{ key: "spotreba", label: "own consumption", icon: "🏠" },
+{ key: "vyroba", label: "Own PV\xA0production", icon: "☀️" },
+{ key: "spotreba", label: "Own consumption\xA0and EV charging", icon: "🏠" },
 { key: "teplota", label: "Outdoor temperature", icon: "🌡️" }];
 
 
@@ -47,15 +47,12 @@ export default function Configurator() {
         {/* Header */}
         <header className="flex items-center justify-center gap-6 mb-6 flex-wrap">
           <div className="flex flex-col items-center gap-1">
-            <div className="bg-white/20 rounded-xl px-5 py-3">
-              <img src={LOGO_URL} alt="Photomate" className="h-12 w-full object-fill" />
-            </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow">Energy configurator</h1>
+            <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
           </div>
           <div className="h-10 w-px bg-white/40" />
           {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center gap-2">
-              <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-black uppercase tracking-wider">
                 {p.label}
               </span>
               <ParameterToggle
