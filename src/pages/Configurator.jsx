@@ -44,7 +44,7 @@ export default function Configurator() {
 
       {/* Logo top-left */}
       <div className="absolute left-6 top-6 z-10">
-        <img src={LOGO_URL} alt="Photomate" className="h-20 object-contain" />
+        <img src={LOGO_URL} alt="Photomate" className="h-32 object-contain" />
       </div>
 
       {/* Right panel — no background */}
