@@ -48,7 +48,7 @@ export default function Configurator() {
       </div>
 
       {/* Right panel — no background */}
-      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center justify-center p-6 gap-5" style={{ width: "260px" }}>
+      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center justify-start p-6 gap-5" style={{ width: "260px" }}>
         {/* Parameters */}
         {PARAMETERS.map((p) =>
           <div key={p.key} className="flex flex-col items-center gap-1 w-full">
