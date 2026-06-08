@@ -42,8 +42,8 @@ export default function Configurator() {
         style={{ backgroundImage: `url(${BG_URL})` }} />
       
 
-      {/* Left panel */}
-      <div className="absolute left-0 top-0 h-full z-10 flex flex-col items-center p-6 gap-5" style={{ width: "260px", background: "rgba(240,240,240,0.82)", backdropFilter: "blur(8px)" }}>
+      {/* Right panel */}
+      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center p-6 gap-5" style={{ width: "260px", background: "rgba(240,240,240,0.82)", backdropFilter: "blur(8px)" }}>
         {/* Logo */}
         <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain mt-2 mb-2" />
 
