@@ -42,54 +42,41 @@ export default function Configurator() {
         style={{ backgroundImage: `url(${BG_URL})` }} />
       
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col h-screen p-6 lg:p-8">
-        {/* Header */}
-        <header className="flex items-center justify-center gap-6 mb-6 flex-wrap">
-          <div className="flex flex-col items-center gap-1">
-            <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
+      {/* Left panel */}
+      <div className="absolute left-0 top-0 h-full z-10 flex flex-col items-center p-6 gap-5" style={{ width: "260px", background: "rgba(240,240,240,0.82)", backdropFilter: "blur(8px)" }}>
+        {/* Logo */}
+        <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain mt-2 mb-2" />
+
+        {/* Parameters */}
+        {PARAMETERS.map((p) =>
+          <div key={p.key} className="flex flex-col items-center gap-1 w-full">
+            <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider text-center whitespace-pre-line">
+              {p.label}
+            </span>
+            <ParameterToggle
+              label=""
+              icon={p.icon}
+              value={params[p.key]}
+              onChange={(v) => handleChange(p.key, v)} />
           </div>
-          <div className="h-10 w-px bg-white/40" />
-          {PARAMETERS.map((p) =>
-            <div key={p.key} className="flex flex-col items-center gap-2">
-              <span className="text-xs font-semibold text-black uppercase tracking-wider text-center whitespace-pre-line">
-                {p.label}
-              </span>
-              <ParameterToggle
-                label=""
-                icon={p.icon}
-                value={params[p.key]}
-                onChange={(v) => handleChange(p.key, v)} />
-            </div>
-          )}
-          <div className="h-16 w-px bg-white/30" />
-          <div className="flex flex-col gap-2 self-end">
-            <Button
-              onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
-              className="h-12 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
-              <Play className="h-5 w-5" />
-              Run simulation
-            </Button>
-            <Button
-              onClick={handleReset}
-              variant="secondary"
-              className="h-12 px-5 text-base font-semibold rounded-xl gap-2">
-              <RotateCcw className="h-5 w-5" />
-              Reset
-            </Button>
-          </div>
-        </header>
+        )}
 
-        {/* Main content — full screen background, nothing else */}
-        <div className="flex-1" />
-
-        {/* Footer */}
-        <footer className="text-center">
-          
-
-
-          
-        </footer>
+        {/* Buttons */}
+        <div className="flex flex-col gap-3 w-full mt-2">
+          <Button
+            onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
+            className="w-full h-12 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
+            <Play className="h-5 w-5" />
+            Run simulation
+          </Button>
+          <Button
+            onClick={handleReset}
+            variant="secondary"
+            className="w-full h-12 text-base font-semibold rounded-xl gap-2">
+            <RotateCcw className="h-5 w-5" />
+            Reset
+          </Button>
+        </div>
       </div>
 
       {/* Back to Sales button */}
