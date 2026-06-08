@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
@@ -62,6 +62,16 @@ const LINE_TARGETS = [
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/sales");
   const [editMode, setEditMode] = useState(false);
+  const [bottomVisible, setBottomVisible] = useState(true);
+  const bottomTimerRef = React.useRef(null);
+
+  const handleScreenTap = () => {
+    setBottomVisible(false);
+    clearTimeout(bottomTimerRef.current);
+    bottomTimerRef.current = setTimeout(() => setBottomVisible(true), 60000);
+  };
+
+  useEffect(() => () => clearTimeout(bottomTimerRef.current), []);
   const [labels, setLabels] = useState(
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
@@ -88,7 +98,8 @@ export default function SalesPresentation() {
     <div
       className="relative w-full h-screen overflow-hidden bg-black select-none"
       onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}>
+      onTouchEnd={handleTouchEnd}
+      onClick={handleScreenTap}>
       
       {/* Background carousel */}
       <AnimatePresence mode="sync">
@@ -125,7 +136,7 @@ export default function SalesPresentation() {
       
 
       {/* Bottom left: tagline + EMS button */}
-      <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-4">
+      <div className={`absolute bottom-8 left-8 z-20 flex flex-col items-start gap-4 transition-opacity duration-500 ${bottomVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <div className="text-white font-black leading-tight drop-shadow-lg" style={{ fontSize: "2.5rem", lineHeight: 1.1 }}>
           Touch me and get to know<br />
           <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
