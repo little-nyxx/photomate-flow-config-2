@@ -60,7 +60,7 @@ const LINE_TARGETS = [
 ];
 
 export default function SalesPresentation() {
-  useIdleRedirect(60000, "/");
+  useIdleRedirect(60000, "/sales");
   const [editMode, setEditMode] = useState(false);
   const [labels, setLabels] = useState(
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
@@ -124,14 +124,20 @@ export default function SalesPresentation() {
         }} />
       
 
-      {/* Energy Configurator button bottom right — bigger */}
-      <Link
-        to="/configurator"
-        className="absolute bottom-8 right-8 z-20 px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
-        style={{ background: "#F58220" }}>
-        
-        <span className="flex items-center gap-2">Energy Configurator <ArrowRight className="w-6 h-6" /></span>
-      </Link>
+      {/* Bottom left: tagline + EMS button */}
+      <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-4">
+        <div className="text-white font-black leading-tight drop-shadow-lg" style={{ fontSize: "2.5rem", lineHeight: 1.1 }}>
+          Touch me and get to know<br />
+          <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
+          Energy Solutions!
+        </div>
+        <Link
+          to="/configurator"
+          className="px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
+          style={{ background: "#F58220" }}>
+          <span className="flex items-center gap-2">EMS ENERGOMATE scenarios <ArrowRight className="w-6 h-6" /></span>
+        </Link>
+      </div>
 
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
