@@ -137,7 +137,7 @@ export default function SalesPresentation() {
 
       {/* Bottom left: tagline + EMS button */}
       <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-10">
-        <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "1.4rem", lineHeight: 1.2 }}>
+        <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "1.9rem", lineHeight: 1.2 }}>
           Touch me and get to know<br />
           <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
           Energy Solutions!
