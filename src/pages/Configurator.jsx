@@ -42,15 +42,17 @@ export default function Configurator() {
         style={{ backgroundImage: `url(${BG_URL})` }} />
       
 
-      {/* Right panel */}
-      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center p-6 gap-5" style={{ width: "260px", background: "rgba(240,240,240,0.82)", backdropFilter: "blur(8px)" }}>
-        {/* Logo */}
-        <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain mt-2 mb-2" />
+      {/* Logo top-left */}
+      <div className="absolute left-6 top-6 z-10">
+        <img src={LOGO_URL} alt="Photomate" className="h-12 object-contain" />
+      </div>
 
+      {/* Right panel — no background */}
+      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center justify-center p-6 gap-5" style={{ width: "260px" }}>
         {/* Parameters */}
         {PARAMETERS.map((p) =>
           <div key={p.key} className="flex flex-col items-center gap-1 w-full">
-            <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider text-center whitespace-pre-line">
+            <span className="text-xs font-semibold text-white uppercase tracking-wider text-center whitespace-pre-line drop-shadow">
               {p.label}
             </span>
             <ParameterToggle
