@@ -63,7 +63,7 @@ export default function Configurator() {
             </div>
           )}
           <div className="h-16 w-px bg-white/30" />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 self-end">
             <Button
               onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
               className="h-12 px-7 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
