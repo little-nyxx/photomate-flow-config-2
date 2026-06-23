@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Trash2, Loader2, Plus, Upload, X } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 
-export default function ModalPagesEditor({ circleId }) {
+export default function ModalPagesEditor({ circleId, editLang }) {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -13,7 +13,7 @@ export default function ModalPagesEditor({ circleId }) {
   const fileInputRef = useRef(null);
 
   const loadPages = () => {
-    base44.entities.ModalPage.filter({ circle_id: circleId })
+    base44.entities.ModalPage.filter({ circle_id: circleId, language: editLang })
       .then((records) => {
         records.sort((a, b) => a.page_number - b.page_number);
         setPages(records);
@@ -24,7 +24,7 @@ export default function ModalPagesEditor({ circleId }) {
 
   useEffect(() => {
     loadPages();
-  }, [circleId]);
+  }, [circleId, editLang]);
 
   const handleAddPage = async (file) => {
     setUploading(true);
@@ -34,6 +34,7 @@ export default function ModalPagesEditor({ circleId }) {
         circle_id: circleId,
         page_number: pages.length,
         image_url: res.file_url,
+        language: editLang,
       });
       loadPages();
     } catch (e) {

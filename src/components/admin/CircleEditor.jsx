@@ -4,7 +4,7 @@ import { Upload, Save, Loader2 } from "lucide-react";
 import ModalPagesEditor from "@/components/admin/ModalPagesEditor";
 import { useLanguage } from "@/lib/LanguageContext";
 
-export default function CircleEditor() {
+export default function CircleEditor({ editLang }) {
   const [circles, setCircles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(null);
@@ -101,7 +101,7 @@ export default function CircleEditor() {
               </div>
             </div>
             )}
-            <ModalPagesEditor circleId={circle.circle_id} />
+            <ModalPagesEditor circleId={circle.circle_id} editLang={editLang} />
           </div>
         </div>
       ))}

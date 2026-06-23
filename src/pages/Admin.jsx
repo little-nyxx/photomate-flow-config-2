@@ -6,6 +6,7 @@ import BackgroundEditor from "@/components/admin/BackgroundEditor";
 import ConfiguratorEditor from "@/components/admin/ConfiguratorEditor";
 import { useLanguage } from "@/lib/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import EditLanguageSwitcher from "@/components/admin/EditLanguageSwitcher";
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "photomate,Admin,2026";
@@ -19,6 +20,7 @@ export default function Admin() {
   const [showPassword, setShowPassword] = useState(false);
   const [tab, setTab] = useState("circles");
   const { t } = useLanguage();
+  const [editLang, setEditLang] = useState("cs");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -92,9 +94,15 @@ export default function Admin() {
     <div className="min-h-screen bg-black text-white p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="w-8 h-8 text-primary" />
-            <h1 className="text-2xl md:text-3xl font-bold">Admin Panel</h1>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-white/60 text-sm font-medium whitespace-nowrap">Edit page:</span>
+              <EditLanguageSwitcher value={editLang} onChange={setEditLang} />
+            </div>
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="w-8 h-8 text-primary" />
+              <h1 className="text-2xl md:text-3xl font-bold">Admin Panel</h1>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
@@ -133,7 +141,7 @@ export default function Admin() {
             Configurator
           </button>
         </div>
-        {tab === "circles" ? <CircleEditor /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : <BackgroundEditor />}
+        {tab === "circles" ? <CircleEditor editLang={editLang} /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : <BackgroundEditor />}
       </div>
     </div>
   );

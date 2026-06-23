@@ -52,7 +52,7 @@ const LINE_TARGETS = [
 
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/sales");
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [editMode, setEditMode] = useState(false);
   const [bottomVisible, setBottomVisible] = useState(true);
   const bottomTimerRef = React.useRef(null);
@@ -108,7 +108,6 @@ export default function SalesPresentation() {
         });
         Object.keys(map).forEach((k) => {
           map[k].sort((a, b) => a.page_number - b.page_number);
-          map[k] = map[k].map((r) => r.image_url);
         });
         setModalPagesMap(map);
       })
@@ -121,6 +120,14 @@ export default function SalesPresentation() {
       return t(`circle_${circle.id}`);
     }
     return dbLabel;
+  };
+
+  const getModalPages = (circleId) => {
+    const all = modalPagesMap[circleId] || [];
+    const langPages = all.filter((r) => r.language === lang);
+    if (langPages.length > 0) return langPages.map((r) => r.image_url);
+    const fallback = all.filter((r) => !r.language || r.language === "cs");
+    return fallback.map((r) => r.image_url);
   };
 
   const [emsVideoDone, setEmsVideoDone] = useState(false);
@@ -262,7 +269,7 @@ export default function SalesPresentation() {
           key={`modal-${activeModal}`}
           circleId={activeModal}
           modalImageUrl={contentMap[activeModal]?.modal_image_url || getModalImageUrl(activeModal)}
-          pages={modalPagesMap[activeModal] || []}
+          pages={getModalPages(activeModal)}
           onClose={() => setActiveModal(null)} />
         }
       </AnimatePresence>
