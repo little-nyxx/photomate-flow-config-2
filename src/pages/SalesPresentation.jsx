@@ -81,11 +81,25 @@ export default function SalesPresentation() {
       })
       .catch(() => {});
   }, []);
+  useEffect(() => {
+    base44.entities.BackgroundConfig.list()
+      .then((records) => {
+        records.sort((a, b) => a.index - b.index);
+        if (records.length > 0) {
+          setBgImages(records.map((r) => r.bg_image_url));
+          setOverlayImages(records.map((r) => r.overlay_url));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const [emsVideoDone, setEmsVideoDone] = useState(false);
   const [bgIndex, setBgIndex] = useState(() => {
     const saved = localStorage.getItem("salesBgIndex");
     return saved !== null ? parseInt(saved, 10) : 0;
   });
+  const [bgImages, setBgImages] = useState(BG_IMAGES);
+  const [overlayImages, setOverlayImages] = useState(OVERLAY_IMAGES);
   const touchStartX = useRef(null);
   const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280);
 
@@ -95,8 +109,8 @@ export default function SalesPresentation() {
     return () => window.removeEventListener('resize', handler);
   }, []);
 
-  const prevBg = () => setBgIndex((i) => {const n = (i - 1 + BG_IMAGES.length) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
-  const nextBg = () => setBgIndex((i) => {const n = (i + 1) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
+  const prevBg = () => setBgIndex((i) => {const n = (i - 1 + bgImages.length) % bgImages.length;localStorage.setItem("salesBgIndex", n);return n;});
+  const nextBg = () => setBgIndex((i) => {const n = (i + 1) % bgImages.length;localStorage.setItem("salesBgIndex", n);return n;});
 
   const handleTouchStart = (e) => {touchStartX.current = e.touches[0].clientX;};
   const handleTouchEnd = (e) => {
@@ -118,7 +132,7 @@ export default function SalesPresentation() {
       <AnimatePresence mode="sync">
         <motion.img
           key={bgIndex}
-          src={BG_IMAGES[bgIndex]}
+          src={bgImages[bgIndex]}
           alt="background"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -132,7 +146,7 @@ export default function SalesPresentation() {
       {/* SVG overlay matching bg */}
       <SvgStretchOverlay
         key={`overlay-${bgIndex}`}
-        src={OVERLAY_IMAGES[bgIndex]}
+        src={overlayImages[bgIndex]}
         className="absolute inset-0 w-full h-full z-20 pointer-events-none" />
       
 

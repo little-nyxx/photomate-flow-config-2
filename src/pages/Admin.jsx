@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Lock, LogOut, ShieldCheck } from "lucide-react";
 import CircleEditor from "@/components/admin/CircleEditor";
 import VideoEditor from "@/components/admin/VideoEditor";
+import BackgroundEditor from "@/components/admin/BackgroundEditor";
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "photomate,Admin,2026";
@@ -102,8 +103,14 @@ export default function Admin() {
           >
             Videa
           </button>
+          <button
+            onClick={() => setTab("backgrounds")}
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "backgrounds" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
+          >
+            Pozadí a Packy
+          </button>
         </div>
-        {tab === "circles" ? <CircleEditor /> : <VideoEditor />}
+        {tab === "circles" ? <CircleEditor /> : tab === "videos" ? <VideoEditor /> : <BackgroundEditor />}
       </div>
     </div>
   );
