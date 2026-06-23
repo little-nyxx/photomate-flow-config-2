@@ -116,8 +116,8 @@ export default function Configurator() {
       </Link>
 
       {/* Language switcher */}
-      <div className="absolute bottom-4 left-4 z-30">
-        <LanguageSwitcher dropUp dropLeft />
+      <div className="absolute top-6 right-16 sm:top-auto sm:bottom-16 sm:right-20 z-30">
+        <LanguageSwitcher dropUp showAll />
       </div>
 
       {/* Video Player overlay */}
