@@ -7,7 +7,11 @@ const BUTTONS = [
   { id: "ems_button", label: "EMS Button", page: "sales" },
   { id: "back", label: "Back Button", page: "configurator" },
   { id: "run_simulation", label: "Run Simulation", page: "configurator" },
-  { id: "reset", label: "Reset", page: "configurator" }
+  { id: "reset", label: "Reset", page: "configurator" },
+  { id: "param_spot", label: "Parameter: Spot", page: "configurator" },
+  { id: "param_vyroba", label: "Parameter: Výroba", page: "configurator" },
+  { id: "param_spotreba", label: "Parameter: Spotřeba", page: "configurator" },
+  { id: "param_teplota", label: "Parameter: Teplota", page: "configurator" }
 ];
 
 export default function ButtonLabelsEditor({ editLang }) {
