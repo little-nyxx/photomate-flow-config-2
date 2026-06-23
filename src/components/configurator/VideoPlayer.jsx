@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import { getVideoUrl, IMAGES } from "@/lib/assets";
 
-export default function VideoPlayer({ code, isPlaying, playTrigger, onClose, videoSrc }) {
+export default function VideoPlayer({ code, isPlaying, playTrigger, onClose, videoSrc, bgUrl }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose, vid
       {/* Fallback background image while loading — above video elements */}
       {loading && !error && (
         <img
-          src={IMAGES.factory}
+          src={bgUrl || IMAGES.factory}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 1 }}
           alt=""

@@ -118,6 +118,7 @@ export default function Configurator() {
         isPlaying={isPlaying}
         playTrigger={playTrigger}
         videoSrc={videoMap[code] || getVideoUrl(code)}
+        bgUrl={bgUrl}
         onClose={() => setIsPlaying(false)} />
       
     </div>);
