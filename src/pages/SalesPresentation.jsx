@@ -333,12 +333,12 @@ function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
           <>
             <button
               onClick={prev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
+              className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
               <ChevronLeft className="w-7 h-7" />
             </button>
             <button
               onClick={next}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
+              className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
               <ChevronRight className="w-7 h-7" />
             </button>
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
