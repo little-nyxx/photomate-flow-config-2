@@ -116,7 +116,7 @@ export default function Configurator() {
       </Link>
 
       {/* Language switcher */}
-      <div className="absolute bottom-4 right-4 z-30">
+      <div className="absolute bottom-4 left-4 z-30">
         <LanguageSwitcher />
       </div>
 
