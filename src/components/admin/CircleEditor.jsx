@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Upload, Save, Loader2 } from "lucide-react";
 import ModalPagesEditor from "@/components/admin/ModalPagesEditor";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function CircleEditor() {
   const [circles, setCircles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(null);
   const [uploading, setUploading] = useState(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     base44.entities.CircleConfig.list()
@@ -53,7 +55,7 @@ export default function CircleEditor() {
     }
   };
 
-  if (loading) return <div className="text-white/50">Načítání...</div>;
+  if (loading) return <div className="text-white/50">{t('admin_loading')}</div>;
 
   return (
     <div className="space-y-4">
@@ -66,7 +68,7 @@ export default function CircleEditor() {
               value={circle.label || ""}
               onChange={(e) => handleLabelChange(circle.id, e.target.value)}
               className="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/15 text-white focus:outline-none focus:border-primary"
-              placeholder="Název"
+              placeholder={t('admin_label_placeholder')}
             />
             <button
               onClick={() => handleSave(circle)}
@@ -74,13 +76,13 @@ export default function CircleEditor() {
               className="px-4 py-2 rounded-lg bg-primary text-white font-semibold flex items-center gap-2 hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
             >
               {saving === circle.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-              Uložit
+              {t('admin_save')}
             </button>
           </div>
           <div className="flex flex-col gap-4">
             {circle.circle_id !== 0 && (
             <div>
-              <p className="text-sm text-white/50 mb-2">Obrázek v kolečku</p>
+              <p className="text-sm text-white/50 mb-2">{t('admin_circle_image')}</p>
               <div className="flex items-center gap-3">
                 {circle.circle_image_url ? (
                   <img src={circle.circle_image_url} alt="" className="w-16 h-16 object-contain bg-white/10 rounded-lg p-1" />
@@ -89,7 +91,7 @@ export default function CircleEditor() {
                 )}
                 <label className="cursor-pointer px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm flex items-center gap-2">
                   {uploading === `${circle.id}-circle_image_url` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                  Nahrát
+                  {t('admin_upload')}
                   <input
                     type="file"
                     className="hidden"

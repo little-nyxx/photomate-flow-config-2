@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Upload, Loader2 } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function VideoEditor() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     base44.entities.VideoConfig.list()
@@ -31,7 +33,7 @@ export default function VideoEditor() {
     }
   };
 
-  if (loading) return <div className="text-white/50">Načítání...</div>;
+  if (loading) return <div className="text-white/50">{t('admin_loading')}</div>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -41,11 +43,11 @@ export default function VideoEditor() {
           {video.video_url ? (
             <video src={video.video_url} className="w-full h-24 object-cover rounded-lg mb-2" muted />
           ) : (
-            <div className="w-full h-24 bg-white/10 rounded-lg flex items-center justify-center text-white/30 text-sm mb-2">Bez videa</div>
+            <div className="w-full h-24 bg-white/10 rounded-lg flex items-center justify-center text-white/30 text-sm mb-2">{t('admin_no_video')}</div>
           )}
           <label className="cursor-pointer w-full px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm flex items-center justify-center gap-2">
             {uploading === video.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-            Nahrát video
+            {t('admin_upload_video')}
             <input
               type="file"
               accept="video/*"

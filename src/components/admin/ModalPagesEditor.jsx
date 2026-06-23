@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Trash2, Loader2, Plus, Upload, X } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function ModalPagesEditor({ circleId }) {
   const [pages, setPages] = useState([]);
@@ -8,6 +9,7 @@ export default function ModalPagesEditor({ circleId }) {
   const [uploading, setUploading] = useState(false);
   const [selectedPage, setSelectedPage] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const { t } = useLanguage();
   const fileInputRef = useRef(null);
 
   const loadPages = () => {
@@ -71,10 +73,10 @@ export default function ModalPagesEditor({ circleId }) {
 
   return (
     <div>
-      <p className="text-sm text-white/50 mb-2">Stránky modalu ({pages.length})</p>
+      <p className="text-sm text-white/50 mb-2">{t('admin_modal_pages')} ({pages.length})</p>
       <div className="flex flex-wrap gap-2 items-center">
         {loading ? (
-          <div className="text-white/30 text-sm">Načítání...</div>
+          <div className="text-white/30 text-sm">{t('admin_loading')}</div>
         ) : (
           <>
             {pages.map((page, idx) => (
@@ -112,7 +114,7 @@ export default function ModalPagesEditor({ circleId }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="text-white font-semibold">Stránka modalu</p>
+              <p className="text-white font-semibold">{t('admin_modal_page')}</p>
               <button
                 onClick={() => !actionLoading && setSelectedPage(null)}
                 className="text-white/50 hover:text-white"
@@ -124,7 +126,7 @@ export default function ModalPagesEditor({ circleId }) {
             <div className="flex gap-3">
               <label className="flex-1 cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
                 {actionLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
-                Nahrát
+                {t('admin_upload')}
                 <input
                   type="file"
                   accept="image/*"
@@ -138,7 +140,7 @@ export default function ModalPagesEditor({ circleId }) {
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-500/90 text-white font-semibold hover:bg-red-500 transition-colors disabled:opacity-50"
               >
                 {actionLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Trash2 className="w-5 h-5" />}
-                Smazat
+                {t('admin_delete')}
               </button>
             </div>
           </div>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Upload, Loader2 } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function BackgroundEditor() {
   const [bgs, setBgs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     base44.entities.BackgroundConfig.list()
@@ -32,16 +34,16 @@ export default function BackgroundEditor() {
     }
   };
 
-  if (loading) return <div className="text-white/50">Načítání...</div>;
+  if (loading) return <div className="text-white/50">{t('admin_loading')}</div>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {bgs.map((bg) => (
         <div key={bg.id} className="bg-white/5 border border-white/10 rounded-xl p-4">
-          <p className="text-primary font-bold text-lg mb-3">Pozadí #{bg.index + 1}</p>
+          <p className="text-primary font-bold text-lg mb-3">{t('admin_bg_label')} #{bg.index + 1}</p>
           <div className="space-y-4">
             <div>
-              <p className="text-sm text-white/50 mb-2">Pozadí sales</p>
+              <p className="text-sm text-white/50 mb-2">{t('admin_bg_sales')}</p>
               <div className="flex items-center gap-3">
                 {bg.bg_image_url ? (
                   <img src={bg.bg_image_url} alt="" className="w-24 h-16 object-cover rounded-lg" />
@@ -50,7 +52,7 @@ export default function BackgroundEditor() {
                 )}
                 <label className="cursor-pointer px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm flex items-center gap-2">
                   {uploading === `${bg.id}-bg_image_url` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                  Nahrát
+                  {t('admin_upload')}
                   <input
                     type="file"
                     accept="image/*"
@@ -61,7 +63,7 @@ export default function BackgroundEditor() {
               </div>
             </div>
             <div>
-              <p className="text-sm text-white/50 mb-2">Packy (SVG overlay)</p>
+              <p className="text-sm text-white/50 mb-2">{t('admin_bg_overlay')}</p>
               <div className="flex items-center gap-3">
                 {bg.overlay_url ? (
                   <img src={bg.overlay_url} alt="" className="w-24 h-16 object-contain bg-white/10 rounded-lg p-1" />
@@ -70,7 +72,7 @@ export default function BackgroundEditor() {
                 )}
                 <label className="cursor-pointer px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm flex items-center gap-2">
                   {uploading === `${bg.id}-overlay_url` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                  Nahrát
+                  {t('admin_upload')}
                   <input
                     type="file"
                     accept="image/svg+xml,image/*"

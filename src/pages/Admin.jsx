@@ -4,6 +4,8 @@ import CircleEditor from "@/components/admin/CircleEditor";
 import VideoEditor from "@/components/admin/VideoEditor";
 import BackgroundEditor from "@/components/admin/BackgroundEditor";
 import ConfiguratorEditor from "@/components/admin/ConfiguratorEditor";
+import { useLanguage } from "@/lib/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "photomate,Admin,2026";
@@ -16,6 +18,7 @@ export default function Admin() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [tab, setTab] = useState("circles");
+  const { t } = useLanguage();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ export default function Admin() {
       setAuthed(true);
       setError("");
     } else {
-      setError("Nesprávné uživatelské jméno nebo heslo");
+      setError(t('admin_login_error'));
     }
   };
 
@@ -49,7 +52,7 @@ export default function Admin() {
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <input
               type="text"
-              placeholder="Uživatelské jméno"
+              placeholder={t('admin_username')}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-primary"
@@ -58,7 +61,7 @@ export default function Admin() {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Heslo"
+                placeholder={t('admin_password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 pr-12 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-primary"
@@ -77,7 +80,7 @@ export default function Admin() {
               type="submit"
               className="w-full py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 transition-opacity"
             >
-              Přihlásit
+              {t('admin_login_btn')}
             </button>
           </form>
         </div>
@@ -93,32 +96,35 @@ export default function Admin() {
             <ShieldCheck className="w-8 h-8 text-primary" />
             <h1 className="text-2xl md:text-3xl font-bold">Admin Panel</h1>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
-          >
-            <LogOut className="w-5 h-5" />
-            Odhlásit
-          </button>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              {t('admin_logout')}
+            </button>
+          </div>
         </div>
         <div className="flex gap-2 mb-6">
           <button
             onClick={() => setTab("circles")}
             className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "circles" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
           >
-            Kolečka a Modaly
+            {t('admin_tab_circles')}
           </button>
           <button
             onClick={() => setTab("videos")}
             className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "videos" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
           >
-            Videa
+            {t('admin_tab_videos')}
           </button>
           <button
             onClick={() => setTab("backgrounds")}
             className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "backgrounds" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
           >
-            Pozadí a Packy
+            {t('admin_tab_backgrounds')}
           </button>
           <button
             onClick={() => setTab("configurator")}
