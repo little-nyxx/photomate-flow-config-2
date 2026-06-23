@@ -104,12 +104,10 @@ export default function SalesPresentation() {
       
 
       {/* SVG overlay matching bg */}
-      <img
+      <div
         key={`overlay-${bgIndex}`}
-        src={OVERLAY_IMAGES[bgIndex]}
-        alt=""
         className="absolute inset-0 w-full h-full z-20 pointer-events-none"
-        style={{ objectFit: "fill" }} />
+        style={{ backgroundImage: `url(${OVERLAY_IMAGES[bgIndex]})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }} />
       
 
       {/* Gradient overlay under circles — bottom of top 25% */}
