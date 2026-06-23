@@ -1,0 +1,16 @@
+{
+  "name": "VideoConfig",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "video_url"
+  ]
+}

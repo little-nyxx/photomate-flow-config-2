@@ -6,6 +6,7 @@ import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 import SvgStretchOverlay from "@/components/SvgStretchOverlay";
 import { IMAGES, SVGS, getCircleSvgUrl, getModalImageUrl } from "@/lib/assets";
+import { base44 } from "@/api/base44Client";
 
 const BG_IMAGES = [IMAGES.sales_bg, IMAGES.sales_bg_2];
 const OVERLAY_IMAGES = [SVGS.packy_1, SVGS.packy_2];
@@ -64,6 +65,22 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
+  const [contentMap, setContentMap] = useState({});
+
+  useEffect(() => {
+    base44.entities.CircleConfig.list()
+      .then((records) => {
+        const map = {};
+        records.forEach((r) => { map[r.circle_id] = r; });
+        setContentMap(map);
+        setLabels((prev) => {
+          const updated = { ...prev };
+          records.forEach((r) => { if (r.label) updated[r.circle_id] = r.label; });
+          return updated;
+        });
+      })
+      .catch(() => {});
+  }, []);
   const [emsVideoDone, setEmsVideoDone] = useState(false);
   const [bgIndex, setBgIndex] = useState(() => {
     const saved = localStorage.getItem("salesBgIndex");
@@ -165,6 +182,7 @@ export default function SalesPresentation() {
           <CircleButton
             circle={circle}
             label={labels[circle.id]}
+            circleImageUrl={contentMap[circle.id]?.circle_image_url || getCircleSvgUrl(circle.id)}
             editMode={editMode}
             onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
             onClick={() => !editMode && setActiveModal(circle.id)} />
@@ -194,6 +212,7 @@ export default function SalesPresentation() {
         <ModalOverlay
           key={`modal-${activeModal}`}
           circleId={activeModal}
+          modalImageUrl={contentMap[activeModal]?.modal_image_url || getModalImageUrl(activeModal)}
           onClose={() => setActiveModal(null)} />
         }
       </AnimatePresence>
@@ -201,7 +220,7 @@ export default function SalesPresentation() {
 
 }
 
-function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
+function CircleButton({ circle, label, circleImageUrl, editMode, onLabelChange, onClick }) {
   return (
     <div className="flex flex-col items-center gap-2 flex-shrink-0">
       {/* Circle — bigger */}
@@ -212,7 +231,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         tabIndex={editMode ? -1 : 0}>
         
         <img
-          src={getCircleSvgUrl(circle.id)}
+          src={circleImageUrl}
           alt={label}
           className="w-14 h-14 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
@@ -236,7 +255,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
 
 }
 
-function ModalOverlay({ circleId, onClose }) {
+function ModalOverlay({ circleId, modalImageUrl, onClose }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -259,7 +278,7 @@ function ModalOverlay({ circleId, onClose }) {
           <X className="w-4 h-4 md:w-5 md:h-5 xl:w-7 xl:h-7 text-foreground" />
         </button>
         <img
-          src={getModalImageUrl(circleId)}
+          src={modalImageUrl}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {

@@ -1,0 +1,22 @@
+{
+  "name": "CircleConfig",
+  "type": "object",
+  "properties": {
+    "circle_id": {
+      "type": "number"
+    },
+    "label": {
+      "type": "string"
+    },
+    "circle_image_url": {
+      "type": "string"
+    },
+    "modal_image_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "circle_id",
+    "label"
+  ]
+}

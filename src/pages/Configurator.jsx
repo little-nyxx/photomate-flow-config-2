@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import { motion } from "framer-motion";
 import { Play, RotateCcw, ArrowLeft } from "lucide-react";
@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
-import { IMAGES, SVGS } from "@/lib/assets";
+import { IMAGES, SVGS, getVideoUrl } from "@/lib/assets";
+import { base44 } from "@/api/base44Client";
 
 const LOGO_URL = SVGS.logo_3;
 const BG_URL = IMAGES.factory;
@@ -21,6 +22,17 @@ const PARAMETERS = [
 export default function Configurator() {
   useIdleRedirect(60000, "/");
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
+  const [videoMap, setVideoMap] = useState({});
+
+  useEffect(() => {
+    base44.entities.VideoConfig.list()
+      .then((records) => {
+        const map = {};
+        records.forEach((r) => { map[r.code] = r.video_url; });
+        setVideoMap(map);
+      })
+      .catch(() => {});
+  }, []);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playTrigger, setPlayTrigger] = useState(0);
 
@@ -99,6 +111,7 @@ export default function Configurator() {
         code={code}
         isPlaying={isPlaying}
         playTrigger={playTrigger}
+        videoSrc={videoMap[code] || getVideoUrl(code)}
         onClose={() => setIsPlaying(false)} />
       
     </div>);

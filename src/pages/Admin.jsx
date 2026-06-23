@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Lock, LogOut, ShieldCheck } from "lucide-react";
+import CircleEditor from "@/components/admin/CircleEditor";
+import VideoEditor from "@/components/admin/VideoEditor";
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "photomate,Admin,2026";
@@ -10,6 +12,7 @@ export default function Admin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [tab, setTab] = useState("circles");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -60,7 +63,8 @@ export default function Admin() {
             {error && <p className="text-red-400 text-sm text-center">{error}</p>}
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 transition-opacity">
+              className="w-full py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 transition-opacity"
+            >
               Přihlásit
             </button>
           </form>
@@ -70,24 +74,36 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-black text-white p-6 md:p-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <ShieldCheck className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold">Admin Panel</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Admin Panel</h1>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors">
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+          >
             <LogOut className="w-5 h-5" />
             Odhlásit
           </button>
         </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold mb-4">Vítejte v administraci</h2>
-          <p className="text-white/60">Zde bude obsah admin panelu.</p>
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setTab("circles")}
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "circles" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
+          >
+            Kolečka a Modaly
+          </button>
+          <button
+            onClick={() => setTab("videos")}
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "videos" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
+          >
+            Videa
+          </button>
         </div>
+        {tab === "circles" ? <CircleEditor /> : <VideoEditor />}
       </div>
     </div>
   );

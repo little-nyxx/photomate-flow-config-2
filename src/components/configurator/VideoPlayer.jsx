@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import { getVideoUrl, IMAGES } from "@/lib/assets";
 
-export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
+export default function VideoPlayer({ code, isPlaying, playTrigger, onClose, videoSrc }) {
   const videoRef = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activeSrc, setActiveSrc] = useState(null);
   const [prevSrc, setPrevSrc] = useState(null);
 
-  const videoSrc = getVideoUrl(code);
+  const resolvedSrc = videoSrc || getVideoUrl(code);
 
   // When Run simulation is clicked (or re-clicked), reset state and play
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
       setError(false);
       setLoading(true);
       setPrevSrc(activeSrc);
-      setActiveSrc(videoSrc);
+      setActiveSrc(resolvedSrc);
     }
   }, [isPlaying, playTrigger]);
 
