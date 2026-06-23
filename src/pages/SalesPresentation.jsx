@@ -122,7 +122,7 @@ export default function SalesPresentation() {
       
 
       {/* Bottom left: tagline + EMS button */}
-      <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-10">
+      <div className="absolute bottom-24 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-auto z-20 flex flex-col items-center sm:items-start gap-4 sm:gap-10">
         <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "clamp(1.1rem, 4vw, 1.9rem)", lineHeight: 1.2 }}>
           Touch me and get to know<br />
           <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
@@ -138,7 +138,7 @@ export default function SalesPresentation() {
 
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
+        <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-4 py-2 sm:px-8 sm:py-3 shadow-xl hover:scale-105 transition-all">
           <img src={LOGO_URL} alt="Logo" className="h-10 sm:h-12 md:h-14 object-contain" />
         </button>
       </div>
@@ -147,7 +147,7 @@ export default function SalesPresentation() {
 
       {/* Circles */}
       <div
-        className="absolute left-0 right-0 z-20 flex justify-around items-start px-4 flex-nowrap"
+        className="absolute left-0 right-0 z-20 flex justify-start sm:justify-around items-start gap-2 sm:gap-0 px-2 sm:px-4 flex-nowrap overflow-x-auto sm:overflow-visible scrollbar-hide"
         style={{ top: "2%" }}>
         
         {(bgIndex === 1 ? INITIAL_CIRCLES_BG2 : INITIAL_CIRCLES).map((circle) =>
@@ -193,18 +193,18 @@ export default function SalesPresentation() {
 
 function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-2 flex-shrink-0">
       {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
+        className="w-11 h-11 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}>
         
         <img
           src={getCircleSvgUrl(circle.id)}
           alt={label}
-          className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"
+          className="w-7 h-7 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
         
       </button>
@@ -218,7 +218,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         className="text-center text-xs font-semibold text-white bg-black/50 border border-white/40 rounded-lg px-2 py-1 resize-none w-28 focus:outline-none focus:border-orange-400" /> :
 
 
-      <span className="font-semibold text-white drop-shadow-lg max-w-[5rem] sm:max-w-[7rem] leading-tight text-[10px] sm:text-xs text-center" style={{ whiteSpace: "pre-line", marginTop: "10px" }}>
+      <span className="font-semibold text-white drop-shadow-lg max-w-[3rem] sm:max-w-[7rem] leading-tight text-[9px] sm:text-xs text-center" style={{ whiteSpace: "pre-line", marginTop: "10px" }}>
         {label}
       </span>
       }
@@ -239,14 +239,14 @@ function ModalOverlay({ circleId, onClose }) {
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
-        className="relative max-w-6xl w-full mx-4"
+        className="relative max-w-6xl w-full mx-2 sm:mx-4"
         onClick={(e) => e.stopPropagation()}>
         
         <button
           onClick={onClose}
-          className="absolute -top-8 -right-8 z-10 w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+          className="absolute top-2 right-2 sm:-top-8 sm:-right-8 z-10 w-10 h-10 sm:w-20 sm:h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
           aria-label="Close">
-          <X className="w-12 h-12 text-foreground" />
+          <X className="w-5 h-5 sm:w-12 sm:h-12 text-foreground" />
         </button>
         <img
           src={getModalImageUrl(circleId)}
