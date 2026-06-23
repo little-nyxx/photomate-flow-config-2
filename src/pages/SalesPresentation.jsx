@@ -126,7 +126,7 @@ export default function SalesPresentation() {
     const all = modalPagesMap[circleId] || [];
     const langPages = all.filter((r) => r.language === lang);
     if (langPages.length > 0) return langPages.map((r) => r.image_url);
-    const fallback = all.filter((r) => !r.language || r.language === "cs");
+    const fallback = all.filter((r) => !r.language || r.language === "en");
     return fallback.map((r) => r.image_url);
   };
 
