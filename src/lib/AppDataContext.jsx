@@ -13,6 +13,22 @@ export function AppDataProvider({ children }) {
   const [configuratorBgUrl, setConfiguratorBgUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const preloadImages = (urls) => {
+    return Promise.all(
+      urls
+        .filter((url) => url && typeof url === "string")
+        .map(
+          (url) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = resolve;
+              img.onerror = resolve;
+              img.src = url;
+            })
+        )
+    );
+  };
+
   useEffect(() => {
     const loadAllData = async () => {
       try {
@@ -40,8 +56,10 @@ export function AppDataProvider({ children }) {
         // Load BackgroundConfig
         const backgrounds = await base44.entities.BackgroundConfig.list();
         backgrounds.sort((a, b) => a.index - b.index);
-        setBgImages(backgrounds.map((r) => r.bg_image_url));
-        setOverlayImages(backgrounds.map((r) => r.overlay_url));
+        const bgUrls = backgrounds.map((r) => r.bg_image_url);
+        const overlayUrls = backgrounds.map((r) => r.overlay_url);
+        setBgImages(bgUrls);
+        setOverlayImages(overlayUrls);
 
         // Load ModalPage
         const modalPages = await base44.entities.ModalPage.list();
@@ -57,9 +75,23 @@ export function AppDataProvider({ children }) {
 
         // Load ConfiguratorConfig
         const configurator = await base44.entities.ConfiguratorConfig.list();
+        let configBgUrl = "";
         if (configurator[0]?.bg_image_url) {
-          setConfiguratorBgUrl(configurator[0].bg_image_url);
+          configBgUrl = configurator[0].bg_image_url;
+          setConfiguratorBgUrl(configBgUrl);
         }
+
+        // Preload all images
+        const allImageUrls = [
+          ...bgUrls,
+          ...overlayUrls,
+          ...Object.values(circleMap).map((c) => c.circle_image_url).filter(Boolean),
+          ...Object.values(circleMap).map((c) => c.modal_image_url).filter(Boolean),
+          ...Object.values(videoMap),
+          ...modalPages.map((p) => p.image_url),
+          configBgUrl
+        ];
+        await preloadImages(allImageUrls);
       } catch (error) {
         console.error("Error loading app data:", error);
       } finally {
