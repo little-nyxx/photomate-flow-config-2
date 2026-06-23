@@ -198,7 +198,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
       {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-16 h-16 sm:w-20 md:w-24 lg:w-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none"
+        className="w-16 h-16 sm:w-20 md:w-24 lg:w-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}>
         
