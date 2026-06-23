@@ -3,7 +3,7 @@ import { Globe, ChevronDown, Check } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { LANGUAGES } from "@/lib/translations";
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ dropUp = false }) {
   const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -30,7 +30,7 @@ export default function LanguageSwitcher() {
         <ChevronDown className="w-4 h-4" />
       </button>
       {open && (
-        <div className="absolute top-full right-0 mt-2 w-44 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-1 z-50">
+        <div className={`absolute ${dropUp ? "bottom-full" : "top-full"} right-0 ${dropUp ? "mb-2" : "mt-2"} w-44 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-1 z-50`}>
           {LANGUAGES.map((l) => (
             <button
               key={l.code}
