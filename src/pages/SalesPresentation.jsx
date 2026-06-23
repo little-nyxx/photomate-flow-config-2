@@ -12,26 +12,26 @@ const OVERLAY_IMAGES = [SVGS.packy_1, SVGS.packy_2];
 const LOGO_URL = SVGS.logo_3;
 
 const INITIAL_CIRCLES = [
-{ id: 1, label: "Inverters", x: 7.5, y: 8 },
-{ id: 2, label: "PV Constructions", x: 18.5, y: 8 },
-{ id: 3, label: "Heat Pumps", x: 29.5, y: 8 },
-{ id: 4, label: "AC/DC EV Chargers", x: 40.5, y: 8 },
-{ id: 5, label: "Energy\u000AManagement System", x: 51.5, y: 8 },
-{ id: 6, label: "Battery Energy Storage System", x: 62.5, y: 8 },
-{ id: 7, label: "Energy Analysis Services", x: 73.5, y: 8 },
-{ id: 8, label: "RFG Compliance", x: 84.5, y: 8 },
-{ id: 9, label: "Service & Support", x: 93.5, y: 8 }];
+{ id: 1, label: "Inverters", x: 6.6, y: 8 },
+{ id: 2, label: "PV Constructions", x: 17.5, y: 8 },
+{ id: 3, label: "Heat Pumps", x: 28.3, y: 8 },
+{ id: 4, label: "AC/DC EV Chargers", x: 39.2, y: 8 },
+{ id: 5, label: "Energy\u000AManagement System", x: 50.0, y: 8 },
+{ id: 6, label: "Battery Energy Storage System", x: 60.9, y: 8 },
+{ id: 7, label: "Energy Analysis Services", x: 71.7, y: 8 },
+{ id: 8, label: "RFG Compliance", x: 82.6, y: 8 },
+{ id: 9, label: "Service & Support", x: 93.4, y: 8 }];
 
 const INITIAL_CIRCLES_BG2 = [
-{ id: 1, label: "Inverters", x: 7.5, y: 8 },
-{ id: 2, label: "PV Constructions", x: 18.5, y: 8 },
-{ id: 3, label: "Heat Pumps", x: 29.5, y: 8 },
-{ id: 5, label: "Energy\u000AManagement System", x: 40.5, y: 8 },
-{ id: 4, label: "AC/DC EV Chargers", x: 51.5, y: 8 },
-{ id: 6, label: "Battery Energy Storage System", x: 62.5, y: 8 },
-{ id: 7, label: "Energy Analysis Services", x: 73.5, y: 8 },
-{ id: 8, label: "RFG Compliance", x: 84.5, y: 8 },
-{ id: 9, label: "Service & Support", x: 93.5, y: 8 }];
+{ id: 1, label: "Inverters", x: 6.6, y: 8 },
+{ id: 2, label: "PV Constructions", x: 17.5, y: 8 },
+{ id: 3, label: "Heat Pumps", x: 28.3, y: 8 },
+{ id: 5, label: "Energy\u000AManagement System", x: 39.2, y: 8 },
+{ id: 4, label: "AC/DC EV Chargers", x: 50.0, y: 8 },
+{ id: 6, label: "Battery Energy Storage System", x: 60.9, y: 8 },
+{ id: 7, label: "Energy Analysis Services", x: 71.7, y: 8 },
+{ id: 8, label: "RFG Compliance", x: 82.6, y: 8 },
+{ id: 9, label: "Service & Support", x: 93.4, y: 8 }];
 
 
 // Target points on the building for each line (in % of screen)
@@ -70,6 +70,13 @@ export default function SalesPresentation() {
     return saved !== null ? parseInt(saved, 10) : 0;
   });
   const touchStartX = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280);
+
+  useEffect(() => {
+    const handler = () => setIsDesktop(window.innerWidth >= 1280);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
 
   const prevBg = () => setBgIndex((i) => {const n = (i - 1 + BG_IMAGES.length) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
   const nextBg = () => setBgIndex((i) => {const n = (i + 1) % BG_IMAGES.length;localStorage.setItem("salesBgIndex", n);return n;});
@@ -148,13 +155,13 @@ export default function SalesPresentation() {
 
       {/* Circles */}
       <div
-        className="absolute left-0 right-0 z-20"
+        className={`absolute left-0 right-0 z-20 ${isDesktop ? "flex justify-around items-start px-4 flex-nowrap" : ""}`}
         style={{ top: "2%" }}>
         
         {(bgIndex === 1 ? INITIAL_CIRCLES_BG2 : INITIAL_CIRCLES).map((circle) =>
         <div
           key={circle.id}
-          style={{ position: "absolute", left: `${circle.x}%`, transform: "translateX(-50%)" }}>
+          style={isDesktop ? {} : { position: "absolute", left: `${circle.x}%`, transform: "translateX(-50%)" }}>
           <CircleButton
             circle={circle}
             label={labels[circle.id]}
