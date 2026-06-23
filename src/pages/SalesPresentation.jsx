@@ -347,15 +347,15 @@ function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
           <>
             <button
               onClick={prev}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
-              <ChevronLeft className="w-7 h-7" />
+              className="absolute -left-12 top-1/2 -translate-y-1/2 z-10 w-14 h-14 flex items-center justify-center text-white hover:scale-125 transition-all drop-shadow-lg">
+              <ChevronLeft className="w-10 h-10" />
             </button>
             <button
               onClick={next}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
-              <ChevronRight className="w-7 h-7" />
+              className="absolute -right-12 top-1/2 -translate-y-1/2 z-10 w-14 h-14 flex items-center justify-center text-white hover:scale-125 transition-all drop-shadow-lg">
+              <ChevronRight className="w-10 h-10" />
             </button>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
               {allPages.map((_, idx) => (
                 <div
                   key={idx}
