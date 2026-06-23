@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
+import SvgStretchOverlay from "@/components/SvgStretchOverlay";
 import { IMAGES, SVGS, getCircleSvgUrl, getModalImageUrl } from "@/lib/assets";
 
 const BG_IMAGES = [IMAGES.sales_bg, IMAGES.sales_bg_2];
@@ -104,10 +105,10 @@ export default function SalesPresentation() {
       
 
       {/* SVG overlay matching bg */}
-      <div
+      <SvgStretchOverlay
         key={`overlay-${bgIndex}`}
-        className="absolute inset-0 w-full h-full z-20 pointer-events-none"
-        style={{ backgroundImage: `url(${OVERLAY_IMAGES[bgIndex]})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }} />
+        src={OVERLAY_IMAGES[bgIndex]}
+        className="absolute inset-0 w-full h-full z-20 pointer-events-none" />
       
 
       {/* Gradient overlay under circles — bottom of top 25% */}
