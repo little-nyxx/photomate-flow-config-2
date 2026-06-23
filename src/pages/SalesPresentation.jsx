@@ -261,7 +261,7 @@ export default function SalesPresentation() {
 
       {/* Language switcher */}
       <div className="absolute bottom-8 right-8 z-30">
-        <LanguageSwitcher dropUp />
+        <LanguageSwitcher dropUp showAll />
       </div>
 
       {/* Modal */}

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Globe, ChevronDown, Check } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { LANGUAGES } from "@/lib/translations";
+import { LANGUAGES, ALL_LANGUAGES } from "@/lib/translations";
 
-export default function LanguageSwitcher({ dropUp = false, dropLeft = false }) {
+export default function LanguageSwitcher({ dropUp = false, dropLeft = false, showAll = false }) {
   const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -16,7 +16,8 @@ export default function LanguageSwitcher({ dropUp = false, dropLeft = false }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const current = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
+  const langList = showAll ? ALL_LANGUAGES : LANGUAGES;
+  const current = langList.find((l) => l.code === lang) || langList[0];
 
   return (
     <div ref={ref} className="relative">
@@ -31,7 +32,7 @@ export default function LanguageSwitcher({ dropUp = false, dropLeft = false }) {
       </button>
       {open && (
         <div className={`absolute ${dropUp ? "bottom-full" : "top-full"} ${dropLeft ? "left-0" : "right-0"} ${dropUp ? "mb-2" : "mt-2"} w-44 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-1 z-50`}>
-          {LANGUAGES.map((l) => (
+          {langList.map((l) => (
             <button
               key={l.code}
               onClick={() => { setLang(l.code); setOpen(false); }}
