@@ -23,10 +23,11 @@ const PARAMETERS = [
 
 export default function Configurator() {
   useIdleRedirect(60000, "/");
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
   const [videoMap, setVideoMap] = useState({});
   const [bgUrl, setBgUrl] = useState(DEFAULT_BG_URL);
+  const [buttonLabels, setButtonLabels] = useState({});
 
   useEffect(() => {
     base44.entities.VideoConfig.list()
@@ -41,7 +42,18 @@ export default function Configurator() {
         if (records[0]?.bg_image_url) setBgUrl(records[0].bg_image_url);
       })
       .catch(() => {});
-  }, []);
+    base44.entities.ButtonLabel.list()
+      .then((records) => {
+        const map = {};
+        records.forEach((r) => {
+          if (r.language === lang) {
+            map[r.button_id] = r.label;
+          }
+        });
+        setButtonLabels(map);
+      })
+      .catch(() => {});
+  }, [lang]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playTrigger, setPlayTrigger] = useState(0);
 
@@ -76,7 +88,7 @@ export default function Configurator() {
           {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center flex-shrink-0 sm:w-full" style={{ height: "90px" }}>
               <span className="text-xs font-semibold text-white sm:text-black uppercase tracking-wider text-center drop-shadow h-8 flex items-center justify-center whitespace-pre-line">
-                {t(p.labelKey)}
+                {buttonLabels[p.labelKey] || t(p.labelKey)}
               </span>
               <ParameterToggle
                 label=""
