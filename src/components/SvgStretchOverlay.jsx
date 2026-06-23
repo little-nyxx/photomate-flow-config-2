@@ -22,14 +22,10 @@ export default function SvgStretchOverlay({ src, className }) {
   }, [src]);
 
   return (
-    <div
+    <img
+      src={dataUri || src}
       className={className}
-      style={{
-        backgroundImage: dataUri ? `url("${dataUri}")` : `url(${src})`,
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-      }}
+      style={{ objectFit: "fill", width: "100%", height: "100%" }}
     />
   );
 }
