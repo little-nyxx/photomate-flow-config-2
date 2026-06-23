@@ -138,16 +138,16 @@ export default function SalesPresentation() {
         </div>
         <Link
           to="/configurator"
-          className="px-8 py-4 md:px-12 md:py-6 rounded-2xl text-lg md:text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
+          className="px-6 py-3 md:px-8 md:py-4 lg:px-12 lg:py-6 rounded-2xl text-base md:text-lg lg:text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
           style={{ background: "#F58220" }}>
-          <span className="flex items-center gap-2">EMS ENERGOMATE scenarios <ArrowRight className="w-6 h-6" /></span>
+          <span className="flex items-center gap-2">EMS ENERGOMATE scenarios <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" /></span>
         </Link>
       </div>
 
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
-          <img src={LOGO_URL} alt="Logo" className="h-12 md:h-14 object-contain" />
+        <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-6 py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 shadow-xl hover:scale-105 transition-all">
+          <img src={LOGO_URL} alt="Logo" className="h-10 md:h-12 lg:h-14 object-contain" />
         </button>
       </div>
 
