@@ -4,6 +4,7 @@ import CircleEditor from "@/components/admin/CircleEditor";
 import VideoEditor from "@/components/admin/VideoEditor";
 import BackgroundEditor from "@/components/admin/BackgroundEditor";
 import ConfiguratorEditor from "@/components/admin/ConfiguratorEditor";
+import ButtonLabelsEditor from "@/components/admin/ButtonLabelsEditor";
 import { useLanguage } from "@/lib/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import EditLanguageSwitcher from "@/components/admin/EditLanguageSwitcher";
@@ -140,8 +141,14 @@ export default function Admin() {
           >
             Configurator
           </button>
-        </div>
-        {tab === "circles" ? <CircleEditor editLang={editLang} /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : <BackgroundEditor />}
+          <button
+            onClick={() => setTab("buttons")}
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "buttons" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
+          >
+            {t('admin_tab_buttons') || 'Buttons'}
+          </button>
+          </div>
+          {tab === "circles" ? <CircleEditor editLang={editLang} /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : tab === "buttons" ? <ButtonLabelsEditor editLang={editLang} /> : <BackgroundEditor />}
       </div>
     </div>
   );

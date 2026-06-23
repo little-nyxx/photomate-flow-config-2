@@ -1,0 +1,20 @@
+{
+  "name": "ButtonLabel",
+  "type": "object",
+  "properties": {
+    "button_id": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "button_id",
+    "language",
+    "label"
+  ]
+}
