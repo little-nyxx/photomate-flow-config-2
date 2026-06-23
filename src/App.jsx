@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import Configurator from '@/pages/Configurator';
 import SalesPresentation from '@/pages/SalesPresentation';
+import Admin from '@/pages/Admin';
 
 const AuthenticatedApp = () => {
   return (
@@ -13,6 +14,7 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<SalesPresentation />} />
       <Route path="/sales" element={<SalesPresentation />} />
       <Route path="/configurator" element={<Configurator />} />
+      <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
