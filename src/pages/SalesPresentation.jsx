@@ -148,18 +148,20 @@ export default function SalesPresentation() {
 
       {/* Circles */}
       <div
-        className="absolute left-0 right-0 z-20 flex justify-around items-start px-4 flex-nowrap"
+        className="absolute left-0 right-0 z-20"
         style={{ top: "2%" }}>
         
         {(bgIndex === 1 ? INITIAL_CIRCLES_BG2 : INITIAL_CIRCLES).map((circle) =>
-        <CircleButton
+        <div
           key={circle.id}
-          circle={circle}
-          label={labels[circle.id]}
-          editMode={editMode}
-          onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
-          onClick={() => !editMode && setActiveModal(circle.id)} />
-
+          style={{ position: "absolute", left: `${circle.x}%`, transform: "translateX(-50%)" }}>
+          <CircleButton
+            circle={circle}
+            label={labels[circle.id]}
+            editMode={editMode}
+            onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
+            onClick={() => !editMode && setActiveModal(circle.id)} />
+        </div>
         )}
       </div>
 
