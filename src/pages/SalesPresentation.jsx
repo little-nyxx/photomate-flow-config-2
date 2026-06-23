@@ -6,8 +6,8 @@ import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
 import SvgStretchOverlay from "@/components/SvgStretchOverlay";
 import { IMAGES, SVGS, getCircleSvgUrl, getModalImageUrl } from "@/lib/assets";
-import { base44 } from "@/api/base44Client";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useAppData } from "@/lib/AppDataContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const BG_IMAGES = [IMAGES.sales_bg, IMAGES.sales_bg_2];
@@ -53,6 +53,7 @@ const LINE_TARGETS = [
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/sales");
   const { t, lang } = useLanguage();
+  const { circleConfigs, bgImages: contextBgImages, overlayImages: contextOverlayImages, modalPagesMap } = useAppData();
   const [editMode, setEditMode] = useState(false);
   const [bottomVisible, setBottomVisible] = useState(true);
   const bottomTimerRef = React.useRef(null);
@@ -68,54 +69,9 @@ export default function SalesPresentation() {
     Object.fromEntries(INITIAL_CIRCLES.map((c) => [c.id, c.label]))
   );
   const [activeModal, setActiveModal] = useState(null);
-  const [contentMap, setContentMap] = useState({});
-
-  useEffect(() => {
-    base44.entities.CircleConfig.list()
-      .then((records) => {
-        const map = {};
-        records.forEach((r) => { map[r.circle_id] = r; });
-        setContentMap(map);
-        setLabels((prev) => {
-          const updated = { ...prev };
-          records.forEach((r) => { if (r.label) updated[r.circle_id] = r.label; });
-          return updated;
-        });
-      })
-      .catch(() => {});
-  }, []);
-  useEffect(() => {
-    base44.entities.BackgroundConfig.list()
-      .then((records) => {
-        records.sort((a, b) => a.index - b.index);
-        if (records.length > 0) {
-          setBgImages(records.map((r) => r.bg_image_url));
-          setOverlayImages(records.map((r) => r.overlay_url));
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  const [modalPagesMap, setModalPagesMap] = useState({});
-
-  useEffect(() => {
-    base44.entities.ModalPage.list()
-      .then((records) => {
-        const map = {};
-        records.forEach((r) => {
-          if (!map[r.circle_id]) map[r.circle_id] = [];
-          map[r.circle_id].push(r);
-        });
-        Object.keys(map).forEach((k) => {
-          map[k].sort((a, b) => a.page_number - b.page_number);
-        });
-        setModalPagesMap(map);
-      })
-      .catch(() => {});
-  }, []);
 
   const getCircleLabel = (circle) => {
-    const dbLabel = contentMap[circle.id]?.label;
+    const dbLabel = circleConfigs[circle.id]?.label;
     if (!dbLabel || dbLabel === circle.label) {
       return t(`circle_${circle.id}`);
     }
@@ -137,8 +93,8 @@ export default function SalesPresentation() {
     const saved = localStorage.getItem("salesBgIndex");
     return saved !== null ? parseInt(saved, 10) : 0;
   });
-  const [bgImages, setBgImages] = useState(BG_IMAGES);
-  const [overlayImages, setOverlayImages] = useState(OVERLAY_IMAGES);
+  const bgImages = contextBgImages.length > 0 ? contextBgImages : BG_IMAGES;
+  const overlayImages = contextOverlayImages.length > 0 ? contextOverlayImages : OVERLAY_IMAGES;
   const touchStartX = useRef(null);
   const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280);
 
@@ -235,7 +191,7 @@ export default function SalesPresentation() {
           <CircleButton
             circle={circle}
             label={getCircleLabel(circle)}
-            circleImageUrl={contentMap[circle.id]?.circle_image_url || getCircleSvgUrl(circle.id)}
+            circleImageUrl={circleConfigs[circle.id]?.circle_image_url || getCircleSvgUrl(circle.id)}
             editMode={editMode}
             onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
             onClick={() => !editMode && setActiveModal(circle.id)} />
@@ -270,7 +226,7 @@ export default function SalesPresentation() {
         <ModalOverlay
           key={`modal-${activeModal}`}
           circleId={activeModal}
-          modalImageUrl={contentMap[activeModal]?.modal_image_url || getModalImageUrl(activeModal)}
+          modalImageUrl={circleConfigs[activeModal]?.modal_image_url || getModalImageUrl(activeModal)}
           pages={getModalPages(activeModal)}
           onClose={() => setActiveModal(null)} />
         }

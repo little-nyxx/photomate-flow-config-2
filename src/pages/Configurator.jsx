@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 import { IMAGES, SVGS, getVideoUrl } from "@/lib/assets";
-import { base44 } from "@/api/base44Client";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useAppData } from "@/lib/AppDataContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const LOGO_URL = SVGS.logo_3;
@@ -24,36 +24,15 @@ const PARAMETERS = [
 export default function Configurator() {
   useIdleRedirect(60000, "/");
   const { t, lang } = useLanguage();
+  const { videoMap, configuratorBgUrl, buttonLabels: appButtonLabels } = useAppData();
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
-  const [videoMap, setVideoMap] = useState({});
-  const [bgUrl, setBgUrl] = useState(DEFAULT_BG_URL);
   const [buttonLabels, setButtonLabels] = useState({});
 
   useEffect(() => {
-    base44.entities.VideoConfig.list()
-      .then((records) => {
-        const map = {};
-        records.forEach((r) => { map[r.code] = r.video_url; });
-        setVideoMap(map);
-      })
-      .catch(() => {});
-    base44.entities.ConfiguratorConfig.list()
-      .then((records) => {
-        if (records[0]?.bg_image_url) setBgUrl(records[0].bg_image_url);
-      })
-      .catch(() => {});
-    base44.entities.ButtonLabel.list()
-      .then((records) => {
-        const map = {};
-        records.forEach((r) => {
-          if (r.language === lang) {
-            map[r.button_id] = r.label;
-          }
-        });
-        setButtonLabels(map);
-      })
-      .catch(() => {});
-  }, [lang]);
+    if (appButtonLabels[lang]) {
+      setButtonLabels(appButtonLabels[lang]);
+    }
+  }, [lang, appButtonLabels]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playTrigger, setPlayTrigger] = useState(0);
 
@@ -73,7 +52,7 @@ export default function Configurator() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgUrl})` }} />
+        style={{ backgroundImage: `url(${configuratorBgUrl || DEFAULT_BG_URL})` }} />
       
 
       {/* Logo top-left */}
@@ -138,7 +117,7 @@ export default function Configurator() {
         isPlaying={isPlaying}
         playTrigger={playTrigger}
         videoSrc={videoMap[code] || getVideoUrl(code)}
-        bgUrl={bgUrl}
+        bgUrl={configuratorBgUrl || DEFAULT_BG_URL}
         onClose={() => setIsPlaying(false)} />
       
     </div>);
