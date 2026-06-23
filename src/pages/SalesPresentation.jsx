@@ -198,14 +198,14 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
       {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-24 h-24 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
+        className="w-24 h-24 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-32 xl:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}>
         
         <img
           src={getCircleSvgUrl(circle.id)}
           alt={label}
-          className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20 object-contain"
+          className="w-14 h-14 md:w-10 md:h-10 lg:w-14 lg:h-14 xl:w-20 xl:h-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
         
       </button>
@@ -240,14 +240,14 @@ function ModalOverlay({ circleId, onClose }) {
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
-        className="relative max-w-2xl lg:max-w-6xl w-full mx-2 sm:mx-4"
+        className="relative max-w-2xl lg:max-w-4xl xl:max-w-6xl w-full mx-2 sm:mx-4"
         onClick={(e) => e.stopPropagation()}>
         
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 sm:-top-8 sm:-right-8 z-10 w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+          className="absolute top-2 right-2 sm:-top-8 sm:-right-8 z-10 w-10 h-10 md:w-14 md:h-14 xl:w-20 xl:h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:scale-110 transition-all"
           aria-label="Close">
-          <X className="w-5 h-5 md:w-7 md:h-7 lg:w-12 lg:h-12 text-foreground" />
+          <X className="w-5 h-5 md:w-7 md:h-7 xl:w-12 xl:h-12 text-foreground" />
         </button>
         <img
           src={getModalImageUrl(circleId)}
