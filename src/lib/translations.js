@@ -1,16 +1,16 @@
 export const LANGUAGES = [
-  { code: "cs", label: "Česky" },
-  { code: "en", label: "English" },
-  { code: "uk", label: "Українська" },
-  { code: "ru", label: "Русский" },
-  { code: "pl", label: "Polski" },
-  { code: "hu", label: "Magyar" },
-  { code: "bg", label: "Български" },
-  { code: "ro", label: "Română" },
-  { code: "uz", label: "O'zbekcha" },
-  { code: "et", label: "Eesti" },
-  { code: "da", label: "Dansk" },
-  { code: "sv", label: "Svenska" },
+  { code: "cs", label: "Česky", flag: "🇨🇿" },
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "uk", label: "Українська", flag: "🇺🇦" },
+  { code: "ru", label: "Русский", flag: "🇷🇺" },
+  { code: "pl", label: "Polski", flag: "🇵🇱" },
+  { code: "hu", label: "Magyar", flag: "🇭🇺" },
+  { code: "bg", label: "Български", flag: "🇧🇬" },
+  { code: "ro", label: "Română", flag: "🇷🇴" },
+  { code: "uz", label: "O'zbekcha", flag: "🇺🇿" },
+  { code: "et", label: "Eesti", flag: "🇪🇪" },
+  { code: "da", label: "Dansk", flag: "🇩🇰" },
+  { code: "sv", label: "Svenska", flag: "🇸🇪" },
 ];
 
 export const translations = {
