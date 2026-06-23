@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Lock, LogOut, ShieldCheck } from "lucide-react";
+import { Lock, LogOut, ShieldCheck, Eye, EyeOff } from "lucide-react";
 import CircleEditor from "@/components/admin/CircleEditor";
 import VideoEditor from "@/components/admin/VideoEditor";
 import BackgroundEditor from "@/components/admin/BackgroundEditor";
@@ -14,6 +14,7 @@ export default function Admin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [tab, setTab] = useState("circles");
 
   const handleLogin = (e) => {
@@ -54,14 +55,23 @@ export default function Admin() {
               className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-primary"
               autoComplete="off"
             />
-            <input
-              type="password"
-              placeholder="Heslo"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-primary"
-              autoComplete="off"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Heslo"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 pr-12 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:border-primary"
+                autoComplete="off"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
             {error && <p className="text-red-400 text-sm text-center">{error}</p>}
             <button
               type="submit"
