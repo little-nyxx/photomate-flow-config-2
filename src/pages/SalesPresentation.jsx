@@ -126,8 +126,10 @@ export default function SalesPresentation() {
     const all = modalPagesMap[circleId] || [];
     const langPages = all.filter((r) => r.language === lang);
     if (langPages.length > 0) return langPages.map((r) => r.image_url);
-    const fallback = all.filter((r) => !r.language || r.language === "en");
-    return fallback.map((r) => r.image_url);
+    const enPages = all.filter((r) => r.language === "en");
+    if (enPages.length > 0) return enPages.map((r) => r.image_url);
+    const noLangPages = all.filter((r) => !r.language);
+    return noLangPages.map((r) => r.image_url);
   };
 
   const [emsVideoDone, setEmsVideoDone] = useState(false);
