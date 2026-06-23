@@ -333,16 +333,21 @@ function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
           <>
             <button
               onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
-              <ChevronLeft className="w-5 h-5" />
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
+              <ChevronLeft className="w-7 h-7" />
             </button>
             <button
               onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
-              <ChevronRight className="w-5 h-5" />
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-foreground hover:scale-110 transition-all">
+              <ChevronRight className="w-7 h-7" />
             </button>
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 bg-black/50 rounded-full px-3 py-1 text-white text-sm">
-              {currentPage + 1} / {allPages.length}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+              {allPages.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-2.5 rounded-full transition-all ${idx === currentPage ? "bg-primary w-6" : "bg-white/50 w-2.5"}`}
+                />
+              ))}
             </div>
           </>
         )}
