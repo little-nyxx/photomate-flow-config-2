@@ -77,6 +77,7 @@ export default function CircleEditor() {
             </button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {circle.circle_id !== 0 && (
             <div>
               <p className="text-sm text-white/50 mb-2">Obrázek v kolečku</p>
               <div className="flex items-center gap-3">
@@ -96,6 +97,7 @@ export default function CircleEditor() {
                 </label>
               </div>
             </div>
+            )}
             <div>
               <p className="text-sm text-white/50 mb-2">Obrázek modalu</p>
               <div className="flex items-center gap-3">
