@@ -10,7 +10,7 @@ import { IMAGES, SVGS, getVideoUrl } from "@/lib/assets";
 import { base44 } from "@/api/base44Client";
 
 const LOGO_URL = SVGS.logo_3;
-const BG_URL = IMAGES.factory;
+const DEFAULT_BG_URL = IMAGES.factory;
 
 const PARAMETERS = [
 { key: "spot", label: "Spot price", icon: "💰" },
@@ -23,6 +23,7 @@ export default function Configurator() {
   useIdleRedirect(60000, "/");
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
   const [videoMap, setVideoMap] = useState({});
+  const [bgUrl, setBgUrl] = useState(DEFAULT_BG_URL);
 
   useEffect(() => {
     base44.entities.VideoConfig.list()
@@ -30,6 +31,11 @@ export default function Configurator() {
         const map = {};
         records.forEach((r) => { map[r.code] = r.video_url; });
         setVideoMap(map);
+      })
+      .catch(() => {});
+    base44.entities.ConfiguratorConfig.list()
+      .then((records) => {
+        if (records[0]?.bg_image_url) setBgUrl(records[0].bg_image_url);
       })
       .catch(() => {});
   }, []);
@@ -52,7 +58,7 @@ export default function Configurator() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${BG_URL})` }} />
+        style={{ backgroundImage: `url(${bgUrl})` }} />
       
 
       {/* Logo top-left */}

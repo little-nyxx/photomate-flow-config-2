@@ -3,6 +3,7 @@ import { Lock, LogOut, ShieldCheck } from "lucide-react";
 import CircleEditor from "@/components/admin/CircleEditor";
 import VideoEditor from "@/components/admin/VideoEditor";
 import BackgroundEditor from "@/components/admin/BackgroundEditor";
+import ConfiguratorEditor from "@/components/admin/ConfiguratorEditor";
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "photomate,Admin,2026";
@@ -109,8 +110,14 @@ export default function Admin() {
           >
             Pozadí a Packy
           </button>
+          <button
+            onClick={() => setTab("configurator")}
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "configurator" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
+          >
+            Configurator
+          </button>
         </div>
-        {tab === "circles" ? <CircleEditor /> : tab === "videos" ? <VideoEditor /> : <BackgroundEditor />}
+        {tab === "circles" ? <CircleEditor /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : <BackgroundEditor />}
       </div>
     </div>
   );

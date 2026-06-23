@@ -1,0 +1,10 @@
+{
+  "name": "ConfiguratorConfig",
+  "type": "object",
+  "properties": {
+    "bg_image_url": {
+      "type": "string"
+    }
+  },
+  "required": []
+}
