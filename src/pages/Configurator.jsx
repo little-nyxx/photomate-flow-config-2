@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
+import { IMAGES, SVGS } from "@/lib/assets";
 
-const LOGO_URL = "/images/logo-3.svg";
-const BG_URL = "/images/factory.jpg";
+const LOGO_URL = SVGS.logo_3;
+const BG_URL = IMAGES.factory;
 
 const PARAMETERS = [
 { key: "spot", label: "Spot price", icon: "💰" },

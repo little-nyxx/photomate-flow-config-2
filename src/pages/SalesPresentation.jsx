@@ -4,24 +4,11 @@ import { Link } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import useIdleRedirect from "@/hooks/useIdleRedirect";
 import EmsModal from "@/components/EmsModal";
+import { IMAGES, SVGS, getCircleSvgUrl, getModalImageUrl } from "@/lib/assets";
 
-const BG_IMAGES = ["/images/sales_bg.jpg", "/images/sales_bg_2.jpg"];
-const OVERLAY_IMAGES = ["/images/packy_1.svg", "/images/packy_2.svg"];
-const LOGO_URL = "/images/logo-3.svg";
-
-const MODAL_IMAGES = {
-  0: "/images/modal_0.png",
-  1: "/images/modal_1.png",
-  2: "/images/modal_2.png",
-  3: "/images/modal_3.png",
-  4: "/images/modal_4.png",
-  5: "/images/modal_5.png",
-  6: "/images/modal_6.png",
-  7: "/images/modal_7.png",
-  8: "/images/modal_8.png",
-  9: "/images/modal_9.png",
-  10: "/images/modal_10.png"
-};
+const BG_IMAGES = [IMAGES.sales_bg, IMAGES.sales_bg_2];
+const OVERLAY_IMAGES = [SVGS.packy_1, SVGS.packy_2];
+const LOGO_URL = SVGS.logo_3;
 
 const INITIAL_CIRCLES = [
 { id: 1, label: "Inverters", x: 7.5, y: 8 },
@@ -216,7 +203,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         tabIndex={editMode ? -1 : 0}>
         
         <img
-          src={`/images/circle_${circle.id}.svg`}
+          src={getCircleSvgUrl(circle.id)}
           alt={label}
           className="w-20 h-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
@@ -263,7 +250,7 @@ function ModalOverlay({ circleId, onClose }) {
           <X className="w-12 h-12 text-foreground" />
         </button>
         <img
-          src={MODAL_IMAGES[circleId] || `/images/modal_${circleId}.png`}
+          src={getModalImageUrl(circleId)}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
+import { getVideoUrl, IMAGES } from "@/lib/assets";
 
 export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
   const videoRef = useRef(null);
@@ -9,7 +10,7 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
   const [activeSrc, setActiveSrc] = useState(null);
   const [prevSrc, setPrevSrc] = useState(null);
 
-  const videoSrc = `/videos/flow_${code}.mp4`;
+  const videoSrc = getVideoUrl(code);
 
   // When Run simulation is clicked (or re-clicked), reset state and play
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
       {/* Fallback background image while loading — above video elements */}
       {loading && !error && (
         <img
-          src="/images/factory.jpg"
+          src={IMAGES.factory}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 1 }}
           alt=""
@@ -95,10 +96,10 @@ export default function VideoPlayer({ code, isPlaying, playTrigger, onClose }) {
                 <AlertTriangle className="h-10 w-10 text-primary" />
               </div>
               <p className="text-xl font-semibold">
-                Video for scenario {activeSrc?.replace("/videos/flow_", "").replace(".mp4", "")} is not available yet.
+                Video for scenario {code} is not available yet.
               </p>
               <p className="text-sm text-white/50">
-                Please check that the file {activeSrc?.replace("/videos/", "")} exists in the /videos folder.
+                Please check that the video file for code {code} exists.
               </p>
             </motion.div>
           </motion.div>
