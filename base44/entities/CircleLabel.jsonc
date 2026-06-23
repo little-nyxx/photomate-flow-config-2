@@ -1,0 +1,20 @@
+{
+  "name": "CircleLabel",
+  "type": "object",
+  "properties": {
+    "circle_id": {
+      "type": "number"
+    },
+    "language": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "circle_id",
+    "language",
+    "label"
+  ]
+}

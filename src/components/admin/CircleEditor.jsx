@@ -6,33 +6,53 @@ import { useLanguage } from "@/lib/LanguageContext";
 
 export default function CircleEditor({ editLang }) {
   const [circles, setCircles] = useState([]);
+  const [labels, setLabels] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(null);
   const [uploading, setUploading] = useState(null);
   const { t } = useLanguage();
 
   useEffect(() => {
-    base44.entities.CircleConfig.list()
-      .then((records) => {
-        records.sort((a, b) => a.circle_id - b.circle_id);
-        setCircles(records);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    const loadData = async () => {
+      try {
+        const [circleRecords, labelRecords] = await Promise.all([
+          base44.entities.CircleConfig.list(),
+          base44.entities.CircleLabel.list()
+        ]);
+        circleRecords.sort((a, b) => a.circle_id - b.circle_id);
+        setCircles(circleRecords);
+
+        const labelMap = {};
+        labelRecords.forEach((r) => {
+          labelMap[`${r.circle_id}-${r.language}`] = r;
+        });
+        setLabels(labelMap);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
   }, []);
 
-  const handleLabelChange = (id, value) => {
-    setCircles((prev) => prev.map((c) => (c.id === id ? { ...c, label: value } : c)));
+  const handleLabelChange = (circleId, value) => {
+    setLabels((prev) => ({
+      ...prev,
+      [`${circleId}-${editLang}`]: { ...prev[`${circleId}-${editLang}`], label: value, circle_id: circleId, language: editLang }
+    }));
   };
 
   const handleSave = async (circle) => {
     setSaving(circle.id);
     try {
-      await base44.entities.CircleConfig.update(circle.id, {
-        label: circle.label,
-        circle_image_url: circle.circle_image_url,
-        modal_image_url: circle.modal_image_url,
-      });
+      const labelKey = `${circle.circle_id}-${editLang}`;
+      const labelRecord = labels[labelKey];
+      if (labelRecord?.id) {
+        await base44.entities.CircleLabel.update(labelRecord.id, { label: labelRecord.label });
+      } else if (labelRecord?.label) {
+        await base44.entities.CircleLabel.create({ circle_id: circle.circle_id, language: editLang, label: labelRecord.label });
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -59,14 +79,17 @@ export default function CircleEditor({ editLang }) {
 
   return (
     <div className="space-y-4">
-      {circles.map((circle) => (
+      {circles.map((circle) => {
+        const labelKey = `${circle.circle_id}-${editLang}`;
+        const currentLabel = labels[labelKey]?.label || "";
+        return (
         <div key={circle.id} className="bg-white/5 border border-white/10 rounded-xl p-4">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-primary font-bold w-8">#{circle.circle_id}</span>
             <input
               type="text"
-              value={circle.label || ""}
-              onChange={(e) => handleLabelChange(circle.id, e.target.value)}
+              value={currentLabel}
+              onChange={(e) => handleLabelChange(circle.circle_id, e.target.value)}
               className="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/15 text-white focus:outline-none focus:border-primary"
               placeholder={t('admin_label_placeholder')}
             />
@@ -104,7 +127,8 @@ export default function CircleEditor({ editLang }) {
             <ModalPagesEditor circleId={circle.circle_id} editLang={editLang} />
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -6,6 +6,7 @@ const AppDataContext = createContext();
 export function AppDataProvider({ children }) {
   const [buttonLabels, setButtonLabels] = useState({});
   const [circleConfigs, setCircleConfigs] = useState({});
+  const [circleLabels, setCircleLabels] = useState({});
   const [videoMap, setVideoMap] = useState({});
   const [bgImages, setBgImages] = useState([]);
   const [overlayImages, setOverlayImages] = useState([]);
@@ -34,18 +35,27 @@ export function AppDataProvider({ children }) {
       try {
         // Load ButtonLabels
         const labels = await base44.entities.ButtonLabel.list();
-        const labelMap = {};
+        const buttonLabelMap = {};
         labels.forEach((r) => {
-          if (!labelMap[r.language]) labelMap[r.language] = {};
-          labelMap[r.language][r.button_id] = r.label;
+          if (!buttonLabelMap[r.language]) buttonLabelMap[r.language] = {};
+          buttonLabelMap[r.language][r.button_id] = r.label;
         });
-        setButtonLabels(labelMap);
+        setButtonLabels(buttonLabelMap);
 
         // Load CircleConfig
         const circles = await base44.entities.CircleConfig.list();
         const circleMap = {};
         circles.forEach((r) => { circleMap[r.circle_id] = r; });
         setCircleConfigs(circleMap);
+
+        // Load CircleLabel
+        const circleLabelRecords = await base44.entities.CircleLabel.list();
+        const circleLabelMap = {};
+        circleLabelRecords.forEach((r) => {
+          if (!circleLabelMap[r.circle_id]) circleLabelMap[r.circle_id] = {};
+          circleLabelMap[r.circle_id][r.language] = r.label;
+        });
+        setCircleLabels(circleLabelMap);
 
         // Load VideoConfig
         const videos = await base44.entities.VideoConfig.list();
@@ -107,6 +117,7 @@ export function AppDataProvider({ children }) {
       value={{
         buttonLabels,
         circleConfigs,
+        circleLabels,
         videoMap,
         bgImages,
         overlayImages,

@@ -53,7 +53,7 @@ const LINE_TARGETS = [
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/sales");
   const { t, lang } = useLanguage();
-  const { circleConfigs, bgImages: contextBgImages, overlayImages: contextOverlayImages, modalPagesMap } = useAppData();
+  const { circleConfigs, circleLabels, bgImages: contextBgImages, overlayImages: contextOverlayImages, modalPagesMap } = useAppData();
   const [editMode, setEditMode] = useState(false);
   const [bottomVisible, setBottomVisible] = useState(true);
   const bottomTimerRef = React.useRef(null);
@@ -71,11 +71,11 @@ export default function SalesPresentation() {
   const [activeModal, setActiveModal] = useState(null);
 
   const getCircleLabel = (circle) => {
-    const dbLabel = circleConfigs[circle.id]?.label;
-    if (!dbLabel || dbLabel === circle.label) {
-      return t(`circle_${circle.id}`);
-    }
-    return dbLabel;
+    const langLabel = circleLabels[circle.id]?.[lang];
+    if (langLabel) return langLabel;
+    const enLabel = circleLabels[circle.id]?.en;
+    if (enLabel) return enLabel;
+    return t(`circle_${circle.id}`);
   };
 
   const getModalPages = (circleId) => {
