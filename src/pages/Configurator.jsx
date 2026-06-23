@@ -69,7 +69,7 @@ export default function Configurator() {
       {/* Right panel — bottom on mobile, right side on desktop */}
       <div className="absolute z-10 flex flex-col items-center justify-start p-4 sm:p-6 gap-3 sm:gap-5 left-0 right-0 bottom-0 bg-black/60 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none sm:left-auto sm:bottom-auto sm:top-0 sm:right-0 sm:h-full sm:w-[260px]">
         {/* Parameters */}
-        <div className="flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-0 w-full overflow-x-auto sm:overflow-visible">
+        <div className="flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-1 w-full overflow-x-auto sm:overflow-visible">
           {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center flex-shrink-0 sm:w-full" style={{ height: "90px" }}>
               <span className="text-xs font-semibold text-white sm:text-black uppercase tracking-wider text-center drop-shadow h-8 flex items-center justify-center whitespace-pre-line">
