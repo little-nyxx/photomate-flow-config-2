@@ -8,19 +8,22 @@ import ParameterToggle from "@/components/configurator/ParameterToggle";
 import VideoPlayer from "@/components/configurator/VideoPlayer";
 import { IMAGES, SVGS, getVideoUrl } from "@/lib/assets";
 import { base44 } from "@/api/base44Client";
+import { useLanguage } from "@/lib/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const LOGO_URL = SVGS.logo_3;
 const DEFAULT_BG_URL = IMAGES.factory;
 
 const PARAMETERS = [
-{ key: "spot", label: "Spot price", icon: "💰" },
-{ key: "vyroba", label: "Own PV\xA0production", icon: "☀️" },
-{ key: "spotreba", label: "Own consumption\nand EV charging", icon: "🏠" },
-{ key: "teplota", label: "Outdoor temperature", icon: "🌡️" }];
+{ key: "spot", labelKey: "param_spot", icon: "💰" },
+{ key: "vyroba", labelKey: "param_vyroba", icon: "☀️" },
+{ key: "spotreba", labelKey: "param_spotreba", icon: "🏠" },
+{ key: "teplota", labelKey: "param_teplota", icon: "🌡️" }];
 
 
 export default function Configurator() {
   useIdleRedirect(60000, "/");
+  const { t } = useLanguage();
   const [params, setParams] = useState({ spot: 0, vyroba: 0, spotreba: 0, teplota: 0 });
   const [videoMap, setVideoMap] = useState({});
   const [bgUrl, setBgUrl] = useState(DEFAULT_BG_URL);
@@ -73,7 +76,7 @@ export default function Configurator() {
           {PARAMETERS.map((p) =>
             <div key={p.key} className="flex flex-col items-center flex-shrink-0 sm:w-full" style={{ height: "90px" }}>
               <span className="text-xs font-semibold text-white sm:text-black uppercase tracking-wider text-center drop-shadow h-8 flex items-center justify-center whitespace-pre-line">
-                {p.label}
+                {t(p.labelKey)}
               </span>
               <ParameterToggle
                 label=""
@@ -90,14 +93,14 @@ export default function Configurator() {
             onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
             className="w-full h-12 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
             <Play className="h-5 w-5" />
-            Run simulation
+            {t('run_simulation')}
           </Button>
           <Button
             onClick={handleReset}
             variant="secondary"
             className="w-full h-12 text-base font-semibold rounded-xl gap-2">
             <RotateCcw className="h-5 w-5" />
-            Reset
+            {t('reset')}
           </Button>
         </div>
       </div>
@@ -109,8 +112,13 @@ export default function Configurator() {
         className="absolute top-6 right-4 sm:top-auto sm:bottom-16 sm:right-6 z-20 flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-5 rounded-xl text-sm sm:text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
         
         <ArrowLeft className="h-5 w-5" />
-        Back
+        {t('back')}
       </Link>
+
+      {/* Language switcher */}
+      <div className="absolute bottom-4 left-4 z-30">
+        <LanguageSwitcher />
+      </div>
 
       {/* Video Player overlay */}
       <VideoPlayer

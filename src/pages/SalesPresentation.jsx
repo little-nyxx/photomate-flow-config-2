@@ -7,6 +7,8 @@ import EmsModal from "@/components/EmsModal";
 import SvgStretchOverlay from "@/components/SvgStretchOverlay";
 import { IMAGES, SVGS, getCircleSvgUrl, getModalImageUrl } from "@/lib/assets";
 import { base44 } from "@/api/base44Client";
+import { useLanguage } from "@/lib/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const BG_IMAGES = [IMAGES.sales_bg, IMAGES.sales_bg_2];
 const OVERLAY_IMAGES = [SVGS.packy_1, SVGS.packy_2];
@@ -50,6 +52,7 @@ const LINE_TARGETS = [
 
 export default function SalesPresentation() {
   useIdleRedirect(60000, "/sales");
+  const { t } = useLanguage();
   const [editMode, setEditMode] = useState(false);
   const [bottomVisible, setBottomVisible] = useState(true);
   const bottomTimerRef = React.useRef(null);
@@ -111,6 +114,14 @@ export default function SalesPresentation() {
       })
       .catch(() => {});
   }, []);
+
+  const getCircleLabel = (circle) => {
+    const dbLabel = contentMap[circle.id]?.label;
+    if (!dbLabel || dbLabel === circle.label) {
+      return t(`circle_${circle.id}`);
+    }
+    return dbLabel;
+  };
 
   const [emsVideoDone, setEmsVideoDone] = useState(false);
   const [bgIndex, setBgIndex] = useState(() => {
@@ -182,15 +193,15 @@ export default function SalesPresentation() {
       {/* Bottom left: tagline + EMS button */}
       <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-10">
         <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "clamp(1.5rem, 4vw, 1.9rem)", lineHeight: 1.2 }}>
-          Touch me and get to know<br />
+          {t('tagline_line1')}<br />
           <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
-          Energy Solutions!
+          {t('tagline_line3')}
         </div>
         <Link
           to="/configurator"
           className="px-6 py-3 md:px-8 md:py-4 xl:px-12 xl:py-6 rounded-2xl text-base md:text-lg xl:text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
           style={{ background: "#F58220" }}>
-          <span className="flex items-center gap-2">EMS ENERGOMATE scenarios <ArrowRight className="w-5 h-5 xl:w-6 xl:h-6" /></span>
+          <span className="flex items-center gap-2">{t('ems_button')} <ArrowRight className="w-5 h-5 xl:w-6 xl:h-6" /></span>
         </Link>
       </div>
 
@@ -214,7 +225,7 @@ export default function SalesPresentation() {
           style={isDesktop ? {} : { position: "absolute", left: `${circle.x}%`, transform: "translateX(-50%)" }}>
           <CircleButton
             circle={circle}
-            label={labels[circle.id]}
+            label={getCircleLabel(circle)}
             circleImageUrl={contentMap[circle.id]?.circle_image_url || getCircleSvgUrl(circle.id)}
             editMode={editMode}
             onLabelChange={(val) => setLabels((prev) => ({ ...prev, [circle.id]: val }))}
@@ -238,6 +249,11 @@ export default function SalesPresentation() {
         
         <ChevronRight className="w-6 h-6 md:w-8 text-white" />
       </button>
+
+      {/* Language switcher */}
+      <div className="absolute bottom-8 right-8 z-30">
+        <LanguageSwitcher />
+      </div>
 
       {/* Modal */}
       <AnimatePresence mode="wait">
