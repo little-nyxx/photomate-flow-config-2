@@ -198,14 +198,14 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
       {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-24 h-24 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-32 xl:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
+        className="w-24 h-24 md:w-16 md:h-16 lg:w-24 lg:h-24 xl:w-32 xl:h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none flex-shrink-0"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}>
         
         <img
           src={getCircleSvgUrl(circle.id)}
           alt={label}
-          className="w-14 h-14 md:w-10 md:h-10 lg:w-14 lg:h-14 xl:w-20 xl:h-20 object-contain"
+          className="w-14 h-14 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
         
       </button>
