@@ -30,7 +30,7 @@ export default function LanguageSwitcher() {
         <ChevronDown className="w-4 h-4" />
       </button>
       {open && (
-        <div className="absolute bottom-full right-0 mb-2 w-44 max-h-72 overflow-y-auto rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-1 z-50">
+        <div className="absolute top-full right-0 mt-2 w-44 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-1 z-50">
           {LANGUAGES.map((l) => (
             <button
               key={l.code}
