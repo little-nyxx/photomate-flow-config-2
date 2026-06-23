@@ -93,6 +93,25 @@ export default function SalesPresentation() {
       .catch(() => {});
   }, []);
 
+  const [modalPagesMap, setModalPagesMap] = useState({});
+
+  useEffect(() => {
+    base44.entities.ModalPage.list()
+      .then((records) => {
+        const map = {};
+        records.forEach((r) => {
+          if (!map[r.circle_id]) map[r.circle_id] = [];
+          map[r.circle_id].push(r);
+        });
+        Object.keys(map).forEach((k) => {
+          map[k].sort((a, b) => a.page_number - b.page_number);
+          map[k] = map[k].map((r) => r.image_url);
+        });
+        setModalPagesMap(map);
+      })
+      .catch(() => {});
+  }, []);
+
   const [emsVideoDone, setEmsVideoDone] = useState(false);
   const [bgIndex, setBgIndex] = useState(() => {
     const saved = localStorage.getItem("salesBgIndex");
@@ -227,6 +246,7 @@ export default function SalesPresentation() {
           key={`modal-${activeModal}`}
           circleId={activeModal}
           modalImageUrl={contentMap[activeModal]?.modal_image_url || getModalImageUrl(activeModal)}
+          pages={modalPagesMap[activeModal] || []}
           onClose={() => setActiveModal(null)} />
         }
       </AnimatePresence>
@@ -269,7 +289,17 @@ function CircleButton({ circle, label, circleImageUrl, editMode, onLabelChange, 
 
 }
 
-function ModalOverlay({ circleId, modalImageUrl, onClose }) {
+function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const allPages = pages && pages.length > 0 ? pages : (modalImageUrl ? [modalImageUrl] : []);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [circleId]);
+
+  const next = (e) => { e.stopPropagation(); setCurrentPage((p) => (p + 1) % allPages.length); };
+  const prev = (e) => { e.stopPropagation(); setCurrentPage((p) => (p - 1 + allPages.length) % allPages.length); };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -292,13 +322,30 @@ function ModalOverlay({ circleId, modalImageUrl, onClose }) {
           <X className="w-4 h-4 md:w-5 md:h-5 xl:w-7 xl:h-7 text-foreground" />
         </button>
         <img
-          src={modalImageUrl}
+          src={allPages[currentPage]}
           alt={`Modal ${circleId}`}
           className="w-full rounded-2xl shadow-2xl"
           onError={(e) => {
             e.target.src = "";
             e.target.style.display = "none";
           }} />
+        {allPages.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 bg-black/50 rounded-full px-3 py-1 text-white text-sm">
+              {currentPage + 1} / {allPages.length}
+            </div>
+          </>
+        )}
       </motion.div>
     </motion.div>
   );

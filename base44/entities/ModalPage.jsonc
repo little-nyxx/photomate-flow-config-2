@@ -1,0 +1,20 @@
+{
+  "name": "ModalPage",
+  "type": "object",
+  "properties": {
+    "circle_id": {
+      "type": "number"
+    },
+    "page_number": {
+      "type": "number"
+    },
+    "image_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "circle_id",
+    "page_number",
+    "image_url"
+  ]
+}

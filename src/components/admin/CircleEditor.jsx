@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Upload, Save, Loader2 } from "lucide-react";
+import ModalPagesEditor from "@/components/admin/ModalPagesEditor";
 
 export default function CircleEditor() {
   const [circles, setCircles] = useState([]);
@@ -76,7 +77,7 @@ export default function CircleEditor() {
               Uložit
             </button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             {circle.circle_id !== 0 && (
             <div>
               <p className="text-sm text-white/50 mb-2">Obrázek v kolečku</p>
@@ -98,25 +99,7 @@ export default function CircleEditor() {
               </div>
             </div>
             )}
-            <div>
-              <p className="text-sm text-white/50 mb-2">Obrázek modalu</p>
-              <div className="flex items-center gap-3">
-                {circle.modal_image_url ? (
-                  <img src={circle.modal_image_url} alt="" className="w-16 h-16 object-contain bg-white/10 rounded-lg p-1" />
-                ) : (
-                  <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs">—</div>
-                )}
-                <label className="cursor-pointer px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm flex items-center gap-2">
-                  {uploading === `${circle.id}-modal_image_url` ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                  Nahrát
-                  <input
-                    type="file"
-                    className="hidden"
-                    onChange={(e) => e.target.files[0] && handleUpload(circle, "modal_image_url", e.target.files[0])}
-                  />
-                </label>
-              </div>
-            </div>
+            <ModalPagesEditor circleId={circle.circle_id} />
           </div>
         </div>
       ))}
