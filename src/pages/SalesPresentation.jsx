@@ -300,6 +300,18 @@ function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
   const next = (e) => { e.stopPropagation(); setCurrentPage((p) => (p + 1) % allPages.length); };
   const prev = (e) => { e.stopPropagation(); setCurrentPage((p) => (p - 1 + allPages.length) % allPages.length); };
 
+  const touchStartX = useRef(null);
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null || allPages.length <= 1) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) setCurrentPage((p) => (p + 1) % allPages.length);
+      else setCurrentPage((p) => (p - 1 + allPages.length) % allPages.length);
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -313,7 +325,9 @@ function ModalOverlay({ circleId, modalImageUrl, pages, onClose }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.85, opacity: 0 }}
         className="relative max-w-2xl lg:max-w-4xl xl:max-w-6xl w-full mx-2 sm:mx-4"
-        onClick={(e) => e.stopPropagation()}>
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}>
         
         <button
           onClick={onClose}
