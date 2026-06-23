@@ -36,7 +36,7 @@ export default function Configurator() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -45,27 +45,29 @@ export default function Configurator() {
 
       {/* Logo top-left */}
       <div className="absolute left-6 top-6 z-10">
-        <img src={LOGO_URL} alt="Photomate" className="h-24 object-contain" />
+        <img src={LOGO_URL} alt="Photomate" className="h-16 sm:h-20 md:h-24 object-contain" />
       </div>
 
-      {/* Right panel — no background */}
-      <div className="absolute right-0 top-0 h-full z-10 flex flex-col items-center justify-start p-6 gap-5" style={{ width: "260px" }}>
+      {/* Right panel — bottom on mobile, right side on desktop */}
+      <div className="absolute z-10 flex flex-col items-center justify-start p-4 sm:p-6 gap-3 sm:gap-5 left-0 right-0 bottom-0 bg-black/60 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none sm:left-auto sm:bottom-auto sm:top-0 sm:right-0 sm:h-full sm:w-[260px]">
         {/* Parameters */}
-        {PARAMETERS.map((p) =>
-          <div key={p.key} className="flex flex-col items-center w-full" style={{ height: "90px" }}>
-            <span className="text-xs font-semibold text-black uppercase tracking-wider text-center drop-shadow h-8 flex items-center justify-center whitespace-pre-line">
-              {p.label}
-            </span>
-            <ParameterToggle
-              label=""
-              icon={p.icon}
-              value={params[p.key]}
-              onChange={(v) => handleChange(p.key, v)} />
-          </div>
-        )}
+        <div className="flex flex-row sm:flex-col items-center justify-center gap-2 sm:gap-0 w-full overflow-x-auto sm:overflow-visible">
+          {PARAMETERS.map((p) =>
+            <div key={p.key} className="flex flex-col items-center flex-shrink-0 sm:w-full" style={{ height: "90px" }}>
+              <span className="text-xs font-semibold text-white sm:text-black uppercase tracking-wider text-center drop-shadow h-8 flex items-center justify-center whitespace-pre-line">
+                {p.label}
+              </span>
+              <ParameterToggle
+                label=""
+                icon={p.icon}
+                value={params[p.key]}
+                onChange={(v) => handleChange(p.key, v)} />
+            </div>
+          )}
+        </div>
 
         {/* Buttons */}
-        <div className="flex flex-col gap-3 w-full mt-2">
+        <div className="flex flex-col gap-3 w-full mt-0 sm:mt-2">
           <Button
             onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
             className="w-full h-12 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
@@ -86,7 +88,7 @@ export default function Configurator() {
       <Link
         to="/sales"
 
-        className="absolute bottom-16 right-6 z-20 flex items-center gap-2 px-8 py-5 rounded-xl text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
+        className="absolute top-6 right-4 sm:top-auto sm:bottom-16 sm:right-6 z-20 flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-5 rounded-xl text-sm sm:text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
         
         <ArrowLeft className="h-5 w-5" />
         Back

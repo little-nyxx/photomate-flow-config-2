@@ -83,7 +83,7 @@ export default function SalesPresentation() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden bg-black select-none"
+      className="relative w-full min-h-screen bg-black select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onClick={handleScreenTap}>
@@ -124,14 +124,14 @@ export default function SalesPresentation() {
 
       {/* Bottom left: tagline + EMS button */}
       <div className="absolute bottom-8 left-8 z-20 flex flex-col items-start gap-10">
-        <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "1.9rem", lineHeight: 1.2 }}>
+        <div className={`text-white font-black leading-tight drop-shadow-lg transition-opacity duration-500 ${bottomVisible ? "opacity-100" : "opacity-0"}`} style={{ fontSize: "clamp(1.1rem, 4vw, 1.9rem)", lineHeight: 1.2 }}>
           Touch me and get to know<br />
           <span style={{ color: "#F58220" }}>Photomate</span> Smart<br />
           Energy Solutions!
         </div>
         <Link
           to="/configurator"
-          className="px-12 py-6 rounded-2xl text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
+          className="px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-6 rounded-2xl text-base sm:text-lg md:text-xl font-bold text-white shadow-lg transition-all hover:scale-105"
           style={{ background: "#F58220" }}>
           <span className="flex items-center gap-2">EMS ENERGOMATE scenarios <ArrowRight className="w-6 h-6" /></span>
         </Link>
@@ -140,7 +140,7 @@ export default function SalesPresentation() {
       {/* Logo bottom center — no invert */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <button onClick={() => setActiveModal(0)} className="bg-white rounded-2xl px-8 py-3 shadow-xl hover:scale-105 transition-all">
-          <img src={LOGO_URL} alt="Logo" className="h-[3.4375rem] object-contain" />
+          <img src={LOGO_URL} alt="Logo" className="h-10 sm:h-12 md:h-14 object-contain" />
         </button>
       </div>
 
@@ -166,17 +166,17 @@ export default function SalesPresentation() {
       {/* Carousel arrow buttons */}
       <button
         onClick={prevBg}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 md:w-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
         aria-label="Previous background">
         
-        <ChevronLeft className="w-8 h-8 text-white" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 md:w-8 text-white" />
       </button>
       <button
         onClick={nextBg}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 md:w-14 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-110"
         aria-label="Next background">
         
-        <ChevronRight className="w-8 h-8 text-white" />
+        <ChevronRight className="w-5 h-5 sm:w-6 md:w-8 text-white" />
       </button>
 
       {/* Modal */}
@@ -198,14 +198,14 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
       {/* Circle — bigger */}
       <button
         onClick={onClick}
-        className="w-32 h-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none"
+        className="w-16 h-16 sm:w-20 md:w-24 lg:w-32 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white/25 hover:scale-110 transition-all duration-200 focus:outline-none"
         style={{ cursor: editMode ? "default" : "pointer" }}
         tabIndex={editMode ? -1 : 0}>
         
         <img
           src={getCircleSvgUrl(circle.id)}
           alt={label}
-          className="w-20 h-20 object-contain"
+          className="w-10 h-10 sm:w-12 md:w-16 lg:w-20 object-contain"
           onError={(e) => {e.target.style.opacity = 0.3;}} />
         
       </button>
@@ -219,7 +219,7 @@ function CircleButton({ circle, label, editMode, onLabelChange, onClick }) {
         className="text-center text-xs font-semibold text-white bg-black/50 border border-white/40 rounded-lg px-2 py-1 resize-none w-28 focus:outline-none focus:border-orange-400" /> :
 
 
-      <span className="font-semibold text-white drop-shadow-lg max-w-[7rem] leading-tight text-xs text-center" style={{ whiteSpace: "pre-line", marginTop: "10px" }}>
+      <span className="font-semibold text-white drop-shadow-lg max-w-[5rem] sm:max-w-[7rem] leading-tight text-[10px] sm:text-xs text-center" style={{ whiteSpace: "pre-line", marginTop: "10px" }}>
         {label}
       </span>
       }
