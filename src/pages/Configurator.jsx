@@ -105,14 +105,14 @@ export default function Configurator() {
             onClick={() => { setIsPlaying(true); setPlayTrigger(t => t + 1); }}
             className="w-full h-12 text-base font-bold rounded-xl gap-2 shadow-lg shadow-primary/25">
             <Play className="h-5 w-5" />
-            {t('run_simulation')}
+            {buttonLabels['run_simulation'] || t('run_simulation')}
           </Button>
           <Button
             onClick={handleReset}
             variant="secondary"
             className="w-full h-12 text-base font-semibold rounded-xl gap-2">
             <RotateCcw className="h-5 w-5" />
-            {t('reset')}
+            {buttonLabels['reset'] || t('reset')}
           </Button>
         </div>
       </div>
@@ -124,7 +124,7 @@ export default function Configurator() {
         className="absolute top-6 right-4 sm:top-auto sm:bottom-16 sm:right-6 z-20 flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-5 rounded-xl text-sm sm:text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 bg-primary hover:bg-primary/90">
         
         <ArrowLeft className="h-5 w-5" />
-        {t('back')}
+        {buttonLabels['back'] || t('back')}
       </Link>
 
       {/* Language switcher */}
