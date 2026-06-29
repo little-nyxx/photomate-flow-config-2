@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Upload, Loader2 } from "lucide-react";
+import { Upload, Loader2, Plus, Trash2 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 
 export default function BackgroundEditor() {
   const [bgs, setBgs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(null);
+  const [adding, setAdding] = useState(false);
+  const [deleting, setDeleting] = useState(null);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -34,13 +36,57 @@ export default function BackgroundEditor() {
     }
   };
 
+  const handleAdd = async () => {
+    setAdding(true);
+    try {
+      const nextIndex = bgs.length > 0 ? Math.max(...bgs.map((b) => b.index)) + 1 : 0;
+      const created = await base44.entities.BackgroundConfig.create({ index: nextIndex });
+      setBgs((prev) => [...prev, created]);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const handleDelete = async (bg) => {
+    setDeleting(bg.id);
+    try {
+      await base44.entities.BackgroundConfig.delete(bg.id);
+      setBgs((prev) => prev.filter((b) => b.id !== bg.id));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setDeleting(null);
+    }
+  };
+
   if (loading) return <div className="text-white/50">{t('admin_loading')}</div>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="space-y-4">
+      <button
+        onClick={handleAdd}
+        disabled={adding}
+        className="px-4 py-2 rounded-lg bg-primary text-white font-semibold flex items-center gap-2 hover:opacity-90 disabled:opacity-50"
+      >
+        {adding ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+        {t('admin_bg_add') || 'Přidat pozadí'}
+      </button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {bgs.map((bg) => (
         <div key={bg.id} className="bg-white/5 border border-white/10 rounded-xl p-4">
-          <p className="text-primary font-bold text-lg mb-3">{t('admin_bg_label')} #{bg.index + 1}</p>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-primary font-bold text-lg">{t('admin_bg_label')} #{bg.index + 1}</p>
+            <button
+              onClick={() => handleDelete(bg)}
+              disabled={deleting === bg.id}
+              className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-300 transition-colors disabled:opacity-50"
+              title={t('admin_bg_delete') || 'Smazat pozadí'}
+            >
+              {deleting === bg.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+            </button>
+          </div>
           <div className="space-y-4">
             <div>
               <p className="text-sm text-white/50 mb-2">{t('admin_bg_sales')}</p>
@@ -85,6 +131,7 @@ export default function BackgroundEditor() {
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }
