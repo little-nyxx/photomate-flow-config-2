@@ -62,6 +62,8 @@ export const translations = {
     admin_modal_pages: "Stránky modalu",
     admin_modal_page: "Stránka modalu",
     admin_delete: "Smazat",
+    admin_bg_add: "Přidat pozadí",
+    admin_bg_delete: "Smazat pozadí",
   },
   en: {
     tagline_line1: "Touch me and get to know",
@@ -106,6 +108,8 @@ export const translations = {
     admin_modal_pages: "Modal pages",
     admin_modal_page: "Modal page",
     admin_delete: "Delete",
+    admin_bg_add: "Add background",
+    admin_bg_delete: "Delete background",
   },
   uk: {
     tagline_line1: "Доторкнися і дізнайся",
