@@ -145,7 +145,7 @@ export default function Admin() {
             onClick={() => setTab("buttons")}
             className={`px-4 py-2 rounded-lg font-semibold transition-colors ${tab === "buttons" ? "bg-primary text-white" : "bg-white/10 hover:bg-white/20"}`}
           >
-            {t('admin_tab_buttons') || 'Buttons'}
+            {t('admin_tab_buttons')}
           </button>
           </div>
           {tab === "circles" ? <CircleEditor editLang={editLang} /> : tab === "videos" ? <VideoEditor /> : tab === "configurator" ? <ConfiguratorEditor /> : tab === "buttons" ? <ButtonLabelsEditor editLang={editLang} /> : <BackgroundEditor />}
